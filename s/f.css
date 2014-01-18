@@ -1,0 +1,62 @@
+/**	possiamo far scaricare in automatico al browser dell utente certi caratteri
+  */
+
+
+/*	roman	*/
+@font-face {
+	font-family: 'cm';
+	src: url('../fonts/cmunrm.eot');
+	src: url('../fonts/../fonts/cmunrm.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/cmunrm.woff') format('woff'),
+		url('../fonts/cmunrm.ttf') format('truetype');
+		font-weight: normal;
+		font-style: normal;
+}
+@font-face {
+	font-family: 'cm';
+	src: url('../fonts/cmunbx.eot');
+	src: url('../fonts/cmunbx.eot?#iefix') format('embedded-opentype'), 
+		url('../fonts/cmunbx.woff') format('woff'),
+		url('../fonts/cmunbx.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'cm';
+	src: url('../fonts/cmunti.eot');
+	src: url('../fonts/cmunti.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/cmunti.woff') format('woff'),
+		url('../fonts/cmunti.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
+
+/*	typewriter	*/
+@font-face {
+	font-family: 't';
+	src: url('../fonts/cmuntt.eot');
+	src: url('../fonts/cmuntt.eot?#iefix') format('embedded-opentype'), 
+		url('../fonts/cmuntt.woff') format('woff'),
+		url('../fonts/cmuntt.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'tb';
+	src: url('../fonts/cmuntb.eot');
+	src: url('../fonts/cmuntb.eot?#iefix') format('embedded-opentype'), 
+		url('../fonts/cmuntb.woff') format('woff'),
+		url('../fonts/cmuntb.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'ti';
+	src: url('../fonts/cmunit.eot');
+	src: url('../fonts/cmunit.eot?#iefix') format('embedded-opentype'), 
+		url('../fonts/cmunit.woff') format('woff'),
+		url('../fonts/cmunit.ttf') format('truetype');
+	font-weight: normal;
+	font-style: italic;
+}
