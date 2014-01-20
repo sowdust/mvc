@@ -1,47 +1,148 @@
 <?php
 
+// TODO campi piu' generali, migliore metodo di aggiunta opzioni
+
+class input{
+
+	protected $name;
+	protected $id;
+	protected $type;
+	protected $value;
+	protected $class;
+	protected $options = array();
+	protected $js = array();
+
+	function __construct($type,$name,$value = '')
+	{
+		$this->type = $type;
+		$this->name = $name;
+		$this->value = $value;
+	}
+
+	function set_id($id)
+	{
+		$this->id = $id;
+	}
+
+	function add_js($js)
+	{
+		$this->js[] = $js;
+	}
+
+	function set_options($options)
+	{
+		$this->options = $options;
+	}
+
+	function to_html()
+	{
+		switch ($this->type)
+		{
+			
+			case 'text':
+			case 'password':
+
+				$r = '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
+				foreach ($this->js as $js)
+				{
+					$r.= ' ' . $js[0] .'=' . $js[1] . ';return false;" ';
+				}
+				$r.=' />';
+				break;
+			
+			case 'select':
+				$r = '<select name ="'.$this->name.'" id="'.$this->id.'">';
+					foreach($this->options as $value => $name)
+					{
+						$r .= '<option value ="'.$value.'" ';
+						if($this->value == $value)
+						{
+							$r.= ' selected';
+						}
+						$r .='>'.$name.'</option>';
+					}
+				$r .= '</select>';
+				break;
+			case 'textarea':
+				$r = '<textarea name="'.$this->name.'" id="'.$this->id.'" >'.$this->value.'</textarea>';
+				break;
+			case 'submit':
+				$r = '<input type = "submit" name ="'.$this->name.'" value="'.$this->value.'"';
+				foreach($this->js as $js)
+				{
+					$r.= ' ' . $js[0] .'=' . $js[1] . ';return false;" ';
+				}
+				$r.=' />';
+				break;
+			default:
+				$r = 'Strano input field';
+				break;
+		}
+
+		return $r;
+	}
+}
+
+
 class form {
 	
 	protected $fields;
-	protected $selects;
-	protected $values;
-	protected $types;
+	protected $action;
+	protected $method;
+	protected $type;
+	protected $name;
+	protected $id;
 
-	function __contruct()
+	function __construct($name = null, $action = null, $method = null, $type = null)
 	{
-		;
+		$this->name = $name;
+		$this->action = $action;
+		$this->method = ( null == $method ) ? 'POST' : $method;
+		$this->type = ( null == $type ) ? 'application/x-www-form-urlencoded' : $type;
 	}
 
-	function add($type,$name,$value,$id = null, $validation = null)
+	function set_type($type)
 	{
-		$campo = array();
-		$campo['type'] = $type;
-		$campo['name'] = $name;
-		$campo['value'] = $value;
-
-		if(isset($id))
-		{
-			$campo['id'] = $id;
-		}
-		if(isset($validation))
-		{
-			$campo['validation'] = $validation;
-		}
-
-		$this.fields[] = $campo;
+		$this->type = $type;
 	}
 
-	function add_select($name,$options,$id = null)
+	function set_action($action)
 	{
-		$campo = array();
-		$campo['type'] = 'select';
-		$campo['name'] = $name;
-		$campo['options'] = $options;
-		if(isset($id))
+		$this->action = $action;
+	}
+
+	function set_method($method)
+	{
+		$this->method = $method;
+	}
+
+	function set_id($id)
+	{
+		$this->id = $id;
+	}
+
+	function set_name($name)
+	{
+		$this->name = $name;
+	}
+
+	function add($field)
+	{
+		$this->fields[] = $field;
+	}
+
+	function to_html()
+	{
+		$r = '<form name="'.$this->name .'" method="'.$this->method
+			.'" action="'.$this->action.'" type="'.$this->type.'" id="'.$this->id.'">';
+		foreach($this->fields as $field)
 		{
-			$campo['id'] = $id;
+			$r.= $field->to_html();
 		}
-		$this->selects[] = $campo;
+
+		$r.= '</form>';
+
+		return $r;
 	}
 }
 
