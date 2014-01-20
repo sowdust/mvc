@@ -44,6 +44,11 @@ function codeAddress() {
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
 	document.getElementById('location_place').setAttribute('value',results[0].geometry.location);
+  var f = document.createElement('input');
+  f.setAttribute('type','submit');
+  f.setAttribute('name','conferma');
+  f.setAttribute('value','Ok!');
+  document.getElementById('aggiungi-luogo').appendChild(f);
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
           map: map,
@@ -61,7 +66,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </head>
 <body>
 <div id="panel">
-<form name="aggiungi_luogo" action = "<?php echo init::link('luoghi','aggiungi'); ?>" method="post">
+<form name="aggiungi_luogo" action = "<?php echo init::link('luoghi','aggiungi'); ?>" method="post" id="aggiungi-luogo">
 <input type="hidden" name="location" id="location_place">
 <input id="indirizzo" type="text" name="indirizzo" value="Indirizzo" onclick="this.value=''">
 <input id="citta" type="text" name="citta" value="Citta'" onclick="this.value=''">
@@ -70,7 +75,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <!--      <input id="address" type="textbox" value="Sydney, NSW"> -->
 <input type="button" value="Geocode" onclick="codeAddress()"><br />
 <label for="conferma">Quando il luogo ti soddisfa, clicca su ok:</label>
-<input type="submit" name="conferma" value="Ok!">
 <a href="index.php">Home</a>
 <!--<button onclick="goBack(2)">Torna indietro</button>-->
 </form>

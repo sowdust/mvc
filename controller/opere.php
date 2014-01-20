@@ -18,6 +18,9 @@ class opere extends controller {
 			case 'rimuovi':
 				$this->rimuovi($param);
 				break;
+			case 'aggiungi':
+				$this->aggiungi();
+				die();
 			default:
 				$this->lista();
 				break;
@@ -33,6 +36,42 @@ class opere extends controller {
 		$this->view->set_model($omanager);
 		$this->view->render();
 		die();
+	}
+
+	function aggiungi()
+	{
+		if(	!isset($_POST['isbn'])
+			|| !isset($_POST['titolo'])
+			|| !isset($_POST['autore']) )
+		{
+			$this->set_view('opere','aggiungi');
+			$this->view->render();
+			die();
+		}
+		if(isset($_POST['isbn']) && !is_isbn($_POST['isbn']))
+		{
+			$this->set_view('errore');
+			$this->view->set_message('Codice ISBN non valido');
+			$this->view->render();
+			die();
+		}
+
+		$user_id = $this->user->get_id();
+		// TODO: da spostare nel modello
+		$q = $this->db->mysqli->prepare('INSERT INTO opere (id_utente,data,isbn,autore,titolo) VALUES ( (?),now(),(?), (?), (?))');
+		$q->bind_param( 'isss', $user_id, $_POST['isbn'], $_POST['autore'], $_POST['titolo'] );
+		if( $q->execute())
+		{
+			$this->set_view('messaggio');
+			$this->view->set_message('Opera inserita.');
+			$this->view->render();
+			die();
+		} else {
+			$this->set_view('errore');
+			$this->view->set_message('Caricamento non riuscito');
+			$this->view->render();
+			die();
+		}
 	}
 
 	function vedi($id)

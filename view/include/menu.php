@@ -5,8 +5,7 @@
 
 <?php
 
-	echo '<li><a href="registra.php" class="menu">Registrati</a></li>';
-
+	echo '<li><a href="' . init::link('registra') .'" class="menu">Registrati</a></li>';
 	echo '<li><a href="' . init::link('login') .'" class="menu">Login</a></li>';
 	echo '<li><a href="' . init::link('login','logout') .'" class="menu">Logout</a></li>';
 	echo '<li><a href="' . init::link('opere') .'" class="menu">Opere</a></li>';
@@ -17,9 +16,9 @@
 <br><BR>
 <?php
 
-	include('menu_user.php');
+	//include('menu_user.php');
 
-	include('menu_admin.php');
+	//include('menu_admin.php');
 
 
 ?>

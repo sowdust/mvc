@@ -34,7 +34,7 @@ class luoghi extends controller {
 		if(!isset($_POST['location']))
 		{
 			$this->set_view('luoghi','aggiungi');
-			$this->view->render(); //false?
+			$this->view->render(false); //false?
 			die();
 		}
 		if(empty($_POST['citta']) || empty($_POST['stato']))
@@ -104,7 +104,7 @@ class luoghi extends controller {
 			die();
 		}
 
-		$opera = new luogo($this->db,$id);
+		$luogo = new luogo($this->db,$id);
 		// controllo permessi
 		if($luogo->get_uid() == $this->user->get_id() || $this->user->get_type() == 1)
 		{

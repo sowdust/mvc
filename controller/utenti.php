@@ -35,6 +35,9 @@ class utenti extends controller {
 
 	function modifica($id)
 	{
+
+		$id = ( null == $id ) ? $this->user->get_id() : $id;
+
 		if($this->user->get_id() != $id && $this->user->get_type()<1)
 		{
 			$this->set_view('errore');
