@@ -1,6 +1,6 @@
 <?php
 
-require('model/form.php');
+require('common/form.php');
 
 $form = new form();
 $form->set_action(init::link('login'));

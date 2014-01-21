@@ -56,6 +56,7 @@ class input{
 					$r.= ' ' . $js[0] .'=' . $js[1] . ';return false;" ';
 				}
 				$r.=' />';
+				$r.='<div id = "errori-'.$this->id.'"></div>';
 				break;
 			
 			case 'select':
@@ -141,7 +142,8 @@ class form {
 
 	function to_html()
 	{
-		$r = '<form name="'.$this->name .'" method="'.$this->method
+		$r = '<div id="errori-form-'.$this->id.'"></div>'
+			.'<form name="'.$this->name .'" method="'.$this->method
 			.'" action="'.$this->action.'" type="'.$this->type.'" id="'.$this->id.'">';
 		foreach($this->fields as $field)
 		{

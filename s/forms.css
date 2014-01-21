@@ -15,8 +15,21 @@ form #login {
   border-color: blue;
 }
 
+.ok{
+  border: 2px green;
+  font-size: 5em;
+}
+.notok{
+  border: 2px red;
+  font-size: 5em;
+}
+
 #login legend {
   font-size: 1.3em;
+}
+
+.inline {
+  display: inline;
 }
 
 
