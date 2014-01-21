@@ -7,22 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="<?php echo config::basehost.config::basedir; ?>s/f.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo config::basehost.config::basedir; ?>s/s.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="<?php echo config::basehost.config::basedir; ?>s/forms.css" type="text/css" media="screen" />
 <!--
 		jQuery 2.0.3
 -->
 <script type="text/javascript" src="<?php config::basehost.config::basedir; ?>j/jquery-2.0.3.min.js" ></script>
-<!--
-		funzioni generali per i commenti
--->
-<script type="text/javascript" src="<?php config::basehost.config::basedir; ?>j/commenti.js" ></script>
-<!--
-		funzioni utili al sito
--->
-<script type="text/javascript" src="<?php echo config::basehost.config::basedir; ?>j/j.js" ></script>
-<!--
-		libreria per ordinare tabelle in base al loro contenuto
-		http://www.kryogenix.org/code/browser/sorttable/
--->
-<script type="text/javascript" src="<?php echo config::basehost.config::basedir; ?>j/sorttable.js" ></script>
+<?php
+
+
+	if(is_array($this->js))
+	{
+		foreach($this->js as $js)
+		{
+			echo '<script type="text/javascript" src="'.config::basehost.config::basedir .'j/'.$js.'" ></script>';
+		}		
+	}else{
+		echo '<script type="text/javascript" src="'.config::basehost.config::basedir .'j/'.$this->js.'" ></script>';
+	}
+
+
+
+?>
 
 </head>

@@ -85,8 +85,8 @@ class controller {
 		}elseif($auth_required > 0 ){
 
 			$this->set_view('login');
+			$this->view->set_js('form.js.php');
 			$this->view->render();
-			die();
 		}
 	}
 }

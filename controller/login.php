@@ -21,6 +21,7 @@ class login extends controller {
 		{
 			$this->user->logout();
 			$this->set_view('login');
+			$this->view->set_js('form.js.php');
 			$this->view->render();
 			die();
 		}else{

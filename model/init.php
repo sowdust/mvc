@@ -1,6 +1,5 @@
 <?php
 
-require_once('common/config.php');
 require_once('controller/errore.php');
 class init {
 

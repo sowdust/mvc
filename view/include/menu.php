@@ -1,5 +1,4 @@
-<div id="middle">
-<div id="left"><div id="menu">
+<div id="menu">
 <ul class="menu">
 <li><a href="index.php" class="menu">Home</a></li>
 
@@ -23,10 +22,3 @@
 
 ?>
 </ul></div>
-</div> 		<!-- div left	-->
-
-
-
-
-<div id="right">
-<div>

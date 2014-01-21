@@ -7,6 +7,7 @@ class view {
 	protected $model;
 	protected $user;
 	protected $db;
+	protected $js = array();
 
 	function __construct($name,$sub=null)
 	{
@@ -14,6 +15,11 @@ class view {
 		$this->name = $name;
 		$this->filename = 'view/'.$name.'/'.$sub.'.php';
 		if(!file_exists($this->filename)) die ('view inesistente');
+	}
+
+	function set_js($js)
+	{
+		$this->js = $js;
 	}
 
 	function set_db($db)
@@ -42,7 +48,7 @@ class view {
 		{
 			require_once('view/include/head.php');
 			require_once('view/include/header.php');
-			require_once('view/include/menu.php');
+			//require_once('view/include/menu.php');
 			require_once($this->filename);
 			require_once('view/include/footer.php');
 		}else{

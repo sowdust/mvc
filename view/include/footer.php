@@ -1,7 +1,3 @@
-
-</div>		<!-- margin div -->
-</div>		<!-- div right	-->
-<div class="cleared"> </div>
 </div> 		<!-- div middle -->
 
 <div id="footer">

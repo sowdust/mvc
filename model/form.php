@@ -9,6 +9,7 @@ class input{
 	protected $type;
 	protected $value;
 	protected $class;
+	protected $legend;
 	protected $options = array();
 	protected $js = array();
 
@@ -34,6 +35,11 @@ class input{
 		$this->options = $options;
 	}
 
+	function set_legend($legend)
+	{
+		$this->legend = $legend;
+	}
+
 	function to_html()
 	{
 		switch ($this->type)
@@ -42,7 +48,9 @@ class input{
 			case 'text':
 			case 'password':
 
-				$r = '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
+				$r = (isset($this->legend)) ? '<legend>'. $this->legend . '</legend>' : '';
+				$r.= '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
+				$r.= ' id = ' .$this->id;
 				foreach ($this->js as $js)
 				{
 					$r.= ' ' . $js[0] .'=' . $js[1] . ';return false;" ';
