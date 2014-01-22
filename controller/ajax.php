@@ -18,9 +18,9 @@ class ajax extends controller {
 
 	function check_nick($nick)
 	{
-		if( null == $nick || strlen($nick)<3 )
+		if( null == $nick || !regexp::nick($nick) )
 		{
-			echo 'minore di 3';
+			echo 'lettere, numeri, \'-\', \'_\' da 3 a 16';
 		}else{
 			echo 'OK';
 		}

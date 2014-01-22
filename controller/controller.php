@@ -38,7 +38,7 @@ class controller {
 			{
 				unset($_SESSION['sess_data']);
 			}
-			if(!check_nick($_POST['nick']))
+			if(!regexp::nick($_POST['nick']))
 			{
 				die('nick non valido');
 			}else{

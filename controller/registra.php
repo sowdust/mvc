@@ -28,9 +28,9 @@ class registra extends controller {
 			die();
 		}
 
-		if(	!check_nick($_POST['nick']) 
-			|| !check_pass($_POST['pass']) 
-			|| !is_email($_POST['email']) )
+		if(		!regexp::nick($_POST['nick']) 
+			||	!regexp::pass($_POST['pass']) 
+			||	!regexp::email($_POST['email']) )
 		{
 			$this->set_view('errore');
 			$this->view->set_message('campi non validi');
@@ -50,7 +50,7 @@ class registra extends controller {
 	{
 		$nick = urldecode($nick);
 		$code = urldecode($code);
-		if(!check_nick($nick))
+		if(!regexp::nick($nick))
 		{
 			die('nick non valido');
 		}
