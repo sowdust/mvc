@@ -22,7 +22,7 @@ class ajax extends controller {
 		{
 			echo 'minore di 3';
 		}else{
-			echo 'ok '.$nick;
+			echo 'OK';
 		}
 	}
 }

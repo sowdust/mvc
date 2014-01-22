@@ -1,3 +1,4 @@
+
 <?php
 
 require('common/form.php');
@@ -10,6 +11,8 @@ $form->set_id('login');
 $nick = new input("text","nick");
 $nick->set_legend('Nome utente');
 $nick->set_id('login-nick');
+//$nick->add_js(['onblur','valida("login-nick","check_nick")']);
+$nick->add_js(['onblur',"valida(this,'check-nick')"]);
 
 $pass =  new input("password","pass");
 $pass->set_legend('Password');

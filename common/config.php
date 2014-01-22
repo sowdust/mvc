@@ -7,6 +7,7 @@ class config {
 	const nomesito = 'MVC';
 	const serverpath = '/var/www/mvc/';
 	const user_img = 'usr_img/';
+	const imgdir = 'img/';
 }
 
 ?>

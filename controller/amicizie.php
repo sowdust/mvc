@@ -44,6 +44,7 @@ class amicizie extends controller {
 
 		$this->set_view('messaggio');
 		$this->view->set_message('Richiesta di amicizia notificata');
+		$this->view->set_user($this->user);
 		$this->view->render();
 		die();
 	}
@@ -66,6 +67,7 @@ class amicizie extends controller {
 
 		$this->set_view('messaggio');
 		$this->view->set_message('Amicizia reciprocata');
+		$this->view->set_user($this->user);
 		$this->view->render();
 		die();
 

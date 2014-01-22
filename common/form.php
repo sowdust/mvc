@@ -40,6 +40,11 @@ class input{
 		$this->legend = $legend;
 	}
 
+	function set_class($class)
+	{
+		$this->class = $class;
+	}
+
 	function to_html()
 	{
 		switch ($this->type)
@@ -50,10 +55,10 @@ class input{
 
 				$r = (isset($this->legend)) ? '<legend>'. $this->legend . '</legend>' : '';
 				$r.= '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
-				$r.= ' id = ' .$this->id;
+				$r.= ' id = "' .$this->id.'" class = "' .$this->class.'"';
 				foreach ($this->js as $js)
 				{
-					$r.= ' ' . $js[0] .'=' . $js[1] . ';return false;" ';
+					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
 				}
 				$r.=' />';
 				$r.='<div id = "errori-'.$this->id.'"></div>';

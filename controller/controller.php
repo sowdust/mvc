@@ -19,6 +19,7 @@ class controller {
 	function set_view($name,$sub=null)
 	{
 		$this->view = new View($name,$sub);
+		$this->view->set_user($this->user);
 	}
 	
 	function manage_session($auth_required = 1)
@@ -52,6 +53,7 @@ class controller {
 			if( $user_type < 0 && $auth_required > 0)
 			{
 				$this->view = new View('errore');
+				$this->view->set_user($this->user);
 				$this->view->set_message('Login Fallito');
 				$this->view->render();
 			}
@@ -86,6 +88,7 @@ class controller {
 
 			$this->set_view('login');
 			$this->view->set_js('form.js.php');
+			$this->view->set_user($this->user);
 			$this->view->render();
 		}
 	}

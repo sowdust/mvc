@@ -153,7 +153,11 @@ class utenti extends controller {
 
 	function vedi($id)
 	{
-		if (null == $id || !is_numeric($id))
+		if( null == $id )
+		{
+			$id = $this->user->get_id();
+		}
+		if (!is_numeric($id))
 		{
 			$this->set_view('errore');
 			$this->view->set_message('id non valido');
