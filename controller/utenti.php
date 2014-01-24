@@ -53,6 +53,7 @@ class utenti extends controller {
 			$this->set_view('utenti','modifica');
 			$this->view->set_model($utente);
 			$this->view->set_user($this->user);
+			$this->view->set_js('form.js.php');
 			$this->view->render();
 			die();
 		}

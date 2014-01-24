@@ -15,6 +15,7 @@ class ricerche extends controller {
 				break;
 			default:
 				$this->set_view('ricerche');
+				$this->view->set_js('form.js.php');
 				$this->view->set_message(ricerca::get_tabelle());
 				$this->view->render();
 				die();

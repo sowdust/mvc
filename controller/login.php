@@ -10,6 +10,7 @@ class login extends controller {
 		if('logout' == $logout)
 		{
 			$this->user->logout();
+			$this->user->set_type(-1);
 			$this->set_view('messaggio');
 			$this->view->set_message('Logout effettuato. Tutti i dati relativi alla navigazione sono stati eliminati');
 			$this->view->render();

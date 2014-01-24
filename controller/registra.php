@@ -24,6 +24,7 @@ class registra extends controller {
 		if(!isset($_POST['nick']) && !isset($_POST['pass']) && !isset($_POST['email']))
 		{
 			$this->set_view('utenti','registra');
+			$this->view->set_js('form.js.php');
 			$this->view->render();
 			die();
 		}

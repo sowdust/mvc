@@ -10,14 +10,35 @@ class input{
 	protected $value;
 	protected $class;
 	protected $legend;
+	protected $readonly = false;
 	protected $options = array();
 	protected $js = array();
+	protected $checks = array();
+	protected $rows;
+	protected $cols;
+	protected $obbligatorio = false;
 
 	function __construct($type,$name,$value = '')
 	{
 		$this->type = $type;
 		$this->name = $name;
 		$this->value = $value;
+	}
+
+	function set_row_col($row,$col)
+	{
+		$this->rows = $row;
+		$this->cols = $col;
+	}
+
+	function set_value($value)
+	{
+		$this->value = $value;
+	}
+
+	function set_readonly($bool)
+	{
+		$this->readonly = $bool;
 	}
 
 	function set_id($id)
@@ -28,6 +49,12 @@ class input{
 	function add_js($js)
 	{
 		$this->js[] = $js;
+		$this->checks[] = $js[1];
+	}
+
+	function get_checks()
+	{
+		return $this->checks;
 	}
 
 	function set_options($options)
@@ -40,9 +67,29 @@ class input{
 		$this->legend = $legend;
 	}
 
+	function set_obbligatorio()
+	{
+		$this->obbligatorio = true;
+	}
+
 	function set_class($class)
 	{
 		$this->class = $class;
+	}
+
+	function get_name()
+	{
+		return $this->name;
+	}
+
+	function get_id()
+	{
+		return $this->id;
+	}
+
+	function get_obbligatorio()
+	{
+		return $this->obbligatorio;
 	}
 
 	function to_html()
@@ -50,22 +97,30 @@ class input{
 		switch ($this->type)
 		{
 			
+			//	TEXT E PASSWORD
 			case 'text':
 			case 'password':
+			case 'file':
 
-				$r = (isset($this->legend)) ? '<legend>'. $this->legend . '</legend>' : '';
+				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
 				$r.= '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
 				$r.= ' id = "' .$this->id.'" class = "' .$this->class.'"';
 				foreach ($this->js as $js)
 				{
 					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
 				}
+				if($this->readonly)
+				{
+					$r.= ' READONLY';
+				}
 				$r.=' />';
 				$r.='<div id = "errori-'.$this->id.'"></div>';
 				break;
-			
+
+			//	SELECT
 			case 'select':
-				$r = '<select name ="'.$this->name.'" id="'.$this->id.'">';
+				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
+				$r.= '<select name ="'.$this->name.'" id="'.$this->id.'">';
 					foreach($this->options as $value => $name)
 					{
 						$r .= '<option value ="'.$value.'" ';
@@ -77,9 +132,26 @@ class input{
 					}
 				$r .= '</select>';
 				break;
+			
+			//	TEXTAREA
 			case 'textarea':
-				$r = '<textarea name="'.$this->name.'" id="'.$this->id.'" >'.$this->value.'</textarea>';
+				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
+				$r.= '<textarea name="'.$this->name.'" id="'.$this->id;
+				if($this->readonly)
+				{
+					$r.= ' READONLY';
+				}
+				foreach ($this->js as $js)
+				{
+					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
+				}
+				$r.= (isset($this->rows) && isset($this->cols)) ? ' rows="'.$this->rows.'" cols="'.$this->cols.'"' : '';
+
+				$r.='" >'.$this->value.'</textarea>';
 				break;
+			
+
+			//	BOTTONE INVIO
 			case 'submit':
 				$r = '<input type = "submit" name ="'.$this->name.'" value="'.$this->value.'"';
 				foreach($this->js as $js)
@@ -88,6 +160,31 @@ class input{
 				}
 				$r.=' />';
 				break;
+
+
+			//	FILE UPLOAD
+			case 'file':
+
+				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
+				$r.= '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
+				$r.= ' id = "' .$this->id.'" class = "' .$this->class.'"';
+				foreach ($this->js as $js)
+				{
+					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
+				}
+				if($this->readonly)
+				{
+					$r.= ' READONLY';
+				}
+				$r.=' />';
+				$r.='<div id = "errori-'.$this->id.'"></div>';
+				break;
+
+
+
+
+
+
 			default:
 				$r = 'Strano input field';
 				break;
@@ -106,6 +203,7 @@ class form {
 	protected $type;
 	protected $name;
 	protected $id;
+	protected $obbligatori = array();
 
 	function __construct($name = null, $action = null, $method = null, $type = null)
 	{
@@ -140,8 +238,13 @@ class form {
 		$this->name = $name;
 	}
 
-	function add($field)
+	function add($field,$obbligatorio = false)
 	{
+		if($obbligatorio)
+		{
+			$this->obbligatori[] = $field->get_name();
+			$field->set_obbligatorio();
+		}
 		$this->fields[] = $field;
 	}
 
@@ -159,6 +262,63 @@ class form {
 
 		return $r;
 	}
+
+
+	##	!BUG!				   / .'
+	##					 .---. \/
+	##	La funxione		(._.' \()
+	##	Setta a 1	 	^"""^"
+	##	Inizialmente il controllo su input
+	##	Ma se poi l'utente inserisce qualcosa nel campo che non va bene
+	##  Va a 0 e ci rimane anche se viene svuotata
+	##	Va aggiunto l'elenco delle obbligatorie per poter fare un if nel caso
+	##	data!=OK in funziona valida(,) in modo che, se vuote, vadano a 1
+
+
+	//	tutta da rifare mi sa
+
+
+	function checks_to_js()
+	{
+		$r = '<script type="text/javascript" language="javascript"> '
+			.'var obbligatori = new Array(); ';
+
+		foreach($this->obbligatori as $key => $val)
+		{ 
+			$r.=' obbligatori.push("'. $val .'"); ';
+    	}
+
+    	$r.='var checks = new Array(); ';
+    	$r.='alert(checks);';
+
+		foreach($this->fields as $campo)
+		{
+			
+			$r.=' checks.push("'. $campo->get_id() .'"); ';
+			//	se obbligatorio inizialmente a 0, altrimenti a 1 [ !BUG! ]
+    	}
+    	
+    	$r.=' alert(checks);';
+    	
+    	$r.='var check_values = new Array(); ';
+
+		foreach($this->fields as $campo)
+		{
+			
+			//	se obbligatorio inizialmente a 0, altrimenti a 1 [ !BUG! ]
+			$r.= ($campo->get_obbligatorio()) ? 'check_values["'.$campo->get_id().'"] = 0;'
+				: 'check_values["'.$campo->get_id().'"] = 1;';
+    	}
+
+    	$r.=' alert(check_values);';
+
+    	$r.=' </script>';
+
+
+
+    	return $r;
+	}
+
 }
 
 

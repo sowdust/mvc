@@ -1,45 +1,84 @@
 <?php
 
+require('common/form.php');
+
 	/*
 		prende i dati utente da $this->model
 		$this->user puo' essere admin
 	*/
+$user_data = $this->model->get_info();
 
 global $_FORMATI_IMMAGINI;
 
-?>
-<form name="mod_profilo" id="mod_profilo"
-	action="<?php echo init::link('utenti','modifica',$this->model->get_id()); ?>"  method="post" enctype="multipart/form-data">
-
-<?php
 
 if(strlen($this->model->get_info()['foto']) > 1)
 {
-	echo '<img src="' . config::basehost . config::basedir . config::user_img . $this->model->get_info()['foto']. '" alt="foto del profilo corrente" width="300"><br />';
+	echo '<img src="' . config::basehost . config::basedir . config::user_img 
+		.$this->model->get_info()['foto']. '" alt="foto del profilo corrente" width="300"><br />';
 }
 
+$form = new form();
+$form->set_name('modifica-profilo');
+$form->set_id('modifica-profilo');
+$form->set_action(init::link('utenti','modifica',$this->model->get_id()));
+$form->set_method('POST');
+$form->set_type('multipart/form-data');
+
+$nick = new input('text','nick');
+$nick->set_legend('Nome utente');
+$nick->set_value($user_data['nick']);
+$nick->set_readonly(true);
+$nick->set_id('registra-nick');
+
+$pass =  new input("password","pass");
+$pass->set_legend('Password');
+$pass->set_id('registra-pass');
+
+$email = new input("text","email");
+$email->set_legend('Indirizzo email');
+$email->add_js(['onblur',"valida(this,'email')"]);
+$email->set_value($user_data['email']);
+$email->set_id('registra-email');
+
+$foto = new input('file','foto');
+$legenda_foto = 'Foto personale (Formati ';
+foreach($_FORMATI_IMMAGINI as $f)	$legenda_foto.= $f." "; 
+$legenda_foto.=')';
+$foto->set_legend($legenda_foto);
+$foto->set_id('registra-foto');
+
+$personale = new input('textarea','personale');
+$personale->set_value($user_data['personale']);
+$personale->set_legend('Personale');
+$personale->add_js(['onblur',"valida(this,'testo')"]);
+$personale->set_row_col(10,60);
+$personale->set_id('registra-personale');
+
+$npass =  new input("password","new_pass");
+$npass->set_legend('Nuova password (lasciare vuoto per mantenere la vecchia)');
+$npass->add_js(['onblur',"valida(this,'pass')"]);
+$npass->set_id('registra-npass');
+
+$npass2 =  new input("password","new_pass2");
+$npass2->set_legend('Conferma nuova password');
+$npass2->add_js(['onblur',"valida(this,'pass')"]);
+$npass2->set_id('registra-npass2');
+
+$invia = new input('submit','modifica-invia');
+$invia->set_value('Modifica');
+
+
+
+
+$form->add($nick,true);
+$form->add($pass,true);
+$form->add($email,true);
+$form->add($foto);
+$form->add($personale);
+$form->add($npass);
+$form->add($npass2);
+$form->add($invia);
+echo $form->to_html();
+
+
 ?>
-<label for="nick">Nick</label><br />
-<input name="nick" type="text" value="<?php echo $this->model->get_info()['nick']; ?>" READONLY><br />
-<label for="pass">Password</label><br />
-<input name="pass" type="password" value=""><br />
-<!--<label for="citta">Citt&agrave;</label><br />
-<input name="citta" type="text" value="<?php echo $this->model->get_info()['citta']; ?>" READONLY><br />-->
-<label for="email">E-mail</label><br />
-<input name="email" type="text" value="<?php echo $this->model->get_info()['email']; ?>"><br />
-<label for="foto">Foto</label><br />
-<input name="foto" type="file"><br />
-<span class="date">Formati accettati: 
-<?php foreach($_FORMATI_IMMAGINI as $f)	echo $f." "; ?>
-</span><br />
-<label for="personale">Personale (scrivi quello che vuoi)</label><br />
-<textarea name="personale" rows="10" cols="60">
-<?php echo $this->model->get_info()['personale']; ?>
-</textarea><br />
-<span class="date">Riempire i campi sottostanti solo se si vuole modificare la password</span><br />
-<label for="new_pass">Nuova Password</label><br />
-<input name="new_pass" type="password" value=""><br />
-<label for="new_pass2">Conferma Nuova Password</label><br />
-<input name="new_pass2" type="password" value=""><br />
-<input type="submit" name="modifica_profilo" value="Aggiorna">
-</form>

@@ -1,8 +1,4 @@
-form #login {
-  float:center;
-}
-
-#login input {
+select,input,textarea {
   border-style: solid;
   border-color: #c0c0c0;
   font-size: 1.3em;
@@ -13,8 +9,16 @@ form #login {
   text-align: center;
 }
 
-#login input:focus {
+textarea {
+  text-align: left;
+}
+
+ input:focus {
   border-color: blue;
+}
+
+legend {
+  font-size: 1.3em;
 }
 
 .ok{
@@ -25,9 +29,7 @@ form #login {
     border-size:2px !important;
 }
 
-#login legend {
-  font-size: 1.3em;
-}
+
 
 /*  classi di seguito trovate sul web */
 .error,

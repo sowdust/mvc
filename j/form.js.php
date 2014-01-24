@@ -1,46 +1,14 @@
 <?php
 
-define('URL','http://localhost/mvc/index.php?request=ajax/');
-
- header("Content-type: text/javascript"); ?>
-
-$(document).ready(function(){
- $("#msgid").html("This is Hello World by JQuery");
-});
-
-$(document).ready(function() {
-	$("#invia-login").click(function(e){
-		var url = "<?php echo URL .'check-nick/'; ?>" + $("#login-nick").val();
-		$.get(url,function(data,status){
-			$("#msgid").html("URL: " + url + "Data: " + data + "\nStatus: " + status);
-		});
-});
-/*
-	$("#login-nick").blur(function(e){
-		var url = "<?php echo URL .'check-nick/'; ?>" + $("#login-nick").val();
-		$.get(url,function(data,status){
-			if(data == 'OK')
-			{
-				// non funziona
-				$("#login-nick").addClass("ok");
-				$("#errori-login-nick").html('<div class="success">Successo</div>');
-			}else{
-				$("#login-nick").addClass("prova");
-				$("#msgid").addClass("prova");
-				$("#login-nick").val("ok");
-				$("#errori-login-nick").html("<div class='alert'>"+ data + "</div>");	
-			}
-
-		});
-	});
-*/
+require_once('../common/config.php');
 
 
+define('URL',config::basehost.config::basedir.'index.php?request=ajax/');
 
+header("Content-type: text/javascript"); ?>
 
-
-});
-
+var errori_form = 0;
+var capi_obbligatori = 0;
 
 function valida(elemento,funzione)
 {
@@ -48,32 +16,37 @@ function valida(elemento,funzione)
 	$.get(url,function(data,status){
 		if('OK' == data)
 		{
+			$(elemento).removeClass("notok");
 			$(elemento).addClass("ok");
+			$("#errori-" + elemento.id).html('');
 
 		}else{
 
+			// remove class ok
+			$(elemento).removeClass("ok");
 			$(elemento).addClass("notok");
 			$("#errori-" + elemento.id).html("<div class='alert'>"+ data + "</div>");
+			++errori_form;
 		}
 
 	});
 }
 
-/*	
-function valida(id-elemento, funzione)
+
+function ricerca_get_param()
 {
-var url = "<?php echo URL .'check-nick/'; ?>" + $(id-elemento).val();
-	$.get(url,function(data,status){
-		if(data == 'OK')
-		{
-			$(id-elemento).val("ok");
-		}else{
-			$(id-elemento).val("non ok")
-		}
+	var tab = document.getElementById('ricerca_tabelle').value;
 
+	if( '' == tab )
+	{
+		$('ricerca_campi').html('Seleziona una tabella');
+		return ;
+	}
+
+	url = "<?php echo URL; ?>" + "ricerca-campi" + '/' + encodeURIComponent(tab);
+
+	$.get(url,function(data,status){
+		$("#ricerca_campi").html(data);
 	});
 
-
 }
-
-*/

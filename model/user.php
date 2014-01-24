@@ -59,6 +59,11 @@ class user extends entita{
 		return $this->info['type'];
 	}
 
+	public function set_type($type)
+	{
+		$this->info['type'] = $type;
+	}
+
 	public function get_info()
 	{
 		return $this->info;

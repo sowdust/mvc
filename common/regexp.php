@@ -6,9 +6,14 @@ abstract class regexp {
 
 		static function nick($nick)
 		{
-			//	{lettera, numero, '-','_'}*
+			//	{lettera, numero, '_'}+
 			//	lunghezza [3,16]
 			return preg_match("/^[A-Za-z0-9_]{3,16}$/", $nick);
+		}
+
+		static function testo($testo)
+		{
+			return true;
 		}
 
 		static function password($pass)
@@ -16,6 +21,11 @@ abstract class regexp {
 			//	tra 3 e 255 caratteri
 			return (	strlen($pass) > 3
 					&&	strlen($pass) < 255 );
+		}
+
+		static function pass($pass)
+		{
+			return self::password($pass);
 		}
 
 		static function email($email)

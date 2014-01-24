@@ -12,34 +12,23 @@ $nick = new input("text","nick");
 $nick->set_legend('Nome utente');
 $nick->set_id('login-nick');
 //$nick->add_js(['onblur','valida("login-nick","check_nick")']);
-$nick->add_js(['onblur',"valida(this,'check-nick')"]);
+$nick->add_js(['onblur',"valida(this,'nick')"]);
 
 $pass =  new input("password","pass");
 $pass->set_legend('Password');
 $pass->set_id('login-pass');
+$pass->add_js(['onblur',"valida(this,'pass')"]);
 
 $submit =  new input("submit","login-form","accedi");
-$submit->add_js( ['onclick','alert("alert")'] );
+$submit->add_js(['onclick',"uguali(this,obbligatori)"]);
 
-$form->add($nick);
-$form->add($pass);
+$form->add($nick,true);
+$form->add($pass,true);
 $form->add($submit);
 
+echo $form->checks_to_js();
 echo $form->to_html();
 
 
-/*
-<form name="login" id="login" action="<?php echo str_replace('/logout','',URL); ?>"  method="post">
-<input type="text" name="nick"><br>
-<input type="password" name="pass"><br>
-<input type="submit" name="login-form" value="accedi">
-</form>
-*/
-
 ?>
 
-
-
-<input type="submit" id="invia-login" value = "invia!" />
-
-<div id="msgid"></div>
