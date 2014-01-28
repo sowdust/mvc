@@ -11,7 +11,7 @@ $form->set_id('registra');
 $nick = new input("text","nick");
 $nick->set_legend('Nome utente');
 $nick->set_id('registra-nick');
-$nick->add_js(['onblur',"valida(this,'nick')"]);
+$nick->add_js(['onblur',"valida(this,'nick_unico')"]);
 
 $email = new input("text","email");
 $email->set_legend('Indirizzo email');

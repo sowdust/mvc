@@ -20,13 +20,12 @@ $pass->set_id('login-pass');
 $pass->add_js(['onblur',"valida(this,'pass')"]);
 
 $submit =  new input("submit","login-form","accedi");
-$submit->add_js(['onclick',"uguali(this,obbligatori)"]);
+//$submit->add_js(['onclick',"valida_tutto(this,lista_elementi,obbligatori)"]);
 
 $form->add($nick,true);
 $form->add($pass,true);
 $form->add($submit);
 
-echo $form->checks_to_js();
 echo $form->to_html();
 
 

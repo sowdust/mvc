@@ -92,7 +92,7 @@ class luogo_manager {
 
 	public function add_luogo($coords,$id_utente,$id_entita,$tipo_entita,$indirizzo,$citta,$prov,$stato)
 	{
-		if(!is_entita($tipo_entita) && $tipo_entita!=null) die ('entita non valida');
+		if(!regexp::entita($tipo_entita) && $tipo_entita!=null) die ('entita non valida');
 		$coordinate = $this->string_to_lat_lng($coords);
 		$lat = $coordinate[0];
 		$lng = $coordinate[1];

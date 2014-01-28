@@ -250,9 +250,11 @@ class form {
 
 	function to_html()
 	{
-		$r = '<div id="errori-form-'.$this->id.'"></div>'
+		$r = ($this->checks_to_js() ) ? $this->checks_to_js() : '' ;
+		
+		$r.= '<div id="errori-form-'.$this->id.'"></div>'
 			.'<form name="'.$this->name .'" method="'.$this->method
-			.'" action="'.$this->action.'" type="'.$this->type.'" id="'.$this->id.'">';
+			.'" action="'.$this->action.'" enctype="'.$this->type.'" id="'.$this->id.'" onsubmit="return valida_tutto(this,lista_elementi,obbligatori);">';
 		foreach($this->fields as $field)
 		{
 			$r.= $field->to_html();
@@ -281,40 +283,17 @@ class form {
 	function checks_to_js()
 	{
 		$r = '<script type="text/javascript" language="javascript"> '
+			.'var lista_elementi = new Array(); '
 			.'var obbligatori = new Array(); ';
 
-		foreach($this->obbligatori as $key => $val)
+		foreach($this->fields as $key => $val)
 		{ 
-			$r.=' obbligatori.push("'. $val .'"); ';
+			$r.=' lista_elementi.push("'. $val->get_id() .'"); ';
+			$r.= ($val->get_obbligatorio()) ? ' obbligatori.push(1); '
+				: ' obbligatori.push(0); ';
     	}
-
-    	$r.='var checks = new Array(); ';
-    	$r.='alert(checks);';
-
-		foreach($this->fields as $campo)
-		{
-			
-			$r.=' checks.push("'. $campo->get_id() .'"); ';
-			//	se obbligatorio inizialmente a 0, altrimenti a 1 [ !BUG! ]
-    	}
-    	
-    	$r.=' alert(checks);';
-    	
-    	$r.='var check_values = new Array(); ';
-
-		foreach($this->fields as $campo)
-		{
-			
-			//	se obbligatorio inizialmente a 0, altrimenti a 1 [ !BUG! ]
-			$r.= ($campo->get_obbligatorio()) ? 'check_values["'.$campo->get_id().'"] = 0;'
-				: 'check_values["'.$campo->get_id().'"] = 1;';
-    	}
-
-    	$r.=' alert(check_values);';
 
     	$r.=' </script>';
-
-
 
     	return $r;
 	}

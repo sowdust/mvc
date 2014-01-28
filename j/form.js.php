@@ -32,6 +32,33 @@ function valida(elemento,funzione)
 	});
 }
 
+function valida_tutto(submit,tutti,obbligatori)
+{
+	for (var i=0;i<tutti.length;i++)
+	{
+		var elemento = document.getElementById(tutti[i]);
+		var errore = document.getElementById("errori-" + tutti[i]);
+
+		if(errore!=null)
+		{
+		/// se obbligatorio non spediamo il form
+			if(obbligatori[i] == 1 && errore.innerHTML != '' )
+			{
+				alert("Campi non validii: "+errore.innerHTML)
+				return false;
+			}
+			if(obbligatori[i] == 0 && errore.innerHTML != '' && elemento.value!='')
+			{
+				alert("Campi non validi: "+errore.innerHTML);
+				return false;
+			}
+		}
+
+	}
+
+	return true;
+}
+
 
 function ricerca_get_param()
 {

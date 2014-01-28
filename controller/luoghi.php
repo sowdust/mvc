@@ -44,10 +44,10 @@ class luoghi extends controller {
 			$this->view->render();
 			die();
 		}
-		if(	!check_testo($_POST['citta'])
-			|| !check_testo($_POST['stato'])
-			|| (strlen($_POST['indirizzo'])>1 && !check_testo($_POST['indirizzo']))
-			|| (strlen($_POST['prov'])>1 && !check_testo($_POST['prov']))
+		if(	!regexp::testo($_POST['citta'])
+			|| !regexp::testo($_POST['stato'])
+			|| (strlen($_POST['indirizzo'])>1 && !regexp::testo($_POST['indirizzo']))
+			|| (strlen($_POST['prov'])>1 && !regexp::testo($_POST['prov']))
 			)
 		{
 			$this->set_view('errore');

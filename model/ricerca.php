@@ -116,7 +116,7 @@ class ricerca {
 				die('4');
 			}
 			if(self::$tipi[$table][$p] == 's'
-				&& !check_testo($values[$count]) )
+				&& !regexp::testo($values[$count]) )
 			{
 				die('5');
 			}

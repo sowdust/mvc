@@ -30,15 +30,17 @@ $nick->set_value($user_data['nick']);
 $nick->set_readonly(true);
 $nick->set_id('registra-nick');
 
+
 $pass =  new input("password","pass");
 $pass->set_legend('Password');
 $pass->set_id('registra-pass');
+$pass->add_js(['onblur',"valida(this,'pass')"]);
 
 $email = new input("text","email");
 $email->set_legend('Indirizzo email');
-$email->add_js(['onblur',"valida(this,'email')"]);
 $email->set_value($user_data['email']);
 $email->set_id('registra-email');
+$email->add_js(['onblur',"valida(this,'email')"]);
 
 $foto = new input('file','foto');
 $legenda_foto = 'Foto personale (Formati ';

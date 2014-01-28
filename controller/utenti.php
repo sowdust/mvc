@@ -3,6 +3,7 @@
 require_once('model/user.php');
 require_once('model/user_manager.php');
 require_once('model/amicizia.php');
+require_once('common/common.php');
 
 class utenti extends controller {
 
@@ -35,6 +36,7 @@ class utenti extends controller {
 
 	function modifica($id)
 	{
+		global $_FORMATI_IMMAGINI;
 
 		$id = ( null == $id ) ? $this->user->get_id() : $id;
 
@@ -48,7 +50,7 @@ class utenti extends controller {
 
 		$utente = new user($this->db,$id);
 
-		if(!isset($_POST['modifica_profilo']))
+		if(!isset($_POST['modifica-invia']))
 		{
 			$this->set_view('utenti','modifica');
 			$this->view->set_model($utente);
@@ -84,10 +86,11 @@ class utenti extends controller {
 			}
 			$rand = uniqid('',true);
 			$nome_immagine = $rand.'.'.$estensione;
-			if(!move_uploaded_file($_FILES['foto']['tmp_name'], $_USR_IMG_DIR.$nome_immagine ))
+			if(!move_uploaded_file($_FILES['foto']['tmp_name'], config::serverpath.config::user_img.$nome_immagine ))
 			{
-				$msg_errore = "Caricamento foto fallito";
-				include('../view/errore.php');
+				$this->set_view('errore');
+				$this->view->set_message('Caricamento immagine fallito');
+				$this->view->render();
 				die();
 			}
 			$new_info['foto'] = $nome_immagine;

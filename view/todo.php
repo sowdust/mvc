@@ -3,9 +3,6 @@
 // stampa la variabile $msg_string che arriva da sopra
 // per errorie usare view/errore.php
 
-include_once('include/head.php');
-include_once('include/header.php');
-include_once('include/menu.php');
 
 ?>
 
@@ -14,8 +11,7 @@ include_once('include/menu.php');
 
 *****	RICORDARSI CHE CI SONO	*****
 
-3:23	mfi
-23:28	stat
+
 
 28:12	reti
 14:21	prog

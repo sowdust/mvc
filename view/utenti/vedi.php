@@ -11,7 +11,7 @@ $lista_aggiornamenti = $aggiornamenti->get();
 
 
 <h1><?php echo $amico->get_info()['nick']; ?> </h1>
-<p><img src="<?php echo $_ABS_IMG_DIR.$amico->get_info()['foto']; ?>" alt="<?php echo $amico->get_info()['nick']; ?>" width="500px"><br />
+<p><img src="<?php echo config::basehost.config::basedir.config::user_img.$amico->get_info()['foto']; ?>" alt="<?php echo $amico->get_info()['nick']; ?>" width="500px"><br />
 <?php echo $amico->get_info()['personale']; ?>
 </p>
 <p>

@@ -51,8 +51,6 @@ class user_manager {
 	// TODO: usare prepared statements
 	public function add_user($nick,$email,$pass)
 	{
-		global $_NOME_SITO;
-		global $_URL_ATTIVAZIONE;
 
 		if(($this->count_users("nick = \"".$nick."\"")>0)
 					|| ($this->count_users("email = \"".$email."\"")>0))
@@ -69,12 +67,12 @@ class user_manager {
 		$q_e = "INSERT INTO email_codes(nick,code) VALUES (\"".$nick."\",\"".$rand."\")";
 		$r = $this->db->query($q_e) or die();
 
-		$link = $_URL_ATTIVAZIONE."?nick=".urlencode($nick)."&code=".urlencode($rand);
-		$message = "Grazie per esserti registrato a ".$_NOME_SITO."\n"
+		$link = init::link('registra',urlencode($nick),urlencode($rand));
+		$message = "Grazie per esserti registrato\n"
 			."Clicca sul seguente url per attivare il tuo account \n"
 			.$link;
 		$subject = "Conferma attivazione account";
-		$headers = "From:".$_NOME_SITO."<noreply@dominiosito.com>" . "\r\n" 
+		$headers = "From:".'nomesito'."<noreply@dominiosito.com>" . "\r\n" 
 							."X-Mailer: PHP/" . phpversion()  . "\r\n"
 							.'Content-type: text; charset=UTF-8' . "\r\n";
 
