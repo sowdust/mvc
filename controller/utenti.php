@@ -168,12 +168,27 @@ class utenti extends controller {
 			$this->view->render();
 			die();
 		}
+		$amicizia = new amicizia($this->db,$this->user->get_id(),$id);
 
-		$user = new user($this->db, $id);
-		$this->set_view('utenti','vedi');
-		$this->view->set_user($this->user);
-		$this->view->set_model($user);
-		$this->view->set_db($this->db);
+		if($amicizia->check() || $id == $this->user->get_id())
+		{
+			$user = new user($this->db, $id);
+			$this->set_view('utenti','vedi');
+			$this->view->set_user($this->user);
+			$this->view->set_model($user);
+			$this->view->set_db($this->db);
+			$this->view->render();
+			die();
+		}
+		if($amicizia->is_pending())
+		{
+			$messaggio = 'Amicizia non ancora confermata';
+		}
+		else {
+			$messaggio = 'Devi richiedere l&acute;amicizia per vedere un profilo';
+		}
+		$this->set_view('messaggio');
+		$this->view->set_message($messaggio);
 		$this->view->render();
 		die();
 	}

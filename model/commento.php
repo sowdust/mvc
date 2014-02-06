@@ -18,11 +18,22 @@ class commento extends entita {
 	function __construct($db,$id)
 	{	//TODO forse da fare con dati entita' e non id commento
 		$this->tipo_entita = 'commento';
-		$this->db = $db->mysqli;
+		$this->db = ( 'database' == get_class($db) ) ? $db->mysqli : $db;
 		$this->id = $id;
 		$this->get_data_from_db();
 		
 	}
+
+	function get_data()
+	{
+		return $this->data;
+	}
+
+	function get_uid()
+	{
+		return $this->id_utente;
+	}
+
 
 	function get_data_from_db()
 	{

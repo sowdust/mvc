@@ -19,7 +19,7 @@ class view {
 
 	function set_js($js)
 	{
-		$this->js = $js;
+		$this->js[] = $js;
 	}
 
 	function set_db($db)
@@ -44,6 +44,10 @@ class view {
 
 	function render($formatted = true)
 	{
+		if(!in_array('form.js.php', $this->js))
+		{
+			$this->set_js('form.js.php');
+		}
 		if($formatted)
 		{
 			require_once('view/include/head.php');

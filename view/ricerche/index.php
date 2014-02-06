@@ -1,10 +1,3 @@
-<script type="text/javascript" language="javascript">
-var lista_elementi = new Array();
-var obbligatori = new Array(); 
-lista_elementi.push("table"); 
-obbligatori.push(1);
-</script>
-
 <form name="ricerca" 
 onsubmit="return valida_tutto(this,lista_elementi,obbligatori);"
 id="ricerca" action="<?php echo init::link('ricerche','risultati'); ?>"  method="post">

@@ -121,6 +121,12 @@ class user_manager {
 
 	public function remove_user($id_utente)
 	{
+		require_once('model/user.php');
+		$user = new user($this->db,$id_utente);
+		if($user->get_type() > 0 )
+		{
+			die ('non si possono eliminare gli amministratori');
+		}
 		$q = $this->db->prepare("DELETE FROM utenti WHERE id = (?)");
 		$q->bind_param('i',$id_utente);
 		$q->execute() or die ('cancellazione non riuscita');

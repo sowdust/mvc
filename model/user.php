@@ -2,20 +2,24 @@
 
 require_once('entita.php');
 
-class user extends entita{
+class user extends entita {
 
 	protected $id;
 	protected $tipo_entita;
 	protected $db;	
 	public	$info;
 	public $session;
+	protected $stati = array();
+	protected $luoghi = array();
+	protected $commenti = array();
+
 
 	public function __construct($db,$id)
 	{
 		$this->tipo_entita = 'utente';
 		if(!is_numeric($id)) die();
 		$this->id = $id;
-		$this->db = $db->mysqli;
+		$this->db = ( 'database' == get_class($db) ) ? $db->mysqli : $db;
 		$this->update_info_from_db();
 	}
 
@@ -102,6 +106,9 @@ class user extends entita{
 		return true;
 	}
 
+/*
+	// ELIMINATO IN QUANTO NON TENEVA CONTO DELLE COSE CHE VENGONO MODIFICATE
+
 	public function add_aggiormaneto($tipo)
 	{
 		switch($tipo)
@@ -122,8 +129,13 @@ class user extends entita{
 				die();
 				break;
 		}
-		$q = 'SELECT id FROM '.$tabelle.' WHERE id_utente = '.$this->user.' ORDER BY data desc';
-		$r = $this->db->execute($q);
+
+		$q = $this->db->prepare('SELECT id FROM (?) WHERE id_utente = (?) ORDER BY data DESC');
+		echo $tabella;
+		echo $this->id;
+		var_dump($q);
+		$q->bind_param('si', $tabella, $this->id);
+		$q->execute();
 		$id_entita = null;
 		$r->bind_result($id_entita);
 		$r->fetch();
@@ -134,10 +146,15 @@ class user extends entita{
 		$r = $this->db->execute($q) or die();
 		$r->close();
 	}
+*/
 
 	public function add_stato($stato)
 	{
-		$id__stato = uniqid("",true);
+		$q = $this->db->prepare("UPDATE stati SET valido = false WHERE id_utente = (?) ");
+		$q->bind_param('i',$this->id);
+		$r = $q->execute() or die ('query fallita');
+		$q->close();
+		unset($q);
 		$q = $this->db->prepare("INSERT INTO stati (id_utente,stato,data,valido) VALUES ((?), (?), now(), 1)");
 		$q->bind_param('is',$this->id,$stato);
 		$r = $q->execute() or die ('query fallita');;
@@ -217,7 +234,7 @@ class user extends entita{
 		$q->close();
 	}
 
-	public function get_notifiche()
+	public function get_notifiche_vecchio()
 	{
 		$q = $this->db->prepare('SELECT id,tipo,id_elemento,date_format(data,"%e/%m %H:%i"),visualizzata FROM notifiche WHERE id_utente = (?) ORDER BY visualizzata ASC, data DESC');
 		$q->bind_param('i',$this->info['id']);
@@ -238,6 +255,94 @@ class user extends entita{
 		$q->close();
 		unset($q);
 		return $r;
+	}
+
+	function get_stati()
+	{
+		require_once('model/stato.php');
+
+		$q = "SELECT id FROM stati WHERE id_utente = '".$this->id."' ORDER BY data DESC LIMIT 0,10";
+		if(!($r = $this->db->query($q)))
+		{
+				die('query fallita');
+		}
+
+		$stati = array();
+
+		while( $c = $r->fetch_assoc() )
+		{
+				$stati[] = new stato($this->db,$c['id']);
+		}
+
+		$r ->close();
+
+		return $stati;
+	}
+
+	function get_luoghi()
+	{
+		require_once('model/luogo.php');
+
+		$q = "SELECT id FROM luoghi WHERE id_utente = '".$this->id."' ORDER BY data DESC LIMIT 0,10";
+		if(!($r = $this->db->query($q)))
+		{
+				die('query fallita');
+		}
+
+		$luoghi = array();
+
+		while( $c = $r->fetch_assoc() )
+		{
+				$luoghi[] = new luogo($this->db,$c['id']);
+		}
+
+		$r ->close();
+
+		return $luoghi;
+	}
+
+	function get_commenti_autore()
+	{
+		require_once('model/commento.php');
+
+		$q = "SELECT id FROM commenti WHERE id_utente = '".$this->id."' ORDER BY data DESC LIMIT 0,10";
+		if(!($r = $this->db->query($q)))
+		{
+				die('query fallita');
+		}
+
+		$commenti = array();
+
+		while( $c = $r->fetch_assoc() )
+		{
+				$commenti[] = new commento($this->db,$c['id']);
+		}
+
+		$r ->close();
+
+		return $commenti;
+	}
+
+	function get_notifiche()
+	{
+		require_once('model/notifica.php');
+
+		$q = "SELECT id FROM notifiche WHERE id_utente = '".$this->id."' ORDER BY data DESC LIMIT 0,10";
+		if(!($r = $this->db->query($q)))
+		{
+				die('query fallita');
+		}
+
+		$notifiche = array();
+
+		while( $c = $r->fetch_assoc() )
+		{
+				$notifiche[] = new notifica($this->db,$c['id']);
+		}
+
+		return $notifiche;
+
+		$r->close();
 	}
 
 }

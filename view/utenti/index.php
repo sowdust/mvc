@@ -27,8 +27,8 @@ foreach($lista_utenti as $id=>$nick)
 		}
 		if($this->user->get_type() == 1)
 		{
-			echo'<a href="'.$_SERVER['PHP_SELF'].'?remove='.$id.'">Rimuovi</a> - '
-				.'<a href="modifica_profilo.php?id='.$id.'">Modifica</a>';
+			echo'<a href="'.init::link('utenti','rimuovi',$id).'">Rimuovi</a> - '
+				.'<a href="'.init::link('utenti','modifica',$id).'">Modifica</a>';
 		}
 		echo '</li>';
 	}

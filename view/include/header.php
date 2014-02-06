@@ -1,9 +1,38 @@
-<?php
-$loggato=false;	// legacy
-?>
+<?php require_once('common/form.php'); ?>
 <body>
 <?php include('menu.php'); ?>
 <div id="centering">
+<div id="header">
+<?php
+
+if(isset($this->user) && $this->user->get_type()>=0 )
+{
+
+$form = new form();
+$form->set_action(init::link('stati','aggiungi'));
+$form->set_name('stato');
+$form->set_id('stato');
+$redirect = new input("hidden","redirect");
+$stato = new input("text","stato");
+//$stato->set_legend('Stato');
+$stato->set_id('stato-testo');
+$stato->set_value('Cambia stato...');
+$redirect->set_value(basename($_SERVER['REQUEST_URI']));
+//$nick->add_js(['onblur','valida("login-nick","check_nick")']);
+$stato->add_js(['onblur',"valida(this,'stato')"]);
+$stato->add_js(['onsubmit',"valida(this,'stato')"]);
+$stato->add_js(['onclick',"this.value='';"]);
+
+//$submit =  new input("submit","stato-submit","ok");
+$form->add($redirect);
+$form->add($stato,true);
+//$form->add($submit);
+
+echo $form->to_html();
+
+}
+?>
+</div>
 <div id="middle">
 <!--
 <div id="header">

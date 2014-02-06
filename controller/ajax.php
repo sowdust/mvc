@@ -29,6 +29,9 @@ class ajax extends controller {
 			case 'is-tabella':
 				$this->is_tabella($param);
 				break;
+			case 'stato':
+				$this->stato($param);
+				break;
 			default:
 				echo 'ramo default';
 				break;
@@ -67,6 +70,16 @@ class ajax extends controller {
 		if( null == $nick || !regexp::nick($nick) )
 		{
 			echo 'lettere, numeri, \'-\', \'_\' da 3 a 16';
+		}else{
+			echo 'OK';
+		}
+	}
+
+	function stato($stato)
+	{
+		if(null == $stato || !regexp::stato($stato))
+		{
+			echo 'Stato non valido';
 		}else{
 			echo 'OK';
 		}

@@ -33,6 +33,11 @@ abstract class entita {
 		return $luoghi;
 	}
 
+	function get_id()
+	{
+		return $this->id;
+	}
+
 	public function output($string)
 	{
 		$string = nl2br(htmlentities($string));
@@ -53,6 +58,11 @@ abstract class entita {
 			$chil[$count++] = $t;
 		}
 		return $chil;
+	}
+
+	function get_data()
+	{
+		return $this->data;
 	}
 
 }

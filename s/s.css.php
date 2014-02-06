@@ -34,12 +34,10 @@ div#centering {
 
 #header {
 	width: 100%;
-	min-height: 190px;
 	background: white;
-	background-image: url('../img/logo.png');
-	background-repeat:no-repeat;
-	background-position:right center;
-	border: 2px dashed #0b3861;
+	border-right: 2px dashed #0b3861;
+	border-left: 2px dashed #0b3861;
+	padding: 2%;
 }
 
 #middle {
@@ -142,3 +140,9 @@ nav.dark li ul li a:hover {opacity: 0.5;}
 nav.dark li ul li.arrow {background: url(<?php echo config::basehost.config::basedir.config::imgdir; ?>nav/arrowtop.png) top left no-repeat; border-bottom: 0px; height: 10px; margin-top: -22px; margin-bottom: 10px;}
 
 /***** END Dark Menu Styles *****/
+
+
+
+
+/*** GOOGLE MAPS ***/
+#map-canvas { height: 600px; width: 800px; z-index:99;}

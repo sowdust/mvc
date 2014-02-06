@@ -26,7 +26,7 @@ class opera extends entita {
 	public function __construct($db,$id)
 	{
 		$this->tipo_entita = 'opera';
-		$this->db = $db->mysqli;
+		$this->db = ( 'database' == get_class($db) ) ? $db->mysqli : $db;
 		$this->id = $id;
 		$this->get_data_from_db();
 		$this->get_data_from_api();

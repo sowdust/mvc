@@ -59,6 +59,11 @@ function valida_tutto(submit,tutti,obbligatori)
 	return true;
 }
 
+function empty_ricerca()
+{
+	var element = document.getElementById('table');
+	
+}
 
 function ricerca_get_param()
 {

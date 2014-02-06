@@ -17,6 +17,19 @@ class luogo extends entita{
 	private $prov;
 	private $stato;
 
+	public function __construct($db,$id)
+	{
+		$this->tipo_entita = 'luogo';
+		$this->db = ( 'database' == get_class($db) ) ? $db->mysqli : $db;
+		$this->id = $id;
+		$this->get_info_from_db();
+	}
+
+	function get_data()
+	{
+		return $this->data;
+	}
+
 	function get_id()
 	{
 		return $this->id;
@@ -25,38 +38,49 @@ class luogo extends entita{
 	{
 		return $this->lat;
 	}
+
 	function get_lng()
 	{
 		return $this->lng;
 	}
+
 	function get_google_address()
 	{
 		$this->get_address();
 		return $this->address;
 	}
+
 	function get_indirizzo()
 	{
 		return $this->indirizzo;
 	}
+
+	function get_provincia()
+	{
+		return $this->prov;
+	}
+
 	function get_prov()
 	{
 		return $this->prov;
 	}
+
 	function get_citta()
 	{
 		return $this->citta;
 	}
+
 	function get_stato()
 	{
 		return $this->stato;
 	}
 
-	public function __construct($db,$id)
+	function get_tutto()
 	{
-		$this->tipo_entita = 'luogo';
-		$this->db = $db->mysqli;
-		$this->id = $id;
-		$this->get_info_from_db();
+		return	 $this->indirizzo . ', '
+				.$this->citta . ' '
+				.'('.$this->prov.') '
+				.$this->stato;
 	}
 
 	public function get_info_from_db()

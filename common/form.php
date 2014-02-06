@@ -179,12 +179,9 @@ class input{
 				$r.=' />';
 				$r.='<div id = "errori-'.$this->id.'"></div>';
 				break;
-
-
-
-
-
-
+			case 'hidden':
+				$r = '<input type = "hidden" value ="'.$this->value.'" />';
+				break;
 			default:
 				$r = 'Strano input field';
 				break;
@@ -204,6 +201,7 @@ class form {
 	protected $name;
 	protected $id;
 	protected $obbligatori = array();
+	protected $onsubmit;
 
 	function __construct($name = null, $action = null, $method = null, $type = null)
 	{
@@ -248,13 +246,19 @@ class form {
 		$this->fields[] = $field;
 	}
 
+	function set_onsubmit($onsubmit)
+	{
+		$this->onsubmit = $onsubmit;
+	}
+
 	function to_html()
 	{
 		$r = ($this->checks_to_js() ) ? $this->checks_to_js() : '' ;
 		
 		$r.= '<div id="errori-form-'.$this->id.'"></div>'
 			.'<form name="'.$this->name .'" method="'.$this->method
-			.'" action="'.$this->action.'" enctype="'.$this->type.'" id="'.$this->id.'" onsubmit="return valida_tutto(this,lista_elementi,obbligatori);">';
+			.'" action="'.$this->action.'" enctype="'.$this->type.'" id="'.$this->id
+			.' onsubmit = "'.$this->onsubmit.'">';
 		foreach($this->fields as $field)
 		{
 			$r.= $field->to_html();

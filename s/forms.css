@@ -1,3 +1,4 @@
+
 select,input,textarea {
   border-style: solid;
   border-color: #c0c0c0;
@@ -8,6 +9,12 @@ select,input,textarea {
   padding: 1%;
   text-align: center;
 }
+
+
+#header form, #header input {
+  display: inline ;
+}
+
 
 textarea {
   text-align: left;

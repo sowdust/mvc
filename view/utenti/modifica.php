@@ -1,6 +1,6 @@
 <?php
 
-require('common/form.php');
+require_once('common/form.php');
 
 	/*
 		prende i dati utente da $this->model

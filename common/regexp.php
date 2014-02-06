@@ -28,6 +28,11 @@ abstract class regexp {
 			return self::password($pass);
 		}
 
+		static function stato($stato)
+		{
+			return (strlen($stato) < 161 && strlen($stato)>2);
+		}
+
 		static function email($email)
 		{
 			//	trovata in rete			

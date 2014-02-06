@@ -88,7 +88,7 @@ class luoghi extends controller {
 		}
 
 		$luogo = new luogo($this->db, $id);
-		$this->set_view('luogo','vedi');
+		$this->set_view('luoghi','vedi');
 		$this->view->set_model($luogo);
 		$this->view->render();
 		die();

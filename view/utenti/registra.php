@@ -1,7 +1,7 @@
 
 <?php
 
-require('common/form.php');
+require_once('common/form.php');
 
 $form = new form();
 $form->set_action(init::link('registra'));
