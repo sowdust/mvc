@@ -32,6 +32,15 @@ function valida(elemento,funzione)
 	});
 }
 
+function rimuovi_notifica(id)
+{
+	var url = "<?php echo URL; ?>" + 'rimuovi-notifica' + '/' + id;
+	$.get(url,function(data,status){
+
+	});
+
+}
+
 function valida_tutto(submit,tutti,obbligatori)
 {
 	for (var i=0;i<tutti.length;i++)

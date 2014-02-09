@@ -4,16 +4,16 @@ require_once('entita.php');
 
 class commento extends entita {
 
-	protected $tipo_entita;
+	public $tipo_entita;
 	protected $db;
-	protected $id;
+	public $id;
 	// si riferiscono al padre
 	protected $id_entita_padre;
 	protected $tipo_entita_padre;
 
-	protected $data;
-	protected $testo;
-	protected $id_utente;
+	public $data;
+	public $testo;
+	public $id_utente;
 
 	function __construct($db,$id)
 	{	//TODO forse da fare con dati entita' e non id commento
@@ -23,6 +23,8 @@ class commento extends entita {
 		$this->get_data_from_db();
 		
 	}
+
+	
 
 	function get_data()
 	{
@@ -39,7 +41,7 @@ class commento extends entita {
 	{
 		$q = $this->db->prepare('SELECT id_utente, id_entita, tipo_entita, date_format(data,"%d/%m/%Y") as data, testo FROM commenti WHERE id = (?)');
 		$q->bind_param('i',$this->id);
-		$q->execute() or die();
+		$q->execute() or die('er 42');
 		$q->bind_result($this->id_utente,$this->id_entita,$this->tipo_entita,$this->data,$this->testo);
 		$q->fetch();
 		$q->close();
@@ -53,7 +55,7 @@ class commento extends entita {
 		$t = null;
 		$count = 0;
 		$chil = array();
-		$q->execute() or die();
+		$q->execute() or die('56');
 		$q->bind_result($t);
 		while($q->fetch())
 		{

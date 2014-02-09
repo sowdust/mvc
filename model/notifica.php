@@ -1,20 +1,45 @@
 <?php
 
+require_once('model/user.php');
+
 class notifica{
 
+	private $id;
+	private $id_utente;
 	private $tipo;
 	private $id_elemento;
 	private $data;
-	
-	public function __construct($tipo,$id_elemento,$data = null)
+
+	public function __construct($db, $id)
 	{
-		$this->tipo = $tipo;
-		$this->id_elemento = $id_elemento;
-		if(null == $data)
+		if(!is_numeric($id) || null == $id)
 		{
-			$data = time();
+			die();
 		}
-		$this->data = $data;
+		$this->id = $id;
+		$this->db = ( 'database' == get_class($db) ) ? $db->mysqli : $db;
+		$this-> update_info_from_db();
+
+	}
+
+	function rimuovi()
+	{
+		$q = $this->db->prepare("DELETE FROM notifiche WHERE id = (?)");
+		$q->bind_param('i',$this->id);
+		$q->execute();
+		$q->close();
+		unset($q);
+	}
+
+	function update_info_from_db()
+	{
+		$q = $this->db->prepare('SELECT id_utente,tipo,id_elemento,date_format(data,"%e/%m %H:%i") as data FROM notifiche WHERE id = (?) ORDER BY data DESC LIMIT 0,1');
+		$q->bind_param('i',$this->id);
+		$q->execute() or die('impossibile ottenere lo stato');
+		$q->bind_result($this->id_utente,$this->tipo,$this->id_elemento,$this->data);
+		$q->fetch();
+		$q->close();
+		unset($q);
 	}
 
 	public function testo()
@@ -23,24 +48,27 @@ class notifica{
 		switch($this->tipo)
 		{
 			case 'amicizia-richiesta':
-				$testo = 'Hai ricevuto una richiesta di amicizia'
-					.'Clicca <a href="profilo_utente.php?id='.$this->id_elemento.'">QUI</a>'
-					.'Per vedere l&acute;utente che ne ha fatto richiesta.<br />'
-					.'<a href="amicizia.php?id='.$this->id_elemento.'&op=accetta">Accetta</a> - '
-					.'<a href="amicizia.php?id='.$this->id_elemento.'&op=nega">Nega</a>';
+				$user = new user($this->db, $this->id_elemento);
+				$testo = 'Amicizia richiesta da '
+					.'<a href="'.init::link('utenti','vedi',$this->id_elemento).'">'.$user->get_info()['nick'].'</a>:'
+					.'<a onclick="rimuovi_notifica('.$this->id.');" href="'.init::link('amicizie','accetta',$this->id_elemento).'">Accetta</a>'
+					.'<a onclick="rimuovi_notifica('.$this->id.');" href="'.init::link('amicizie','nega',$this->id_elemento).'">Nega</a>';
 				break;
 			case 'amicizia-accettata':
-				$testo = 'Richiesta di amicizia accettata. <a href="profilo_utente.php?id='.$this->id_elemento.'">'
-					.'Guarda il profilo del tuo nuovo amico</a>';
+				$user = new user($this->db, $this->id_elemento);
+				$testo = 'Tu e <a href="profilo_utente.php?id='.$this->id_elemento.'">'
+					.$user->get_info()['nick'].'</a> siete amici. <a href="#"  onclick="rimuovi_notifica('.$this->id.');return false;">OK!</a>';
 				break;
 			case 'amicizia-rimossa':
 				$testo = 'Uno dei tuoi amici ti ha eliminato dalla sua lista';
 				break;
 			case 'amicizia-negata':
-				$testo = 'Una tua richiesta di amicizia &egrave; stata negata';
+				$user = new user($this->db, $this->id_elemento);
+				$testo = $user->get_info()['nick'] . 'ha negato la tua richiesta di amicizia';
+				$testo .= '<a href="#"  onclick="rimuovi_notifica('.$this->id.');return false;">OK!</a>';				
 				break;
 			default:
-				$testo = '';
+				$testo = 'default';
 				break;
 		}
 		return $testo;

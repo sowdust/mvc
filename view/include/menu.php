@@ -44,6 +44,7 @@
 
 
 <!--	Opere 	-->
+<!--
 				<li><?php echo '<a href="' . init::link('opere') .'">Opere</a>'; ?>
 				
 <?php
@@ -58,7 +59,7 @@
 ?>					
 				</li>
 
-
+-->
 
 <!--	ricerca		-->
 		<li><?php echo '<a href="' . init::link('ricerche') .'">Archivio</a>'; ?></li>
@@ -66,28 +67,63 @@
 
 
 
+<?php
+
+require_once('model/notifica.php');
+
+if(isset($this->user) && $this->user->get_type() >= 0)
+{
+	$notifiche = $this->user->get_notifiche();
+	if(!empty($notifiche))
+	{
+		echo '<li><a href="#">Hai '.sizeof($notifiche).' notifiche</a>';
+		echo '<ul>';
+		foreach ($notifiche as $n)
+		{
+			//$n = new notifica($n['tipo'],$n['id_elemento'],$n['data']);
+			echo '<li>'.$n->testo().'</li>';
+		}
+		echo '</ul>';
+		echo '</li>';
+	}
+}
+
+?>
+
+
+
 			</ul>
+
+<div id="stato">
+<?php
+
+if(isset($this->user) && $this->user->get_type()>=0 )
+{
+
+$form = new form();
+$form->set_action(init::link('stati','aggiungi'));
+$form->set_name('stato');
+$form->set_id('stato');
+$redirect = new input("hidden","redirect");
+$stato = new input("text","stato");
+//$stato->set_legend('Stato');
+$stato->set_id('stato-testo');
+$stato->set_value('Cambia stato...');
+$redirect->set_value($_SERVER['REQUEST_URI']);
+//$nick->add_js(['onblur','valida("login-nick","check_nick")']);
+$stato->add_js(['onblur',"valida(this,'stato')"]);
+$stato->add_js(['onsubmit',"valida(this,'stato')"]);
+$stato->add_js(['onclick',"this.value='';"]);
+
+//$submit =  new input("submit","stato-submit","ok");
+$form->add($redirect);
+$form->add($stato,true);
+//$form->add($submit);
+
+echo $form->to_html();
+
+}
+?>
+</div>
+
 		</nav>
-
-<!--
-<div id="menu">
-<ul class="menu">
-<li><a href="index.php" class="menu">Home</a></li>
-
-<?php
-
-	echo '<li><a href="' . init::link('opere') .'" class="menu">Opere</a></li>';
-	echo '<li><a href="' . init::link('luoghi') .'" class="menu">Luoghi</a></li>';
-	echo '<li><a href="' . init::link('utenti') .'" class="menu">Utenti</a></li>';
-
-?>
-<br><BR>
-<?php
-
-	//include('menu_user.php');
-
-	//include('menu_admin.php');
-
-
-?>
-</ul></div>-->

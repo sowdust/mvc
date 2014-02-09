@@ -180,7 +180,7 @@ class input{
 				$r.='<div id = "errori-'.$this->id.'"></div>';
 				break;
 			case 'hidden':
-				$r = '<input type = "hidden" value ="'.$this->value.'" />';
+				$r = '<input type = "hidden" value ="'.$this->value.'" name = "'.$this->name.'"/>';
 				break;
 			default:
 				$r = 'Strano input field';

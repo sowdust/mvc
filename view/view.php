@@ -48,6 +48,10 @@ class view {
 		{
 			$this->set_js('form.js.php');
 		}
+		if(!in_array('commenti.js.php', $this->js))
+		{
+			$this->set_js('commenti.js.php');
+		}
 		if($formatted)
 		{
 			require_once('view/include/head.php');

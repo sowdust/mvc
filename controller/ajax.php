@@ -32,10 +32,37 @@ class ajax extends controller {
 			case 'stato':
 				$this->stato($param);
 				break;
+			case 'rimuovi-notifica':
+				$this->rimuovi_notifica($param);
+				break;
+			case 'get-commenti':
+				$this->get_commenti($param);
+				break;
 			default:
 				echo 'ramo default';
 				break;
 		}
+	}
+
+	function get_commenti($id)
+	{
+		require_once('model/commento.php');
+		$commento = new commento($db,$_GET['id']);
+		$o = '';
+		foreach($commento->get_children() as $c)
+		{
+			$tmp = new commento($db,$c);
+			$o .= $tmp->stampa();
+		}
+		echo $o;
+	}
+
+	function rimuovi_notifica($id)
+	{
+		require_once('model/notifica.php');
+		$notifica = new notifica($this->db,$id);
+		$notifica->rimuovi();
+		echo $id;
 	}
 
 	function is_tabella($tabella)

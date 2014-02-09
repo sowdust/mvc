@@ -13,7 +13,7 @@ abstract class regexp {
 
 		static function testo($testo)
 		{
-			return true;
+			return strlen($testo) > 2;
 		}
 
 		static function password($pass)

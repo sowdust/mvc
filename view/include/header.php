@@ -3,6 +3,7 @@
 <?php include('menu.php'); ?>
 <div id="centering">
 <div id="header">
+<!--
 <?php
 
 if(isset($this->user) && $this->user->get_type()>=0 )
@@ -31,7 +32,7 @@ $form->add($stato,true);
 echo $form->to_html();
 
 }
-?>
+?>-->
 </div>
 <div id="middle">
 <!--

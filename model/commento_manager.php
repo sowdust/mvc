@@ -1,5 +1,7 @@
 <?php
 
+require_once('common/regexp.php');
+
 class commento_manager {
 	
 	private $commenti;
@@ -12,28 +14,25 @@ class commento_manager {
 
 	public function __construct($db)
 	{
-		$this->db = $db->mysqli;
-		$this->refresh_commenti();
+		$this->db = ( 'database' == get_class($db) ) ? $db->mysqli : $db;
 	}
 
-	public function add_commento($id_utente,$id_entita,$tipo_entita)
+	public function add_commento($id_utente,$id_entita,$tipo_entita,$testo)
 	{
-		if(!is_entita($tipo_entita)) die ('entita non valida');
+		if(!regexp::entita($tipo_entita)) die ('entita non valida');
 		if(!is_numeric($id_utente) || !is_numeric($id_entita))
 		{
 			die();
 		}
 
-		$q = $this->db->prepare('INSERT INTO commenti (id_utente,id_entita,tipo_entita,testo,data)
-			VALUES ( (?),(?),(?),(?), now() )');
+		$q = $this->db->prepare('INSERT INTO commenti (id_utente,id_entita,tipo_entita,testo,data) VALUES ( (?),(?),(?),(?),now()  )');
 		$q->bind_param('iiss',$id_utente,$id_entita,$tipo_entita,$testo);
 		if(!$q->execute())
 		{
-			$msg_errore = 'inserimento fallito';
-			include('../view/errore.php');
-			die();
+			return false;
 		}
 		$q->close();
+		return true;
 	}
 
 	public function remove_commento($id_commento,$tipo_entita = null)

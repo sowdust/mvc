@@ -19,11 +19,32 @@ class amicizie extends controller {
 				break;
 			case 'accetta':
 				$this->accetta($param);
+				break;
+			case 'nega':
+				$this->nega($param);
+				break;
 			default:
 				break;
 		}
 		$this->set_view('index');
 		$this->view->render();
+	}
+
+	function nega($id)
+	{
+		if (null == $id || !is_numeric($id))
+		{
+			$this->set_view('errore');
+			$this->view->set_message('id non valido');
+			$this->view->set_user($this->user);
+			$this->view->render();
+			die();
+		}
+
+		$amicizia = new amicizia($this->db,$this->user->get_id(),$id);
+		$amicizia->nega();
+		$da_notificare = new user($this->db,$id);
+		$da_notificare->add_notifica('amicizia-negata',$this->user->get_id());
 	}
 
 	function richiedi($id)

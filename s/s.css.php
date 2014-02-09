@@ -47,6 +47,8 @@ div#centering {
 	border-right: 2px dashed #0b3861;
 	border-left: 2px dashed #0b3861;
 	padding: 2%;
+	display: block;
+	height:100%;
 
 }
 
@@ -56,15 +58,19 @@ div#centering {
 	border: 2px dashed #0b3861;
 	border-top: 0;
 	padding: 2%;
+	display:block;
 }
 
 
 
-/***** BEGIN Dark Menu Styles }
+/*****    MENU
 .clear:after { content: "."; display: block; height: 0; clear: both; visibility: hidden;}
 html[xmlns] .clear { display: block;}
 * html .clear { height: 1%;}
 *****/
+
+
+
 
 nav.dark {
 	background: #2E2E2E;
@@ -73,6 +79,7 @@ nav.dark {
 	width:100%;
 	border-top: 0px;
 	border-bottom: 1px solid #121317;
+	color:white;
 	
 }
 nav.dark ul {

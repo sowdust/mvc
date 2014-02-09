@@ -67,15 +67,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <body>
 <div id="panel">
 <form name="aggiungi_luogo" action = "<?php echo init::link('luoghi','aggiungi'); ?>" method="post" id="aggiungi-luogo">
+Da questa sezione &egrave; possibile aggiungere un luogo: compila i campi e prova a fare il geocode dell&acute; indirizzo.<br />
+Se ha successo, clicca su OK per aggiungere il luogo al tuo profilo.<br />
+Ricordati di inserire sempre almeno Stato e Citt&agrave; altrimenti il luogo non sar&agrave; inserito.<br />
 <input type="hidden" name="location" id="location_place">
 <input id="indirizzo" type="text" name="indirizzo" value="Indirizzo" onclick="this.value=''">
-<input id="citta" type="text" name="citta" value="Citta'" onclick="this.value=''">
+<input id="citta" type="text" name="citta" value="Citta" onclick="this.value=''">
 <input id="prov" type="text" name="prov" value="Provincia" onclick="this.value=''">
 <input id="stato" type="text" name="stato" value="Stato" onclick="this.value=''">
 <!--      <input id="address" type="textbox" value="Sydney, NSW"> -->
-<input type="button" value="Geocode" onclick="codeAddress()"><br />
-<label for="conferma">Quando il luogo ti soddisfa, clicca su ok:</label>
-<a href="index.php">Home</a>
+<input type="button" value="Geocode" onclick="codeAddress()"><br /><br />
+<label for="conferma">Quando il luogo ti soddisfa, clicca su ok: </label><br />
+<a href="index.php">Torna alla home</a>
 <!--<button onclick="goBack(2)">Torna indietro</button>-->
 </form>
     </div>

@@ -37,7 +37,7 @@ class luoghi extends controller {
 			$this->view->render(false); //false?
 			die();
 		}
-		if(empty($_POST['citta']) || empty($_POST['stato']))
+		if(empty($_POST['citta']) || empty($_POST['stato']) || $_POST['stato'] == 'Stato' || $_POST['citta'] == 'Citta') 
 		{
 			$this->set_view('errore');
 			$this->view->set_message('citt&agrave; e stato sono obbligatori');

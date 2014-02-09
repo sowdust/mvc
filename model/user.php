@@ -327,19 +327,18 @@ class user extends entita {
 	{
 		require_once('model/notifica.php');
 
-		$q = "SELECT id FROM notifiche WHERE id_utente = '".$this->id."' ORDER BY data DESC LIMIT 0,10";
+		$q = "SELECT id FROM notifiche WHERE id_utente = '".$this->id."' ORDER BY data DESC";
 		if(!($r = $this->db->query($q)))
 		{
 				die('query fallita');
 		}
-
+		
 		$notifiche = array();
 
 		while( $c = $r->fetch_assoc() )
 		{
 				$notifiche[] = new notifica($this->db,$c['id']);
 		}
-
 		return $notifiche;
 
 		$r->close();

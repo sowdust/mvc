@@ -22,9 +22,12 @@ foreach($lista_luoghi as $luogo)
 	echo '<td>'.$luogo['lng'].'</td>';
 	echo '<td>'.$luogo['data'].'</td>';
 	echo '<td>';
+	echo '<a href="'.init::link('luoghi','vedi',$luogo['id']).'">Dettagli</a>';
+
 	if($this->user->get_type() == 1 || $luogo['id_utente']==$this->user->get_id())
 	{
-		echo '<a href="luogo.php?op=remove&id='.$luogo['id'].'">Remove</a>';
+
+		echo '<a href="'.init::link('luoghi','rimuovi',$luogo['id']).'">Remove</a>';
 	}
 
 	echo '</td></tr>';

@@ -182,7 +182,13 @@ class utenti extends controller {
 		}
 		if($amicizia->is_pending())
 		{
-			$messaggio = 'Amicizia non ancora confermata';
+			$user = new user($this->db, $id);
+			$this->set_view('utenti','vedi_limitato');
+			$this->view->set_user($this->user);
+			$this->view->set_model($user);
+			$this->view->set_db($this->db);
+			$this->view->render();
+			die();
 		}
 		else {
 			$messaggio = 'Devi richiedere l&acute;amicizia per vedere un profilo';

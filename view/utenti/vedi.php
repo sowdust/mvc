@@ -1,22 +1,26 @@
 <?php $amico = $this->model; ?>
+<?php $info = $amico->get_info(); ?>
 
-<h1><?php echo $amico->get_info()['nick']; ?> </h1>
+<h1><?php echo $amico->info['nick']; ?> </h1>
 <h2><?php echo $amico->get_stato(); ?> </h2>
+<table>
+<tr><td width="30%" valign="top">
+<img src="<?php echo config::basehost.config::basedir.config::user_img.$amico->get_info()['foto']; ?>" alt="<?php echo $amico->get_info()['nick']; ?>" style="width:100%;" />
+</td><td valign="top">
+<h3 style="padding:10px">Presentazione personale</h3>
+<p style="padding:20px">
+<?php echo nl2br(htmlentities($info['personale'])); ?>
+</p>
+</td></tr>
+</table>
+<p>
+</p>
 
-<div style = "display:block;">
-<div style = "width:25%;float:left;padding:1em">
-<img src="<?php echo config::basehost.config::basedir.config::user_img.$amico->get_info()['foto']; ?>" alt="<?php echo $amico->get_info()['nick']; ?>" width="100%" />
-</div>
-<div style = "float:left;padding:1em">
-<p><?php echo $amico->get_info()['personale']; ?></p>
-</div>
-</div>
 
-<div style = "display:block;">
-
+<h3>Gli ultimi stati di <?php echo $amico->info['nick']; ?></h3>
 <?php
 
-$stati = $this->user->get_stati();
+$stati = $amico->get_stati();
 echo '<ul>';
 foreach($stati as $s)
 {
@@ -29,19 +33,18 @@ foreach($stati as $s)
 	echo '</li>';
 }
 echo '</ul>';
-?>
-
-</div>
-<?php
 
 
-$stati = $this->user->get_notifiche();
-foreach($stati as $s)
+$form_commenti = new view('commenti','aggiungi');
+$form_commenti->set_message(array('id_entita'=>$amico->get_id(),'tipo_entita'=>'utente'));
+$form_commenti->render(false);
+
+require_once('model/commento.php');
+foreach($amico->get_commenti() as $c)
 {
-	var_dump($s);
-	echo $s->stampa();
-	echo $s->get_data();
-	//echo $s->
+	$c = new commento($this->db,$c);
+	echo $c->stampa();
 }
+//var_dump($commenti);
 
 ?>
