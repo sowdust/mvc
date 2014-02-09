@@ -5,7 +5,10 @@ class ajax extends controller {
 
 	function __construct($method = null, $param = null)
 	{
+
 		$this->set_db();
+		$this->manage_session(1);
+
 		switch ($method) {
 			case 'nick':
 				$this->nick($param);
@@ -47,12 +50,15 @@ class ajax extends controller {
 	function get_commenti($id)
 	{
 		require_once('model/commento.php');
-		$commento = new commento($db,$_GET['id']);
+		$commento = new commento($this->db,$id);
 		$o = '';
-		foreach($commento->get_children() as $c)
+		foreach($commento->get_children() as $id_com)
 		{
-			$tmp = new commento($db,$c);
-			$o .= $tmp->stampa();
+			$c = new view('commenti','vedi');
+			$c->set_message($id_com);
+			$c->set_db($this->db);
+			$c->set_user($this->user);
+			$c->render(false);
 		}
 		echo $o;
 	}

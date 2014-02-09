@@ -40,10 +40,13 @@ $form_commenti->set_message(array('id_entita'=>$amico->get_id(),'tipo_entita'=>'
 $form_commenti->render(false);
 
 require_once('model/commento.php');
-foreach($amico->get_commenti() as $c)
+foreach($amico->get_commenti() as $id_com)
 {
-	$c = new commento($this->db,$c);
-	echo $c->stampa();
+	$c = new view('commenti','vedi');
+	$c->set_message($id_com);
+	$c->set_db($this->db);
+	$c->set_user($this->user);
+	$c->render(false);
 }
 //var_dump($commenti);
 
