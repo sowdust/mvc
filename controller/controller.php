@@ -75,13 +75,18 @@ class controller {
 		{
 			$session = unserialize($_SESSION['sess_data']);
 			$session->set_db($this->db->mysqli);
+                        //$session->get_session_for_user($user_id);
+                        $session->set_previous_page($session->get_current_page());
+                        $session->set_current_page('index.php?'.explode('?',$_SERVER['REQUEST_URI'])[1]);
 			$session->refresh();
 			$this->user = new user($this->db,$session->get_user_id());
 			if($this->user->get_type() < 0 )
 			{
 				die('sessione falsa?');
 			}
+                        
 			$this->user->set_session($session);
+                        $_SESSION['sess_data'] = serialize($session);
 			unset($session);
 			
 		}elseif($auth_required > 0 ){

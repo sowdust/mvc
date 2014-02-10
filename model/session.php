@@ -12,6 +12,8 @@ class session {
 	private	$secret;
 	private $start;
 	private $user_id;
+        private $current_page;
+        private $previous_page;
 
 	function __construct($db,$user_id)
 	{
@@ -29,6 +31,25 @@ class session {
 			$this->refresh();
 		}
 	}
+        
+        function set_current_page($i)
+        {
+            $this->current_page = $i;
+        }
+        
+        function set_previous_page($i)
+        {
+            $this->previous_page = $i;
+        }
+        
+        function get_current_page()
+        {
+            return $this->current_page;
+        }        
+        function get_previous_page()
+        {
+            return $this->previous_page;
+        }
 
 	public static function get_user_type_and_id($db,$nick,$pass)
 	{
@@ -81,9 +102,10 @@ class session {
 		return $this->user_id;
 	}
 	public function refresh()
-	{
-		$this->start->setTimestamp(time());
-		$this->db->query("UPDATE sessioni SET start = \"".$this->start->format('Y-m-d H:i:s.u')."\" WHERE id_sessione = \"".$this->session_id."\"") or die($this->db->error);
+        {		
+            $this->start->setTimestamp(time());
+            //die('curr'.$this->current_page);
+            $this->db->query("UPDATE sessioni SET start = \"".$this->start->format('Y-m-d H:i:s.u')."\", current_page = \"".$this->current_page."\",previous_page = \"".$this->previous_page."\" WHERE id_sessione = \"".$this->session_id."\" ") or die($this->db->error);
 	}
 
 	private function new_session()
@@ -91,17 +113,17 @@ class session {
 		$this->secret = md5(time()+$this->_SEED);
 		$this->session_id = uniqid("",true);
 		$this->start = new DateTime();
-		$r = $this->db->query("INSERT INTO sessioni (id_sessione,id_utente,secret,start) VALUES ( \"".$this->session_id." \",  \"".$this->user_id." \", \"".$this->secret." \", \"" . $this->start->format('Y-m-d H:i:s.u') . "\")") or die ("errore insert");
+		$r = $this->db->query("INSERT INTO sessioni (id_sessione,id_utente,secret,start,current_page) VALUES ( \"".$this->session_id." \",  \"".$this->user_id." \", \"".$this->secret." \", \"" . $this->start->format('Y-m-d H:i:s.u') . "\", \"".$_SERVER['REQUEST_URI']." \" )") or die ("errore insert");
 
 	}
 	
 	private function get_session_for_user($user_id)
 	{
-		if(!($q = $this->db->prepare("SELECT id_sessione,secret,start FROM sessioni WHERE id_utente = (?) and start >= DATE_SUB(now(),INTERVAL 30 MINUTE) ORDER BY start DESC LIMIT 0,1"))) die ("error".$this->db->error);
+		if(!($q = $this->db->prepare("SELECT id_sessione,secret,start,current_page,previous_page FROM sessioni WHERE id_utente = (?) and start >= DATE_SUB(now(),INTERVAL 30 MINUTE) ORDER BY start DESC LIMIT 0,1"))) die ("error".$this->db->error);
 		$q->bind_param('i',$user_id);
 		$q->execute();
 		$q->store_result();
-		$q->bind_result($this->session_id,$this->secret,$temp);
+		$q->bind_result($this->session_id,$this->secret,$temp,$this->current_page,$this->previous_page);
 		$this->start = new DateTime($temp);
 		$q->fetch();
 		if($this->db->affected_rows)

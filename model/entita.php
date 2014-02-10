@@ -3,7 +3,7 @@
 abstract class entita {
 
 
-	public function get_luoghi($id_entita = null)
+	/*public function get_luoghi($id_entita = null)
 	{
 		if(null == $id_entita)
 		{
@@ -31,7 +31,7 @@ abstract class entita {
 			++$count;
 		}
 		return $luoghi;
-	}
+	}*/
 
 	function get_id()
 	{

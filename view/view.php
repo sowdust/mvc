@@ -8,7 +8,8 @@ class view {
 	protected $user;
 	protected $db;
 	protected $js = array();
-
+        protected $redirect;
+        
 	function __construct($name,$sub=null)
 	{
 		$sub = ( null == $sub ) ? 'index' : $sub;
@@ -16,7 +17,12 @@ class view {
 		$this->filename = 'view/'.$name.'/'.$sub.'.php';
 		if(!file_exists($this->filename)) die ('view inesistente');
 	}
-
+        
+        function set_redirect($url)
+        {
+            $this->redirect = $url;
+        }
+        
 	function set_js($js)
 	{
 		$this->js[] = $js;
@@ -58,9 +64,13 @@ class view {
 			require_once('view/include/header.php');
 			//require_once('view/include/menu.php');
 			require_once($this->filename);
+                        if(isset($this->redirect))
+                        {
+                            require_once('view/messaggio/redirect.php');
+                        }
 			require_once('view/include/footer.php');
 		}else{
-			require_once($this->filename);
+			require($this->filename);
 		}
 	}
 

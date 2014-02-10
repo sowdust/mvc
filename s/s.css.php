@@ -23,13 +23,20 @@ html {
 }
 
 body {
-	margin-top: 3%;
+	margin-top: 2%;
 	font-family: Helvetica;
-
+        color: rgb(50,50,50);
+        font-size: 14px;
+        }
+        
+p {
+    padding: 15px;
 }
 
+
 div#centering {
-	width: 90%;
+	width: 75%;
+        min-width: 600px;
 }
 
 #header {
@@ -61,6 +68,31 @@ div#centering {
 	display:block;
 }
 
+.data {
+    font-color: #c0c0c0;
+   }
+
+div.commento {
+    margin:8px;
+    margin-left:30px;
+}
+
+div.commento-header {
+    background-color:#d5edf8;
+    color: #205791;
+}
+
+div.commento-footer {
+    border: 1px #c0c0c0 dotted;
+}
+
+div.commento-content {
+}
+
+
+#map-canvas {
+     width: 600px;
+}
 
 
 /*****    MENU

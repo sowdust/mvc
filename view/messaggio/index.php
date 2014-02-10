@@ -1,1 +1,3 @@
+<div class="info">
 <?php echo $this->message; ?>
+</div>

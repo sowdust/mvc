@@ -7,7 +7,6 @@ class ajax extends controller {
 	{
 
 		$this->set_db();
-		$this->manage_session(1);
 
 		switch ($method) {
 			case 'nick':
@@ -49,6 +48,8 @@ class ajax extends controller {
 
 	function get_commenti($id)
 	{
+		$this->manage_session(1);
+
 		require_once('model/commento.php');
 		$commento = new commento($this->db,$id);
 		$o = '';

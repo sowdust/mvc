@@ -60,6 +60,14 @@ class utenti extends controller {
 			die();
 		}
 
+		if(!regexp::email($_POST['email']))
+		{
+			$this->set_view('errore');
+			$this->view->set_message('email non valida');
+			$this->view->render();
+			die();
+		}
+
 	//	controllo password
 
 		if( ( (strcmp( md5( trim( $_POST['pass'] ) ), trim($utente->get_info()['pass_hash'] ) ) ) != 0 )
@@ -86,6 +94,7 @@ class utenti extends controller {
 			}
 			$rand = uniqid('',true);
 			$nome_immagine = $rand.'.'.$estensione;
+                   
 			if(!move_uploaded_file($_FILES['foto']['tmp_name'], config::serverpath.config::user_img.$nome_immagine ))
 			{
 				$this->set_view('errore');
@@ -120,14 +129,14 @@ class utenti extends controller {
 
 			$new_info['pass_hash'] = md5($_POST['new_pass']);
 		}
+                
+		$new_info['personale'] = $_POST['personale'];
 
-		$new_info['personale'] = mysql_real_escape_string($_POST['personale']);
-
-		if($utente->set_info($new_info))
+                if($utente->set_info($new_info))
 		{				
 			$this->set_view('messaggio');
 			$this->view->set_message('Profilo aggiornato');
-			$this->view->render();
+                        $this->view->render();
 			die();
 
 		} else {
@@ -137,11 +146,7 @@ class utenti extends controller {
 			$this->view->render();
 			die();
 		}
-
-		$this->set_view('messaggio');
-		$this->view->set_message('Profilo modificato');
-		$this->view->render();
-
+                die();
 	}
 
 	function lista()

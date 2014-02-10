@@ -5,16 +5,35 @@ $utente = new user($this->db,$commento->id_utente);
 ?>
 
 <div id="commento_<?php echo $commento->id; ?>" class="commento">
-
-Il <?php echo $commento->data; ?> 
+ <div class="commento-header">
+<span class="data"><?php echo $commento->data; ?></span>
 <a href="<?php echo init::link('utenti','vedi',$utente->get_id()); ?>" >
 <?php echo $utente->get_info()['nick']; ?>
 </a>
-ha scritto:
+ha scritto
+ </div>
+    <div class="commento-content">
+        
+        
+        
+        
+        
+        
+        
+        
 <div id="contenuto_commento_<?php echo $commento->id; ?>">
-<?php echo htmlentities($commento->testo); ?><br />
+    <p>
+<?php echo nl2br(htmlentities($commento->testo)); ?><br />
+    </p>
+ </div>
+
+        
+        
+        
+
+<div class="commento-footer">
 <!-- <a href="aggiungi_commento.php?id_entita='.$this->id.'&tipo_entita=commento">commenta</a> -->
-<a href="#" onclick="comment_form(<?php echo $commento->id; ?>);return false;">Commenta</a>
+<a href="#" onclick="comment_form(<?php echo $commento->id; ?>,'commento');return false;">Commenta</a>
 <?php
 if($this->user->get_type() > 0 || $this->user->get_id()==$utente->get_id())
 {
@@ -22,7 +41,7 @@ if($this->user->get_type() > 0 || $this->user->get_id()==$utente->get_id())
 }
 
 ?>
-
+</div>
 
 </div>
 <?php 

@@ -7,7 +7,6 @@ class init {
 
 	function __construct($req)
 	{
-
 		$req = (empty($req)) ? 'index' : rtrim($req,'/') ;
 		$req = explode('/',$req);
 

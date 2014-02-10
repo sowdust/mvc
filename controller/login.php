@@ -26,7 +26,7 @@ class login extends controller {
 			$this->view->render();
 			die();
 		}else{
-			$this->set_view('errore');
+			$this->set_view('messaggio');
 			$this->view->set_message('Login effettuato');
 			$this->view->render();
 			die();

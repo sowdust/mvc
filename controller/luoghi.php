@@ -34,7 +34,8 @@ class luoghi extends controller {
 		if(!isset($_POST['location']))
 		{
 			$this->set_view('luoghi','aggiungi');
-			$this->view->render(false); //false?
+                        $this->view->set_js('mappe.js');
+			$this->view->render(); //false?
 			die();
 		}
 		if(empty($_POST['citta']) || empty($_POST['stato']) || $_POST['stato'] == 'Stato' || $_POST['citta'] == 'Citta') 
@@ -46,8 +47,8 @@ class luoghi extends controller {
 		}
 		if(	!regexp::testo($_POST['citta'])
 			|| !regexp::testo($_POST['stato'])
-			|| (strlen($_POST['indirizzo'])>1 && !regexp::testo($_POST['indirizzo']))
-			|| (strlen($_POST['prov'])>1 && !regexp::testo($_POST['prov']))
+			//|| (strlen($_POST['indirizzo'])>1 && !regexp::testo($_POST['indirizzo']))
+			//|| (strlen($_POST['prov'])>1 && !regexp::testo($_POST['prov']))
 			)
 		{
 			$this->set_view('errore');
@@ -113,6 +114,7 @@ class luoghi extends controller {
 
 			$this->set_view('messaggio');
 			$this->view->set_message('Luogo rimosso');
+                        $this->view->set_redirect($this->user->session->get_previous_page());
 			$this->view->render();
 			die();
 		

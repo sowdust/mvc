@@ -107,6 +107,7 @@ class commenti extends controller {
 
 		$this->set_view('messaggio');
 		$this->view->set_message('commento rimosso');
+                $this->view->set_redirect($this->user->session->get_previous_page());
 		$this->view->render();
 		die();
 	}

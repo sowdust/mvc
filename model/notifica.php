@@ -51,8 +51,8 @@ class notifica{
 				$user = new user($this->db, $this->id_elemento);
 				$testo = 'Amicizia richiesta da '
 					.'<a href="'.init::link('utenti','vedi',$this->id_elemento).'">'.$user->get_info()['nick'].'</a>:'
-					.'<a onclick="rimuovi_notifica('.$this->id.');" href="'.init::link('amicizie','accetta',$this->id_elemento).'">Accetta</a>'
-					.'<a onclick="rimuovi_notifica('.$this->id.');" href="'.init::link('amicizie','nega',$this->id_elemento).'">Nega</a>';
+					.'<a onclick="rimuovi_notifica('.$this->id.');" href="'.init::link('amicizie','accetta',$this->id_elemento).'"><img src="'.config::icons.'ok.png" width="20px" /></a>'
+					.'<a onclick="rimuovi_notifica('.$this->id.');" href="'.init::link('amicizie','nega',$this->id_elemento).'"><img src="'.config::icons.'rimuovi.png" width="20px" /></a>';
 				break;
 			case 'amicizia-accettata':
 				$user = new user($this->db, $this->id_elemento);

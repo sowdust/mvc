@@ -24,7 +24,10 @@ class commento extends entita {
 		
 	}
 
-	
+	function get_testo()
+	{
+		return $this->testo;
+	}
 
 	function get_data()
 	{

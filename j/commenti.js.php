@@ -22,9 +22,14 @@ function setXMLHttpRequest() {
 
 var xhrObj = setXMLHttpRequest();
 
-function comment_form(id)
-{
-	var quale = document.getElementById('contenuto_commento_'+id);
+function comment_form(id,tipo_entita,header)
+{       if(header)
+        {
+            var quale = document.getElementById('contenuto_commento_header_'+id);
+        }
+        else{
+            var quale = document.getElementById('contenuto_commento_'+id);
+        }
 	var id_to_rm = document.getElementById('aggiungi_commento');
 	if(id_to_rm)
 	{
@@ -43,7 +48,7 @@ function comment_form(id)
 	var j = document.createElement("input");
 	j.setAttribute('type',"hidden");
 	j.setAttribute('name',"tipo_entita");
-	j.setAttribute('value',"commento");
+	j.setAttribute('value',tipo_entita);
 	var r = document.createElement("input");
 	r.setAttribute("type","hidden");
 	r.setAttribute("name","redirect");

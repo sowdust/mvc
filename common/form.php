@@ -136,7 +136,7 @@ class input{
 			//	TEXTAREA
 			case 'textarea':
 				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
-				$r.= '<textarea name="'.$this->name.'" id="'.$this->id;
+				$r.= '<textarea name="'.$this->name.'" id="'.$this->id.'"';
 				if($this->readonly)
 				{
 					$r.= ' READONLY';
@@ -147,7 +147,7 @@ class input{
 				}
 				$r.= (isset($this->rows) && isset($this->cols)) ? ' rows="'.$this->rows.'" cols="'.$this->cols.'"' : '';
 
-				$r.='" >'.$this->value.'</textarea>';
+				$r.=' >'.$this->value.'</textarea>';
 				break;
 			
 

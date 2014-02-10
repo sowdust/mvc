@@ -37,6 +37,13 @@ class commento_manager {
 
 	public function remove_commento($id_commento,$tipo_entita = null)
 	{
+		$commento = new commento($this->db,$id_commento);
+		$id_figli = $commento->get_children();
+		foreach($id_figli as $id)
+		{
+			$this->remove_commento($id);
+		}
+		
 		if(null == $tipo_entita)
 		{
 			$q = $this->db->prepare("DELETE FROM commenti WHERE id = (?)");

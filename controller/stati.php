@@ -62,6 +62,7 @@ require_once('model/stato.php');
 			$this->user->remove_stato($param);
 			$this->set_view('messaggio');
 			$this->view->set_message('Stato eliminato con successo');
+                        $this->view->set_redirect($this->user->session->get_previous_page());
 			$this->view->render();
 			die();
 		}
