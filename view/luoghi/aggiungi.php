@@ -1,13 +1,13 @@
 <div id="mappa">
 <form name="aggiungi_luogo" action = "<?php echo init::link('luoghi','aggiungi'); ?>" method="post" id="aggiungi-luogo">
-Da questa sezione &egrave; possibile aggiungere un luogo: compila i campi e prova a fare il geocode dell&acute; indirizzo.<br />
-Se ha successo, clicca su OK per aggiungere il luogo al tuo profilo.<br />
-Ricordati di inserire sempre almeno Stato e Citt&agrave; altrimenti il luogo non sar&agrave; inserito.<br />
+<p>Aggiungi un luogo al tuo profilo!<br />
+Stato e citt&agrave; sono richiesti.<br />
+</p>
 <input type="hidden" name="location" id="location_place">
-<input id="indirizzo" type="text" name="indirizzo" value="Indirizzo" onclick="this.value=''" onblur="codeAddress()" />
-<input id="citta" type="text" name="citta" value="Citta" onclick="this.value=''" onblur="codeAddress()" />
-<input id="prov" type="text" name="prov" value="Provincia" onclick="this.value=''" onblur="codeAddress()" />
-<input id="stato" type="text" name="stato" value="Stato" onclick="this.value=''" onblur="codeAddress()" />
+<input id="indirizzo"  placeholder="Indirizzo" type="text" name="indirizzo" value="" onclick="this.value=''" onblur="codeAddress()" />
+<input id="citta"  placeholder="Citta" type="text" name="citta" value="" onclick="this.value=''" onblur="codeAddress()" required />
+<input id="prov" placeholder="Provincia" type="text" name="prov" value="" onclick="this.value=''" onblur="codeAddress()" />
+<input id="stato" placeholder="Stato" type="text" name="stato" value="" onclick="this.value=''" onblur="codeAddress()" required="campo obbligatorio" />
 </form>
 </div>
  <div id="map-canvas"></div>

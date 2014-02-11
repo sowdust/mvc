@@ -113,8 +113,9 @@ class input{
 				{
 					$r.= ' READONLY';
 				}
-				$r.=' />';
-				$r.='<div id = "errori-'.$this->id.'"></div>';
+				$r .= ($this->obbligatorio) ? ' required' : '';
+				$r .= ' />';
+				$r .= '<div id = "errori-'.$this->id.'"></div>';
 				break;
 
 			//	SELECT

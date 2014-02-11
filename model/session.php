@@ -12,8 +12,8 @@ class session {
 	private	$secret;
 	private $start;
 	private $user_id;
-        private $current_page;
-        private $previous_page;
+    private $current_page;
+    private $previous_page;
 
 	function __construct($db,$user_id)
 	{
@@ -70,18 +70,18 @@ class session {
 		$r = $this->db->query("DELETE FROM sessioni WHERE id_sessione = \"".$this->session_id."\"") or die();
 		unset($_SESSION['sess_data']);
 	}
-
+//	non usata
 	public function set_redirect($url)
 	{
 		$_SESSION['redirect'] = ((strpos(config::basehost,$url) == 0 )) ? urlencode($url)
 								:	config::basehost.config::basedir;
 	}
-
+//	non usata
 	public function get_redirect($url)
 	{
 		return urldecode($_SESSION['redirect']);
 	}
-
+//	non usata
 	public function unset_redirect()
 	{
 		unset($_SESSION['redirect']);
@@ -104,22 +104,31 @@ class session {
 	public function refresh()
         {		
             $this->start->setTimestamp(time());
-            //die('curr'.$this->current_page);
-            $this->db->query("UPDATE sessioni SET start = \"".$this->start->format('Y-m-d H:i:s.u')."\", current_page = \"".$this->current_page."\",previous_page = \"".$this->previous_page."\" WHERE id_sessione = \"".$this->session_id."\" ") or die($this->db->error);
-	}
+            // se passata una funzione a bind param ritorna un notice
+            $date = $this->start->format('Y-m-d H:i:s.u');
+            $q = $this->db->prepare("UPDATE sessioni SET start = (?), current_page = (?) ,previous_page = (?) WHERE id_sessione = (?) ") or die($this->db->error);
+            $q->bind_param( 'ssss' , $date, $this->current_page, $this->previous_page, $this->session_id );
+			$q->execute();
+			$q->close();
+		}
+
 
 	private function new_session()
 	{
 		$this->secret = md5(time()+$this->_SEED);
 		$this->session_id = uniqid("",true);
 		$this->start = new DateTime();
-		$r = $this->db->query("INSERT INTO sessioni (id_sessione,id_utente,secret,start,current_page) VALUES ( \"".$this->session_id." \",  \"".$this->user_id." \", \"".$this->secret." \", \"" . $this->start->format('Y-m-d H:i:s.u') . "\", \"".$_SERVER['REQUEST_URI']." \" )") or die ("errore insert");
+		$date = $this->start->format('Y-m-d H:i:s.u');
+		$q = $this->db->prepare("INSERT INTO sessioni (id_sessione,id_utente,secret,start,current_page) VALUES ( (?), (?), (?), (?), 'index.php' )");
+		$q->bind_param('siss', $this->session_id, $this->user_id, $this->secret, $date );
+		$q->execute();
 
 	}
 	
 	private function get_session_for_user($user_id)
 	{
-		if(!($q = $this->db->prepare("SELECT id_sessione,secret,start,current_page,previous_page FROM sessioni WHERE id_utente = (?) and start >= DATE_SUB(now(),INTERVAL 30 MINUTE) ORDER BY start DESC LIMIT 0,1"))) die ("error".$this->db->error);
+		if(!($q = $this->db->prepare("SELECT id_sessione,secret,start,current_page,previous_page FROM sessioni WHERE id_utente = (?) and start >= DATE_SUB(now(),INTERVAL 30 MINUTE) ORDER BY start DESC LIMIT 0,1")))
+			die ("error".$this->db->error);
 		$q->bind_param('i',$user_id);
 		$q->execute();
 		$q->store_result();

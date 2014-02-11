@@ -22,7 +22,7 @@ class controller {
 		$this->view->set_user($this->user);
 	}
 	
-	function manage_session($auth_required = 1)
+	function manage_session($auth_required = 1, $redirect = true )
 	{
 		if(!isset($this->db)) die ('db non settato') ;
 		
@@ -75,11 +75,24 @@ class controller {
 		{
 			$session = unserialize($_SESSION['sess_data']);
 			$session->set_db($this->db->mysqli);
-                        //$session->get_session_for_user($user_id);
-                        $session->set_previous_page($session->get_current_page());
-                        $session->set_current_page('index.php?'.explode('?',$_SERVER['REQUEST_URI'])[1]);
-			$session->refresh();
+
+			//	quick fix per alcuni link verso i quali non facciamo redirect
+			if( 	!strpos($_SERVER['REQUEST_URI'],'ajax') 
+				&&	!strpos($_SERVER['REQUEST_URI'],'aggiungi') )
+			{
+
+				$session->set_previous_page($session->get_current_page());
+				@$session->set_current_page('index.php?'.explode('?',$_SERVER['REQUEST_URI'])[1]);
+				$session->refresh();
+			}else{
+
+				$session->set_previous_page($session->get_current_page());
+				$session->set_current_page($session->get_current_page());
+				$session->refresh();
+			}
+
 			$this->user = new user($this->db,$session->get_user_id());
+
 			if($this->user->get_type() < 0 )
 			{
 				die('sessione falsa?');

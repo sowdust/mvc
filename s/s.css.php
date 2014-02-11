@@ -33,6 +33,26 @@ p {
     padding: 15px;
 }
 
+a:link, a:visited {
+	color: #0b3861;
+	background: transparent;
+	text-decoration: none;
+}
+a:hover	{
+	color: white;
+	background: #0b3861;
+	transition: background 0.5s,color 0.5s ease-in-out;
+	-moz-transition: background 0.5s,color 0.5s ease-in-out;
+	-webkit-transition: background 0.5s,color 0.5s ease-in-out;
+}
+a:active {
+	color: Red;
+}
+a.nohover:hover {
+	background:transparent;
+}
+
+
 
 div#centering {
 	width: 75%;
@@ -73,25 +93,47 @@ div#centering {
    }
 
 div.commento {
-    margin:8px;
+    padding:5px;
     margin-left:30px;
+    background-color:#EFFBFB;
+}
+div.commento div.commento {
+    background-color:#F8E0F7;
+}
+div.commento div.commento div.commento {
+    background-color: #CEF6CE;
+}
+div.commento div.commento div.commento div.commento {
+    background-color: #F7F8E0;
 }
 
 div.commento-header {
+    padding:3px;
     background-color:#d5edf8;
     color: #205791;
 }
 
 div.commento-footer {
-    border: 1px #c0c0c0 dotted;
+    padding:5px;
+    border-top: 1px #c0c0c0 dotted;
+    text-align: right;
 }
 
 div.commento-content {
+    padding:5px;
+
+}
+
+ul, ol {
+	list-style-type:cjk-ideographic;
 }
 
 
 #map-canvas {
-     width: 600px;
+     width: 500px;
+     height: 250px;
+     position: relative;
+     z-index: -999;
 }
 
 
@@ -108,6 +150,7 @@ nav.dark {
 	background: #2E2E2E;
 	position:fixed;
 	top:0;
+	padding-top:7px;
 	width:100%;
 	border-top: 0px;
 	border-bottom: 1px solid #121317;

@@ -42,9 +42,33 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
+<?php 
+require_once('model/user.php');
+$autore = new user($this->db,$this->model->get_uid());
+?>
 
 
+<div align="center">
 <h1><?php echo $this->model->get_citta(); ?></h1>
 <h3><?php echo $this->model->get_indirizzo(); ?></h3>
 <h2><?php echo $this->model->get_stato(); ?></h2>
+</div>
+
+
 <div id="map-canvas"></div>
+
+
+<a href="#" onclick="comment_form(<?php echo $this->model->get_id(); ?>,'luogo',true);return false;"> <img src="<?php echo config::icons; ?>scrivi.png" class="icon" /> Commenta</a>
+<div id="contenuto_commento_header_<?php echo $this->model->get_id(); ?>"></div>
+
+<?php
+require_once('model/commento.php');
+foreach($this->model->get_commenti() as $id_com)
+{
+  $c = new view('commenti','vedi');
+  $c->set_message($id_com);
+  $c->set_db($this->db);
+  $c->set_user($this->user);
+  $c->render(false);
+}
+?>

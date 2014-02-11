@@ -33,29 +33,33 @@ ha scritto
 
 <div class="commento-footer">
 <!-- <a href="aggiungi_commento.php?id_entita='.$this->id.'&tipo_entita=commento">commenta</a> -->
-<a href="#" onclick="comment_form(<?php echo $commento->id; ?>,'commento');return false;">Commenta</a>
-<?php
-if($this->user->get_type() > 0 || $this->user->get_id()==$utente->get_id())
-{
-	echo '<a href="'. init::link('commenti','rimuovi',$commento->id). '">Rimuovi</a>';
-}
+Azioni: 
 
-?>
-</div>
-
-</div>
 <?php 
 		$count = 0;
 		$o = '';
 		if(sizeof($commento->get_children()))
 		{
-			$o.=' | <a id="more_'.$commento->id.'" title="Mostra gli altri commenti a questo" href="#"'
-				.'	onmouseover="get_commenti('.$commento->id.');return false;">More</a>';
-			$o.=' | <a id="less_'.$commento->id.'" title="Nascondi gli altri commenti a questo" href="#"'
-				.'	onmouseover="less('.$commento->id.');return false;">Less</a>';
+			$o.='<div id="more_'.$commento->id.'" style="display:inline"><a title="Mostra gli altri commenti a questo" href="#"'
+				.'	onmouseover="get_commenti('.$commento->id.');return false;">More</a></div> | ';
+			$o.='<a id="less_'.$commento->id.'" title="Nascondi gli altri commenti a questo" href="#"'
+				.'	onmouseover="less('.$commento->id.');return false;">Less</a> | ';
 
 		}
 		$o.='<script type="text/javascript">window.showing['.$commento->id.']=true;</script>';
-		$o .= '</div>';
 		echo $o;
 ?>
+
+<a href="#" onclick="comment_form(<?php echo $commento->id; ?>,'commento');return false;">Commenta</a>
+<?php
+if($this->user->get_type() > 0 || $this->user->get_id()==$utente->get_id())
+{
+	echo ' | <a href="'. init::link('commenti','rimuovi',$commento->id). '">Rimuovi</a>';
+}
+
+?>
+
+</div>
+</div>
+</div>
+

@@ -9,7 +9,9 @@ select,input,textarea {
   padding: 1%;
   text-align: center;
 }
-
+input:required {
+    background:pink;
+}
 
 #header form, #header input {
   display: inline ;
@@ -20,13 +22,15 @@ select,input,textarea {
   font-size: 1em;
 }
 
-#stato form, #stato input {
+#stato input {
   font-size: 1em;
   border-radius: 4px;
   padding: 0%;
   margin: 1px;
   margin-left:10px;
   padding: 1px;
+  background:#c0c0c0 !important;
+
 }
 
 

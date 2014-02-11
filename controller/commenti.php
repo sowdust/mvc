@@ -48,13 +48,6 @@ class commenti extends controller {
 		die();
 	}
 
-/**
-	NOTA:	queste funzioni secondo la mia logica sarebbero dovute andare in un modello (almeno il loro corpo)
-			precisamente in un commento_manager. Vista la ristrettezza dei tempi e il fatto
-			che il commento_manager avrebbe avuto solo un metodo ho deciso di inserire qui l'inserimento
-**/
-
-
 	function aggiungi()
 	{
 
@@ -73,10 +66,12 @@ class commenti extends controller {
 		{
 			$this->set_view('messaggio');
 			$this->view->set_message('commento inserito con successo');
+			$this->view->set_redirect($this->user->session->get_previous_page());
 			$this->view->render();	
 		}else{
 			$this->set_view('errore');
 			$this->view->set_message('errore durante inserimento commento');
+			$this->view->set_redirect($this->user->session->get_previous_page());
 			$this->view->render();	
 		}
 		return ;
@@ -107,7 +102,7 @@ class commenti extends controller {
 
 		$this->set_view('messaggio');
 		$this->view->set_message('commento rimosso');
-                $this->view->set_redirect($this->user->session->get_previous_page());
+        $this->view->set_redirect($this->user->session->get_previous_page());
 		$this->view->render();
 		die();
 	}

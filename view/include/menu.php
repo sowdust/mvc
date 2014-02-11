@@ -1,3 +1,5 @@
+<?php require_once('common/form.php'); ?>
+
 <nav class="dark">
 			<ul class="clear">
 				<li><?php echo '<a href="' . init::link('index') .'">Home</a>'; ?></li>
