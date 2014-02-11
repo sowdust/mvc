@@ -26,11 +26,38 @@ body {
 	margin-top: 2%;
 	font-family: Helvetica;
         color: rgb(50,50,50);
-        font-size: 14px;
+        font-size: 13px;
         }
         
 p {
     padding: 15px;
+}
+
+address {
+	display: inline-block;
+	padding: 2px;
+}
+
+h1,h2,h3,h4 {
+	text-align:center;
+	margin: 5px;
+	margin-top: 10px;
+}
+
+h1 {
+	color: #0174DF;
+}
+
+h2 {
+	color: #3A01DF;
+}
+
+h3 {
+	color: #B404AE;
+}
+
+h4 {
+	color: #B40431;
 }
 
 a:link, a:visited {
@@ -89,13 +116,38 @@ div#centering {
 }
 
 .data {
-    font-color: #c0c0c0;
+    font-color: gray;
    }
+
+img.icon {
+	width:15px;
+	margin-right: 10px;
+}
+
+div.cont {
+	background: #EFF2FB;
+	padding: 5px;
+	display: inline-block;
+	margin:10px;
+}
+div.contg {
+	background: #EFF2FB;
+	padding: 5px;
+	display: block;
+	width:100%;
+}
+
+div.lista_luoghi {
+	margin-bottom: 10px;
+	padding: 5px;
+	border-bottom: 1px black dotted;
+}
 
 div.commento {
     padding:5px;
     margin-left:30px;
     background-color:#EFFBFB;
+    font-size: 12px;
 }
 div.commento div.commento {
     background-color:#F8E0F7;
@@ -124,18 +176,20 @@ div.commento-content {
 
 }
 
+/* Sortable tables */
+table.sortable td{
+	padding: 4px;
+}
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
+}
+
 ul, ol {
 	list-style-type:cjk-ideographic;
 }
-
-
-#map-canvas {
-     width: 500px;
-     height: 250px;
-     position: relative;
-     z-index: -999;
-}
-
 
 /*****    MENU
 .clear:after { content: "."; display: block; height: 0; clear: both; visibility: hidden;}
@@ -147,6 +201,7 @@ html[xmlns] .clear { display: block;}
 
 
 nav.dark {
+z-index: 99;
 	background: #2E2E2E;
 	position:fixed;
 	top:0;
@@ -226,5 +281,8 @@ nav.dark li ul li.arrow {background: url(<?php echo config::basehost.config::bas
 
 
 
-/*** GOOGLE MAPS ***/
-#map-canvas { height: 600px; width: 800px; z-index:99;}
+#map-canvas {
+     width: 600px;
+     height: 400px;
+     z-index: 9;
+}

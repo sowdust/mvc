@@ -59,10 +59,10 @@ class luogo_manager {
 		{
 			// questa e' la query usata dall'admin (solo lui vede lista completa
 			// dei luoghi tutta in una) quindi i piu' recenti meglio che siano prima
-			$tq = 'SELECT id,lat,lng,id_entita,tipo_entita,date_format(data,"%b %d %Y %h:%i %p"),indirizzo,citta,prov,stato,id_utente FROM luoghi ORDER BY data desc';
+			$tq = 'SELECT id,lat,lng,id_entita,tipo_entita,date_format(data," %d %b %Y alle %H:%i "),indirizzo,citta,prov,stato,id_utente FROM luoghi ORDER BY stato, citta Asc';
 			$q = $this->db->prepare($tq);
 		}else{
-			$tq = 'SELECT id,lat,lng,id_entita,tipo_entita,date_format(data,"%b %d %Y %h:%i %p"),indirizzo,citta,prov,stato,id_utente FROM luoghi WHERE id_entita = (?) AND tipo_entita = (?) ORDER BY data DESC';
+			$tq = 'SELECT id,lat,lng,id_entita,tipo_entita,date_format(data,"%b %d %Y %h:%i %p"),indirizzo,citta,prov,stato,id_utente FROM luoghi WHERE id_entita = (?) AND tipo_entita = (?) ORDER BY stato,citta  ASC';
 			$q = $this->db->prepare($tq);
 			$q->bind_param('is',$id_entita,$tipo_entita);
 		}

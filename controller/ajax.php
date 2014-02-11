@@ -67,6 +67,7 @@ class ajax extends controller {
 	function rimuovi_notifica($id)
 	{
 		require_once('model/notifica.php');
+
 		$notifica = new notifica($this->db,$id);
 		$notifica->rimuovi();
 		echo $id;
@@ -94,8 +95,7 @@ class ajax extends controller {
 		$campi = ricerca::get_campi($tabella);
 		foreach($campi as $_)
 		{
-			echo '<label for="param_'.$_.'">'.$_.'</label>';
-			echo '<input name="param_'.$_.'" type="text"  value="" />'."\n";
+			echo '<input name="param_'.$_.'" type="text"  value="" class="ricerca" placeholder="'.$_.'" />'."\n";
 		}
 	}
 

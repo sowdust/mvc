@@ -10,11 +10,15 @@ select,input,textarea {
   text-align: center;
 }
 input:required {
-    background:pink;
+    background:#F6CED8;
 }
 
 #header form, #header input {
   display: inline ;
+}
+
+#ricerca input, #ricerca select {
+  display: inline-block;
 }
 
 #mappa form, #mappa input {

@@ -35,7 +35,7 @@ class stato extends entita {
 
 	function update_info_from_db()
 	{
-		$q = $this->db->prepare("SELECT stato,data,valido,id_utente FROM stati WHERE id = (?) ORDER BY data DESC LIMIT 0,1");
+		$q = $this->db->prepare("SELECT stato,date_format(data,'%d.%m.%Y'),valido,id_utente FROM stati WHERE id = (?) ORDER BY data DESC LIMIT 0,1");
 		$q->bind_param('i',$this->id);
 		$q->execute() or die('impossibile ottenere lo stato');
 		$q->bind_result($this->stato,$this->data,$this->valido,$this->uid);

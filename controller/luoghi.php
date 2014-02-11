@@ -63,6 +63,7 @@ class luoghi extends controller {
 			$_POST['indirizzo'],$_POST['citta'],$_POST['prov'],$_POST['stato']);
 		$this->set_view('messaggio');
 		$this->view->set_message('Luogo inserito con successo');
+		$this->view->set_redirect($this->user->session->get_previous_page());
 		$this->view->render();
 		die();
 	}
@@ -73,6 +74,7 @@ class luoghi extends controller {
 		$this->set_view('luoghi');
 		$this->view->set_model($manager);
 		$this->view->set_user($this->user);
+		$this->view->set_db($this->db);
 		$this->view->render();
 		die();
 	}
@@ -116,7 +118,7 @@ class luoghi extends controller {
 
 			$this->set_view('messaggio');
 			$this->view->set_message('Luogo rimosso');
-                        $this->view->set_redirect($this->user->session->get_previous_page());
+			$this->view->set_redirect($this->user->session->get_previous_page());
 			$this->view->render();
 			die();
 		

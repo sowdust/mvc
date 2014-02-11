@@ -1,3 +1,4 @@
+<p>
 Ciao,
 <?php
 	if(isset($this->user) && $this->user->get_type() >= 0)
@@ -8,3 +9,4 @@ Ciao,
 	}
 ?> 
 !
+</p>

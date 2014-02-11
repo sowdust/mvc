@@ -56,7 +56,7 @@ class notifica{
 				break;
 			case 'amicizia-accettata':
 				$user = new user($this->db, $this->id_elemento);
-				$testo = 'Tu e <a href="profilo_utente.php?id='.$this->id_elemento.'">'
+				$testo = 'Tu e <a href="'.init::link('utenti','vedi',$this->id_elemento).'">'
 					.$user->get_info()['nick'].'</a> siete amici. <a href="#"  onclick="rimuovi_notifica('.$this->id.');return false;">OK!</a>';
 				break;
 			case 'amicizia-rimossa':
@@ -65,7 +65,7 @@ class notifica{
 			case 'amicizia-negata':
 				$user = new user($this->db, $this->id_elemento);
 				$testo = $user->get_info()['nick'] . 'ha negato la tua richiesta di amicizia';
-				$testo .= '<a href="#"  onclick="rimuovi_notifica('.$this->id.');return false;">OK!</a>';				
+				$testo .= '<a href="'.'index.php?'.explode('?',$_SERVER['REQUEST_URI'])[1].'"  onclick="rimuovi_notifica('.$this->id.');return false;">OK!</a>';				
 				break;
 			default:
 				$testo = 'default';

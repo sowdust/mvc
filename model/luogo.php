@@ -85,7 +85,7 @@ class luogo extends entita{
 
 	public function get_info_from_db()
 	{
-		$q = $this->db->prepare('SELECT id_utente,lat,lng,date_format(data,"%d/%m/%Y"),indirizzo,citta,prov,stato FROM luoghi WHERE id = (?)');
+		$q = $this->db->prepare('SELECT id_utente,lat,lng,date_format(data,"%d.%m.%Y"),indirizzo,citta,prov,stato FROM luoghi WHERE id = (?)');
 		$q->bind_param('i',$this->id);
 		$q->execute() or die();
 		$q->bind_result($this->id_utente,$this->lat,$this->lng,$this->data,$this->indirizzo,$this->citta,$this->prov,$this->stato);

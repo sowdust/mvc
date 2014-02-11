@@ -96,6 +96,9 @@ class ricerche extends controller {
 
 		$ricerca->prepare_query();
 		$this->set_view('ricerche','risultati');
+		$this->view->set_js('sorttable.js');
+		$this->view->set_user($this->user);
+		$this->view->set_db($this->db);
 		$this->view->set_model($ricerca);
 		$this->view->render();
 		die();

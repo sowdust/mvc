@@ -78,6 +78,8 @@ class controller {
 
 			//	quick fix per alcuni link verso i quali non facciamo redirect
 			if( 	!strpos($_SERVER['REQUEST_URI'],'ajax') 
+				&&	!strpos($_SERVER['REQUEST_URI'],'risultati') 
+				&&	!strpos($_SERVER['REQUEST_URI'],'rimuovi') 
 				&&	!strpos($_SERVER['REQUEST_URI'],'aggiungi') )
 			{
 

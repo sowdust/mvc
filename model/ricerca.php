@@ -25,7 +25,7 @@ class ricerca {
 
 	public static function get_tabelle()
 	{
-		return array('commenti','opere','luoghi','utenti');
+		return array('commenti','luoghi','utenti');
 	}
 
 	public static function get_tipi()
@@ -33,9 +33,9 @@ class ricerca {
 		$tipi = array();
 		$tipi['commenti']['testo']='s';
 		$tipi['commenti']['id_utente']='i';
-		$tipi['opere']['autore']='s';
-		$tipi['opere']['titolo']='s';
-		$tipi['opere']['isbn']='s';
+		//$tipi['opere']['autore']='s';
+		//$tipi['opere']['titolo']='s';
+		//$tipi['opere']['isbn']='s';
 		$tipi['luoghi']['indirizzo']='s';
 		$tipi['luoghi']['citta']='s';
 		$tipi['luoghi']['stato']='s';
@@ -76,13 +76,13 @@ class ricerca {
 				return 'SELECT id, type, nick FROM utenti';
 				break;
 			case 'commenti':
-				return 'SELECT id, id_entita, tipo_entita, id_utente, DATE_FORMAT(data,"%d %b %Y %T") as data, testo FROM commenti';
+				return 'SELECT id, id_entita, tipo_entita, id_utente, DATE_FORMAT(data,"%d %b %Y") as data, testo FROM commenti';
 				break;
 			case 'opere':
-				return 'SELECT id, isbn, autore, titolo, id_utente, DATE_FORMAT(data,"%d %b %Y %T") as data FROM opere';
+				return 'SELECT id, isbn, autore, titolo, id_utente, DATE_FORMAT(data,"%d %b %Y") as data FROM opere';
 				break;
 			case 'luoghi':
-				return 'SELECT id, id_entita, tipo_entita, id_utente, indirizzo, citta, prov, stato, DATE_FORMAT(data,"%d %b %Y %T") as data FROM luoghi';
+				return 'SELECT id, id_entita, tipo_entita, id_utente, indirizzo, citta, prov, stato, DATE_FORMAT(data,"%d %b %Y") as data FROM luoghi';
 				break;
 			default:
 				die('1');
