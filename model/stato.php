@@ -21,7 +21,7 @@ class stato extends entita {
 	}
 	function get_testo()
 	{
-		return $this->stato;
+		return htmlentities($this->stato);
 	}
 	function get_data()
 	{

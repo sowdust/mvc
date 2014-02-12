@@ -2,13 +2,13 @@
 
 class config {
 
-	const basedir = 'mvc/';
-	const basehost = 'http://localhost/';
+	const basedir = '';
+	const basehost = '';
 	const nomesito = 'MVC';
-	const serverpath = '/var/www/mvc/';
+	const serverpath = '/usr/home/studenti/st116761/Public/mvc/';
 	const user_img = 'usr_img/';
 	const imgdir = 'img/';
-	const icons = 'http://localhost/mvc/img/icons/';
+	const icons = 'img/icons/';
 }
 
 ?>

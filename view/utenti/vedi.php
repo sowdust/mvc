@@ -30,7 +30,9 @@ foreach($stati as $s)
 {
 	echo '<li>';
 	echo '<span class="data"> '. $s->get_data() . ' </span>';
-	echo ($this->user->get_type() > 0 || $this->user->get_id() == $s->get_uid())
+	echo ' <a href = "'.init::link('stati','vedi',$s->get_id()).'" class="nohover">
+                                   <img src="'.config::icons.'lens.png" class="icon" /></a>';
+    echo ($this->user->get_type() > 0 || $this->user->get_id() == $s->get_uid())
 			?	' <a href = "'.init::link('stati','rimuovi',$s->get_id()).'" class="nohover"><img src="'.config::icons.'rimuovi.png" class="icon" /></a>' : '' ;
 	echo (strlen($s->get_testo()) > 160)	? substr($s->get_testo(), 0, 160).'...'
 											: substr($s->get_testo(), 0, 160);
@@ -51,6 +53,8 @@ foreach($luoghi as $s)
 {
 	echo '<li>';
 	echo '<span class="data"> '. $s->get_data() . ' </span>';
+	echo ' <a href = "'.init::link('luoghi','vedi',$s->get_id()).'" class="nohover">
+                                   <img src="'.config::icons.'lens.png" class="icon" /></a>';
 	echo ($this->user->get_type() > 0 || $this->user->get_id() == $s->get_uid())
 			?	' <a href = "'.init::link('luoghi','rimuovi',$s->get_id()).'" class="nohover"><img src="'.config::icons.'rimuovi.png" class="icon" /></a>' : '' ;
 	echo $s->get_indirizzo(). '(' . $s->get_citta() . ')';
@@ -72,6 +76,8 @@ foreach($commenti as $s)
 {
 	echo '<li>';
 	echo '<span class="data"> '. $s->get_data() . ' </span>';
+	echo ' <a href = "'.init::link('commenti','vedi',$s->get_id()).'" class="nohover">
+                                   <img src="'.config::icons.'lens.png" class="icon" /></a>';
 	echo ($this->user->get_type() > 0 || $this->user->get_id() == $s->get_uid())
 			?	' <a href = "'.init::link('commenti','rimuovi',$s->get_id()).'" class="nohover">
                                    <img src="'.config::icons.'rimuovi.png" class="icon" /></a>' : '' ;
@@ -103,9 +109,6 @@ foreach($amico->get_commenti() as $id_com)
 	$c->render(false);
 }
 
-$form_commenti = new view('commenti','aggiungi');
-$form_commenti->set_message(array('id_entita'=>$amico->get_id(),'tipo_entita'=>'utente'));
-//$form_commenti->render(false);
 
 ?>
 </div>
