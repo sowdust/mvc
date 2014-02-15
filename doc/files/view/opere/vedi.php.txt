@@ -1,0 +1,50 @@
+<?php $opera = $this->model; ?>
+
+
+
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("books", "0");
+
+
+function alertNotFound()
+{
+	var statusDiv = document.getElementById('viewerCanvas');
+	statusDiv.setAttribute('style','height:20px');
+	statusDiv.appendChild(document.createTextNode('Purtoppo per questo libro non disponibile il lettore di Google'));
+}
+
+
+function initialize() {
+	var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+	viewer.load('<?php echo $opera->isbn; ?>', alertNotFound);
+}
+
+google.setOnLoadCallback(initialize);
+</script>
+<div id="viewerCanvas" style="width: 200px; height: 400px"></div>
+<?php
+
+echo '<div align="center"><img src="'.$opera->cover.'" alt="'.$opera->titolo.'" class="book-cover" /></div>';
+
+echo '<h3 class="titolo">'.$opera->titolo.'</h3>';
+echo '<h3 class="autore">'.$opera->autore.'</h3>';
+echo '<p>';
+echo 'Genere: '.$opera->genere;
+echo '</p>';
+
+// commenti
+
+/*include_once('../model/commento.php');
+
+$commento_tipo_entita = 'opera';
+$commento_id_entita = $opera->get_id();
+include_once('../view/aggiungi_commento.php');
+
+$commenti = $opera->get_commenti();
+foreach($commenti as $c)
+{
+	$tmp = new commento($db,$c);
+	echo($tmp->stampa());
+}
+*/

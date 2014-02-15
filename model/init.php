@@ -1,9 +1,28 @@
 <?php
 
 require_once('controller/errore.php');
+
+/**
+  * Multiplexes the request done via get query.
+  *
+  * This class is used at every page change
+  * It multiplexes the request done via get query
+  * [ ?request=/controller/method/param/ ]
+  * loading the right controller
+  * Also provides a _static method_ to create links
+  * dinamically within the code.
+  *
+  */	
+
 class init {
 
-	protected $req;
+	/**
+	  * Loads appropriate controller, [calls method, passes parameters].
+	  *
+	  * @param string $req get in the form of /controller/method/param/ .
+	  * @return void 
+	  *
+	  */
 
 	function __construct($req)
 	{
@@ -44,6 +63,14 @@ class init {
 		die();
 	}
 
+ /**
+  * Static function to create links from within the code.
+  *
+  * @param string $controller 
+  * @param string $method optional
+  * @param string $param optional
+  * @return string $link 
+  */
 	static function link($controller,$method=null,$param=null)
 	{
 		$link =	config::basehost . config::basedir .'index.php?request='

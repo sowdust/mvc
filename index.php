@@ -1,8 +1,16 @@
 <?php
 
+/**
+  * Index file directly called by web query.
+  *
+  * Loads the common files used throughout the application and calls the init 
+  * model that loads the right controller and starts actual session
+  */
+
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(-1);
+
 define('URL',$_SERVER['REQUEST_URI']);
 
 require_once('common/config.php');

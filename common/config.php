@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Defines constants used throughout the application
+ */
+
 class config {
 
 	const basedir = '';

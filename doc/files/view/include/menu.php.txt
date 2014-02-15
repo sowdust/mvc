@@ -1,0 +1,131 @@
+<?php require_once('common/form.php'); ?>
+
+<nav class="dark">
+			<ul class="clear">
+				<li><?php echo '<a href="' . init::link('index') .'">Home</a>'; ?></li>
+
+
+<!--	Community 	-->
+
+				<li><?php echo '<a href="' . init::link('utenti') .'">Community</a>'; ?>
+				<ul>
+<?php
+	if(isset($this->user) && $this->user->get_type()>= 0)
+	{
+		//	UTENTE LOGGATO
+	echo '<li><a href="' . init::link('utenti','vedi') .'">Profilo</a></li>';
+	echo '<li><a href="' . init::link('utenti','modifica') .'">Modifica</a></li>';
+	echo '<li><a href="' . init::link('login','logout') .'">Esci</a></li>';
+
+	}else{
+
+		//	UTENTE ANONIMO
+		echo '<li><a href="' . init::link('login') .'" class="menu">Login</a></li>';
+		echo '<li><a href="' . init::link('registra') .'" class="menu">Registrati</a></li>';
+	}
+?>
+				</ul>
+
+
+
+
+<!--	Luoghi 	-->
+				<li><?php echo '<a href="' . init::link('luoghi') .'">Luoghi</a>'; ?>
+				
+<?php
+	if(isset($this->user) && $this->user->get_type()>= 0)
+	{
+		//	UTENTE LOGGATO
+		echo '<ul>';
+		echo '<li><a href="' . init::link('luoghi','aggiungi') .'">Aggiugi luogo</a></li>';
+		echo '</ul>';
+
+	}
+?>					
+				</li>
+
+
+<!--	Opere 	-->
+<!--
+				<li><?php echo '<a href="' . init::link('opere') .'">Opere</a>'; ?>
+				
+<?php
+	if(isset($this->user) && $this->user->get_type()>= 0)
+	{
+		//	UTENTE LOGGATO
+		echo '<ul>';
+		echo '<li><a href="' . init::link('opere','aggiungi') .'">Aggiugi Opera</a></li>';
+		echo '</ul>';
+
+	}
+?>					
+				</li>
+
+-->
+
+<!--	ricerca		-->
+		<li><?php echo '<a href="' . init::link('ricerche') .'">Archivio</a>'; ?></li>
+
+
+
+
+<?php
+
+require_once('model/notifica.php');
+
+if(isset($this->user) && $this->user->get_type() >= 0)
+{
+	$notifiche = $this->user->get_notifiche();
+	if(!empty($notifiche))
+	{
+		echo '<li><a href="#">Hai '.sizeof($notifiche).' notifiche</a>';
+		echo '<ul>';
+		foreach ($notifiche as $n)
+		{
+			//$n = new notifica($n['tipo'],$n['id_elemento'],$n['data']);
+			echo '<li>'.$n->testo().'</li>';
+		}
+		echo '</ul>';
+		echo '</li>';
+	}
+}
+
+?>
+
+
+
+			</ul>
+
+<div id="stato">
+<?php
+
+if(isset($this->user) && $this->user->get_type()>=0 )
+{
+
+$form = new form();
+$form->set_action(init::link('stati','aggiungi'));
+$form->set_name('stato');
+$form->set_id('stato');
+$redirect = new input("hidden","redirect");
+$stato = new input("text","stato");
+//$stato->set_legend('Stato');
+$stato->set_id('stato-testo');
+$stato->set_value('Cambia stato...');
+$redirect->set_value($_SERVER['REQUEST_URI']);
+//$nick->add_js(['onblur','valida("login-nick","check_nick")']);
+$stato->add_js(['onblur',"valida(this,'stato')"]);
+$stato->add_js(['onsubmit',"valida(this,'stato')"]);
+$stato->add_js(['onclick',"this.value='';"]);
+
+//$submit =  new input("submit","stato-submit","ok");
+$form->add($redirect);
+$form->add($stato,true);
+//$form->add($submit);
+
+echo $form->to_html();
+
+}
+?>
+</div>
+
+		</nav>

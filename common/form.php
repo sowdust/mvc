@@ -1,7 +1,18 @@
 <?php
 
-// TODO campi piu' generali, migliore metodo di aggiunta opzioni
+/**
+ * Defines classes to be used to easily create forms dinamically.
+ *
+ * @class input
+ * @class form
+ * @todo migliore gestione di "valida tutto"
+ */
 
+/**
+ * Input fields (text,pass,select...).
+ *
+ * @used-by form
+ */
 class input{
 
 	protected $name;
@@ -18,6 +29,13 @@ class input{
 	protected $cols;
 	protected $obbligatorio = false;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param string $type type attribute or textarea
+	 * @param string $name
+	 * @param string $value optional
+	 */
 	function __construct($type,$name,$value = '')
 	{
 		$this->type = $type;
@@ -25,73 +43,146 @@ class input{
 		$this->value = $value;
 	}
 
+	/**
+	 * Sets rows and cols to textareas.
+	 *
+	 * @param int $row # of rows 
+	 * @param int $col # of cols
+	 */
 	function set_row_col($row,$col)
 	{
 		$this->rows = $row;
 		$this->cols = $col;
 	}
 
+	/**
+	 * Sets value attribute.
+	 *
+	 * @param string $value
+	 */
 	function set_value($value)
 	{
 		$this->value = $value;
 	}
 
+	/**
+	 * Sets readonly attribute.
+	 *
+	 * @param boolean 
+	 */
 	function set_readonly($bool)
 	{
 		$this->readonly = $bool;
 	}
 
+	/**
+	 * Sets id attribute.
+	 *
+	 * @param string id
+	 */
 	function set_id($id)
 	{
 		$this->id = $id;
 	}
-
+	
+	/**
+	 * Associates js method to even
+	 *
+	 * @param list $js list of type ['event','method']
+	 * @example $input_field->add_js(['onclick','method(option)'])
+	 */
 	function add_js($js)
 	{
 		$this->js[] = $js;
 		$this->checks[] = $js[1];
 	}
 
+	/**
+	 * Get checks
+	 *
+	 * @deprecated 
+	 */
 	function get_checks()
 	{
-		return $this->checks;
+		//return $this->checks;
+		die('get_checks deprecata?');
 	}
 
+	/**
+	 * Adds <name,value> options to select field.
+	 *
+	 * @param list $options in the form ['name','value']
+	 */
 	function set_options($options)
 	{
 		$this->options = $options;
 	}
 
+	/**
+	 * Creates legend element.
+	 *
+	 * @param string $legend text of legend
+	 */
 	function set_legend($legend)
 	{
 		$this->legend = $legend;
 	}
 
+	/**
+	 * Set as required.
+	 */
 	function set_obbligatorio()
 	{
 		$this->obbligatorio = true;
 	}
 
+	/**
+	 * Associates css class.
+	 *
+	 * @param string $class css class name
+	 */
 	function set_class($class)
 	{
 		$this->class = $class;
 	}
 
+	/**
+	 * Name getter
+	 *
+	 * @return string
+	 */
 	function get_name()
 	{
 		return $this->name;
 	}
-
+	
+	/**
+	 * Id getter
+	 *
+	 * @return string
+	 */
 	function get_id()
 	{
 		return $this->id;
 	}
 
+	/**
+	 * Is required?
+	 *
+	 * @return boolean
+	 */
 	function get_obbligatorio()
 	{
 		return $this->obbligatorio;
 	}
 
+	/**
+	 * Renders as html.
+	 *
+	 * Creates the html to render the input defined via php.
+	 *
+	 * @return string 
+	 */
 	function to_html()
 	{
 		switch ($this->type)
@@ -192,6 +283,14 @@ class input{
 	}
 }
 
+/**
+ * Class the models an html form.
+ *
+ * With this class it should be a little easier to create form elements
+ * from within the html code, manage their js scripts and render them.
+ * 
+ * @uses input
+ */
 
 class form {
 	
@@ -204,6 +303,15 @@ class form {
 	protected $obbligatori = array();
 	protected $onsubmit;
 
+	/**
+	 * Contstructor.
+	 *
+	 * @param string $name optional
+	 * @param string $action optional
+	 * @param string $method optional
+	 * @param string $type optional
+	 *
+	 */
 	function __construct($name = null, $action = null, $method = null, $type = null)
 	{
 		$this->name = $name;
@@ -212,31 +320,78 @@ class form {
 		$this->type = ( null == $type ) ? 'application/x-www-form-urlencoded' : $type;
 	}
 
+	/**
+	* Type setter
+	*
+	* @param string
+	*
+	*/
 	function set_type($type)
 	{
 		$this->type = $type;
 	}
 
+	/**
+	* Type action
+	*
+	* @param string
+	*
+	*/
 	function set_action($action)
 	{
 		$this->action = $action;
 	}
 
-	function set_method($method)
+	/**
+	* Method setter
+	*
+	* @param string
+	*
+	*/	function set_method($method)
 	{
 		$this->method = $method;
 	}
 
+	/**
+	* Id setter
+	*
+	* @param string
+	*
+	*/
 	function set_id($id)
 	{
 		$this->id = $id;
 	}
 
+	/**
+	* Name setter
+	*
+	* @param string
+	*
+	*/
 	function set_name($name)
 	{
 		$this->name = $name;
 	}
 
+	/**
+	* Associates a javasript method call to the onsubmit event.
+	*
+	* @param string 
+	*
+	*/
+	function set_onsubmit($onsubmit)
+	{
+		$this->onsubmit = $onsubmit;
+	}
+
+	/**
+	* Associate an input field object to the form.
+	*
+	* @param input 
+	* @param boolean optional if true sets the field as required
+	*
+	*/
 	function add($field,$obbligatorio = false)
 	{
 		if($obbligatorio)
@@ -247,12 +402,15 @@ class form {
 		$this->fields[] = $field;
 	}
 
-	function set_onsubmit($onsubmit)
-	{
-		$this->onsubmit = $onsubmit;
-	}
-
-	function to_html()
+	/**
+	 * Renders as html.
+	 *
+	 * Creates the html to render the input defined via php.
+	 *
+	 * @todo eh mi sa che e' da ripensare
+	 * @return string 
+	 */
+	 function to_html()
 	{
 		$r = ($this->checks_to_js() ) ? $this->checks_to_js() : '' ;
 		
