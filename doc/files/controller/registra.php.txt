@@ -1,9 +1,23 @@
 <?php
-
+/**
+ * Controller that manages registration procedure
+ *
+ * @uses view
+ * @uses model/user_manager.php
+ */
 require_once('model/user_manager.php');
 
 class registra extends controller {
 
+
+	/**
+	 * Costruttore.
+	 *
+	 * In base al metodo richiesto, chiama l'apposito metodo sul modello del commento.
+	 *
+	 * @param string|null optional $method nick dell'utente [solo per l'attivazione]
+	 * @param string|null optional $param chiave di attivazione [solo per l'attivazione]
+	 */
 	function __construct($method = null, $param = null)
 	{
 
@@ -19,6 +33,14 @@ class registra extends controller {
 		$this->registra();
 	}
 
+	/**
+	 * Funzione che registra un utente in base ai dati inviati via *post* 
+	 *
+	 * Effettua la validazione dei campi contenuti in $_POST e registra
+	 *
+	 * @uses $_POST
+	 * @uses model/user_manager.php
+	 */
 	function registra()
 	{
 		if(!isset($_POST['nick']) && !isset($_POST['pass']) && !isset($_POST['email']))
@@ -47,6 +69,12 @@ class registra extends controller {
 		die();
 	}
 
+	/**
+	 * Attiva un utente.
+	 *
+	 * @param string nick dell'utente [solo per l'attivazione]
+	 * @param string chiave di attivazione [solo per l'attivazione]
+	 */
 	function attiva($nick,$code)
 	{
 		$nick = urldecode($nick);

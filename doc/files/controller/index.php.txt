@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Controller to manage index page.
+ *
+ * @uses view
+ */
+
 class index extends controller {
 
 	function __construct()

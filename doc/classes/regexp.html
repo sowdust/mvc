@@ -113,7 +113,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">572</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">492</span>
                                 </a>
                             </li>
                             <li>
@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1739662106"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1740076086"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1739662106" class="accordion-body collapse in">
+            <div id="namespace-1740076086" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -200,7 +200,7 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>regexp</h1>
-                    <p><em></em></p>
+                    <p><em>Abstract class that provides static method for input validation</em></p>
                     
 
                     <section id="summary">
@@ -304,9 +304,9 @@
             <article class="method">
                 <h3 class="public ">nick()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">nick( <span class="argument">$nick</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">nick( <span class="argument">$nick</span>) : bool</pre>
+                <p><em>Checks if input is a valid nick.</em></p>
+                <p>Returns true if nick satisfies {letter,digit,'_'}+.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -318,7 +318,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -327,6 +329,14 @@
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            used-by
+                        </th>
+                        <td>
+                                                                                            <p>ajax::nick</p>
+                                                    </td>
+                    </tr>
                                     <tr>
                         <th>
                             todo
@@ -344,8 +354,8 @@
             <article class="method">
                 <h3 class="public ">testo()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">testo( <span class="argument">$testo</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">testo( <span class="argument">$testo</span>) : bool</pre>
+                <p><em>Checks if input is a valid text field.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -358,7 +368,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -367,6 +379,14 @@
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            used-by
+                        </th>
+                        <td>
+                                                                                            <p>ajax::testo</p>
+                                                    </td>
+                    </tr>
                                     <tr>
                         <th>
                             todo
@@ -384,8 +404,8 @@
             <article class="method">
                 <h3 class="public ">password()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">password( <span class="argument">$pass</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">password( <span class="argument">$pass</span>) : bool</pre>
+                <p><em>Checks if input is a valid text password.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -398,7 +418,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -407,6 +429,14 @@
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            used-by
+                        </th>
+                        <td>
+                                                                                            <p>ajax::password</p>
+                                                    </td>
+                    </tr>
                                     <tr>
                         <th>
                             todo
@@ -425,7 +455,7 @@
                 <h3 class="public ">pass()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">pass( <span class="argument">$pass</span>)</pre>
-                <p><em></em></p>
+                <p><em>Alias for password()</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -464,8 +494,8 @@
             <article class="method">
                 <h3 class="public ">stato()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">stato( <span class="argument">$stato</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">stato( <span class="argument">$stato</span>) : bool</pre>
+                <p><em>Checks if input is a valid &quot;status&quot; field.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -478,7 +508,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -487,6 +519,14 @@
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            used-by
+                        </th>
+                        <td>
+                                                                                            <p>ajax::stato</p>
+                                                    </td>
+                    </tr>
                                     <tr>
                         <th>
                             todo
@@ -504,8 +544,8 @@
             <article class="method">
                 <h3 class="public ">email()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">email( <span class="argument">$email</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">email( <span class="argument">$email</span>) : bool</pre>
+                <p><em>Checks if input is a valid email address.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -518,7 +558,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -527,6 +569,14 @@
                                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            used-by
+                        </th>
+                        <td>
+                                                                                            <p>ajax::email</p>
+                                                    </td>
+                    </tr>
                                     <tr>
                         <th>
                             todo
@@ -544,8 +594,8 @@
             <article class="method">
                 <h3 class="public ">isbn()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">isbn( <span class="argument">$i</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">isbn( <span class="argument">$i</span>) : bool</pre>
+                <p><em>Checks if input is a valid isbn field.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -558,7 +608,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -584,8 +636,8 @@
             <article class="method">
                 <h3 class="public ">entita()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">entita( <span class="argument">$s</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">entita( <span class="argument">$s</span>) : bool</pre>
+                <p><em>Checks if input is a valid &#039;entita&#039;.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -598,7 +650,9 @@
                                             </table>
                 
                 
-                            </article>
+                                    <h4>Returns</h4>
+                    bool
+                                                </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
@@ -667,7 +721,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 15th, 2014 at 22:38.
+                    on February 17th, 2014 at 21:24.
                 </section>
             </section>
         </section>

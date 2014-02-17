@@ -1,12 +1,31 @@
 <?php
 
+/**
+ * Controller che gestisce le view e le azioni sugli utenti
+ *
+ * @uses model/user.php
+ * @uses model/user_manager.php
+ * @uses model/amicizia.php
+ * @uses common/common.php
+ * @uses model/user.php
+ * @uses common/regexp.php
+ */
 require_once('model/user.php');
 require_once('model/user_manager.php');
 require_once('model/amicizia.php');
 require_once('common/common.php');
 
+/**
+ * Controller che gestisce view e azioni di utenti
+ */
 class utenti extends controller {
 
+	/**
+	 * Costruttore.
+	 *
+	 * @param string|null optional $method
+	 * @param string|null optional $param
+	 */
 	function __construct($method = null, $param = null)
 	{
 		$this->set_db();
@@ -34,6 +53,15 @@ class utenti extends controller {
 		die();
 	}
 
+	/**
+	 * Modifica un utente con info via post.
+	 *
+	 * @uses model/user.php
+	 * @uses $_POST
+	 * @uses $_FORMATI_IMMAGINI
+	 *
+	 * @param int $id
+	 */
 	function modifica($id)
 	{
 		global $_FORMATI_IMMAGINI;
@@ -149,6 +177,11 @@ class utenti extends controller {
                 die();
 	}
 
+	/**
+	 * Carica la view con l'indice degli utenti.
+	 *
+	 * @uses model/user_manager.php
+	 */
 	function lista()
 	{
 		$manager = new user_manager($this->db);
@@ -160,7 +193,13 @@ class utenti extends controller {
 		die();
 	}	
 
-	function vedi($id)
+	/**
+	 * Carica la view di un singolo utente.
+	 *
+	 * @param int $id id dell'utente
+	 * @uses model/utente.php
+	 */
+	 function vedi($id)
 	{
 		if( null == $id )
 		{
@@ -205,6 +244,14 @@ class utenti extends controller {
 	}
 
 
+	/**
+	 * Rimuove un luogo.
+	 *
+	 * @param int $id id dell'utente
+	 * @uses model/user.php
+	 * @uses model/user_manager.php
+	 * @uses user_manager::remove_user(int)
+	 */
 	function rimuovi($id)
 	{
 		if (null == $id || !is_numeric($id))

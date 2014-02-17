@@ -6,14 +6,13 @@
 
 class config {
 
-	const basedir = '';
-	const basehost = '';
+	const basedir = 'mvc/';
+	const basehost = 'http://localhost/';
 	const nomesito = 'MVC';
-	const serverpath = '/usr/home/studenti/st116761/Public/mvc/';
+	const serverpath = '/var/www/mvc/';
 	const user_img = 'usr_img/';
 	const imgdir = 'img/';
-	const icons = 'img/icons/';
+	const icons = 'http://localhost/mvc/img/icons/';
 }
 
 ?>
-

@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Controller that manages login procedure
+ *
+ * @uses view
+ */
+
 class login extends controller {
 
+
+	/**
+	 * Constructor.
+	 *
+	 * @param string|null $logout 'logout' to log out
+	 */
 	function __construct($logout = null)
 	{
 		$this->set_db();

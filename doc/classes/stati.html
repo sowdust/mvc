@@ -113,7 +113,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">572</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">492</span>
                                 </a>
                             </li>
                             <li>
@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1585072471"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-252442348"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1585072471" class="accordion-body collapse in">
+            <div id="namespace-252442348" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -200,8 +200,8 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>stati</h1>
-                    <p><em></em></p>
-                    
+                    <p><em>Controller che gestisce view e azioni di stati</em></p>
+                    <p>Definisce metodi e variabili comuni a tutti i controller.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -406,7 +406,7 @@
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$method</span>,  <span class="argument">$param</span>)</pre>
-                <p><em></em></p>
+                <p><em>Costruttore.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -450,7 +450,7 @@
                 <h3 class="public ">aggiungi()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">aggiungi()</pre>
-                <p><em></em></p>
+                <p><em>Aggiunge uno status che arriva via post.</em></p>
                 
 
                 
@@ -460,7 +460,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>regexp::stato</dd>
+                                            <dd>$_POST</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -480,16 +483,16 @@
             <article class="method">
                 <h3 class="public ">rimuovi()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">rimuovi( <span class="argument">$param</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">rimuovi(int <span class="argument">$param</span>)</pre>
+                <p><em>Rimuove uno status che arriva via post.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$param</td>
-                                <td></td>
+                                <td><p>id dello stato</p></td>
                             </tr>
                                             </table>
                 
@@ -520,7 +523,7 @@
                 <h3 class="public ">vedi()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">vedi( <span class="argument">$id</span>)</pre>
-                <p><em></em></p>
+                <p><em>Carica la view per un singolo stato</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -577,6 +580,7 @@
                             todo
                         </th>
                         <td>
+                                                                                            <p>implementare la lista degli stati</p>
                                                     </td>
                     </tr>
                             </table>
@@ -590,8 +594,8 @@
                 <h3 class="public ">set_db()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">set_db()</pre>
-                <p><em></em></p>
-                
+                <p><em>Sets the database.</em></p>
+                <p>Creates a new 'database' object and stores its pointer in the object's $db var</p>
 
                 
                 
@@ -623,8 +627,9 @@
                 <h3 class="public ">set_view()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">set_view( <span class="argument">$name</span>,  <span class="argument">$sub</span>)</pre>
-                <p><em></em></p>
-                
+                <p><em>Sets the view.</em></p>
+                <p>Cretes a new 'view' object and stores its pointer in the object's $view var
+Also associates the visitor's user object's pointer in object's $user var.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -653,6 +658,16 @@
             <table class="table table-condensed">
                                     <tr>
                         <th>
+                            var
+                        </th>
+                        <td>
+                                                                                            <p>name of the view (corresponds to a subfolder name in 'view' folder)</p>
+                                                                                            <p>optional     sub view name (corresponds to a file in the view's folder).</p>
+<pre><code>                            default is 'index'</code></pre>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
                             todo
                         </th>
                         <td>
@@ -669,8 +684,11 @@
                 <h3 class="public ">manage_session()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">manage_session( <span class="argument">$auth_required</span>,  <span class="argument">$redirect</span>)</pre>
-                <p><em></em></p>
-                
+                <p><em>Session manager - *authorization* manager.</em></p>
+                <p>Creates or restores a session from $_SESSION var
+and creates/restores a row in "sessioni" table in mysql database
+The authorizathion is done via a secret key stored both in the db and
+in the $_SESSION var, generated and set after a successful login</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -694,7 +712,11 @@
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/controller.html"><div class="path-wrapper">\controller</div></a></dd>
-                                                            </dl>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>session::get_user_type_and_id</dd>
+                                            <dd>view</dd>
+                                            <dd>$_POST</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -702,6 +724,7 @@
                             todo
                         </th>
                         <td>
+                                                                                            <p><em>impostare massimo # di tentativi di login per evitare brute force</em></p>
                                                     </td>
                     </tr>
                             </table>
@@ -757,7 +780,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 15th, 2014 at 22:38.
+                    on February 17th, 2014 at 21:24.
                 </section>
             </section>
         </section>

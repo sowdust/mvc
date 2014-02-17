@@ -1,10 +1,30 @@
 <?php
 
+/**
+ * Controller that manages the maps
+ *
+ * @uses view/luoghi/*
+ * @uses model/luogo.php
+ * @uses model/luogo_manager.php
+ * @uses common/regexp.php
+ */
+
+
 require_once('model/luogo.php');
 require_once('model/luogo_manager.php');
 
+
+/** Controller that offers the interface for maps  */
 class luoghi extends controller {
 
+	/**
+	 * Costruttore.
+	 *
+	 * In base al metodo richiesto, chiama l'apposito metodo sul modello del commento.
+	 *
+	 * @param string|null $method
+	 * @param string|null optional $param
+	 */
 	function __construct($method = null, $param = null)
 	{
 		$this->set_db();
@@ -29,6 +49,12 @@ class luoghi extends controller {
 		die();
 	}
 
+	/**
+	 * Aggiunge un luogo che arriva via post.
+	 *
+	 * @uses common/regexp.php
+	 * @uses model/luogo_manager.php
+	 */
 	function aggiungi()
 	{
 		if(!isset($_POST['location']))
@@ -68,7 +94,12 @@ class luoghi extends controller {
 		die();
 	}
 
-	function lista()
+	/**
+	 * Carica la view con l'indice dei luoghi.
+	 *
+	 * @uses model/luogo_manager.php
+	 */
+	 function lista()
 	{
 		$manager = new luogo_manager($this->db);
 		$this->set_view('luoghi');
@@ -79,7 +110,14 @@ class luoghi extends controller {
 		die();
 	}
 
-	function vedi($id)
+
+	/**
+	 * Carica la view di un singolo luogo.
+	 *
+	 * @param int $id id del luogo
+	 * @uses model/luogo.php
+	 */
+	 function vedi($id)
 	{
 		if (null == $id || !is_numeric($id))
 		{
@@ -99,6 +137,14 @@ class luoghi extends controller {
 		die();
 	}
 
+	/**
+	 * Rimuove un luogo.
+	 *
+	 * @param int $id id del luogo
+	 * @uses model/luogo.php
+	 * @uses model/luogo_manager.php
+	 * @uses luogo_manager::remove_luogo(int)
+	 */
 	function rimuovi($id)
 	{
 		if (null == $id || !is_numeric($id))

@@ -6,6 +6,8 @@
  * @class input
  * @class form
  * @todo migliore gestione di "valida tutto"
+ * @todo funzione render() al posto di to_html() che
+ *			stampa una view parziale [ $view->render(false) ]
  */
 
 /**

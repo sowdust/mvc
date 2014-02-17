@@ -1,10 +1,37 @@
 <?php
 
+/**
+ * File che definisce il controllore per gestire le amicizie.
+ *
+ * Le amicizie sono memorizzate nel database in un'apposita tabella come una coppia
+ * ordinata <id,id> dove il primo id e' minore del secondo (per facilitare la ricerca)
+ * L'amicizia viene creata dapprima in una tabella "richieste" e solo al momento
+ * dell'accettazione, viene spostata nella tabella "amicizie". Si e' calcolato che 
+ * con un numero ragionevole di utenti questa sia la soluzione piu' conveniente
+ * per massimizzare l'efficienza del database.
+ *
+ * @uses model/amicizia.php
+ * @uses model/user.php
+ * @uses view/view.php
+ * @uses model/database.php
+ */
+
 require_once('model/amicizia.php');
 
 
+/** Classe amicizie */
+
 class amicizie extends controller {
 
+	/**
+	 * Costruttore.
+	 *
+	 * Se l'amicizia e' chiamata nell'ambito di una richiesta, il 
+	 * primo id fornito dev'essere quello del
+	 *
+	 * @param string|null $method
+	 * @param string|null $param
+	 */
 	function __construct($method = null, $param = null)
 	{
 		$this->set_db();
@@ -30,6 +57,15 @@ class amicizie extends controller {
 		$this->view->render();
 	}
 
+	/**
+	 * Nega un'amicizia.
+	 *
+	 * Tutte le informazioni legate a questa amicizia vengono eliminate.
+	 *
+	 * @param int $id id dell'amico la cui amicizia si vuole eliminare
+	 * @uses amicizia::nega
+	 * @uses user::add_notifica
+	 */
 	function nega($id)
 	{
 		if (null == $id || !is_numeric($id))
@@ -47,7 +83,17 @@ class amicizie extends controller {
 		$da_notificare->add_notifica('amicizia-negata',$this->user->get_id());
 	}
 
-	function richiedi($id)
+	/**
+	 * Crea richiesta d'amicizia.
+	 *
+	 * Aggiunge un record nella tabell "richieste" con i due id utente in ordine:
+	 * <id_richiedente, id_richiesto>
+	 *
+	 * @param int $id id dell'amico a cui richiedere l'amicizia
+	 * @uses amicizia::richiedi
+	 * @uses user::add_notifica
+	 */
+	 function richiedi($id)
 	{
 		if (null == $id || !is_numeric($id))
 		{
@@ -57,7 +103,8 @@ class amicizie extends controller {
 			$this->view->render();
 			die();
 		}
-
+		// importante che l'amicizia venga costruita dando come primo id
+		// il richiedente
 		$amicizia = new amicizia($this->db,$this->user->get_id(),$id);
 		$amicizia->richiedi();
 		$da_notificare = new user($this->db,$id);
@@ -70,6 +117,16 @@ class amicizie extends controller {
 		die();
 	}
 
+	/**
+	 * Conferma un'amicizia.
+	 *
+	 * Aggiunge un record nella tabella "amicizie" con i due id utente in ordine:
+	 * <id_1, id_2> : id_1 < id_2
+	 *
+	 * @param int $id del richiedente
+	 * @uses amicizia::accetta
+	 * @uses user::add_notifica
+	 */
 	function accetta($id)
 	{
 		if (null == $id || !is_numeric($id))

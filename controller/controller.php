@@ -1,9 +1,29 @@
 <?php
 
+/**
+ * File generale chedefinisce una classe ereditata da tutti i controller.
+ *
+ * @uses model/user.php
+ * @uses model/session.php
+ * @uses model/database.php
+ * @uses view/view.php
+ */
+
 require_once('model/database.php');
 require_once('model/session.php');
 require_once('model/user.php');
 require_once('view/view.php');
+
+
+/**
+ * Classe controller ereditata da tutti i controller.
+ *
+ * Definisce metodi e variabili comuni a tutti i controller.
+ *
+ * @var database $db
+ * @var user $user
+ * @var view $view
+ */
 
 class controller {
 
@@ -11,32 +31,61 @@ class controller {
 	protected $user;
 	protected $view;
 
+	/**
+	 * Sets the database.
+	 *
+	 * Creates a new 'database' object and stores its pointer in the object's $db var
+	 */
 	function set_db()
 	{
 		$this->db = new database;
 	}
 
-	function set_view($name,$sub=null)
+	/**
+	 * Sets the view.
+	 *
+	 * Cretes a new 'view' object and stores its pointer in the object's $view var
+	 * Also associates the visitor's user object's pointer in object's $user var.
+	 * 
+	 * @var string 					name of the view (corresponds to a subfolder name in 'view' folder)
+	 * @var string|null optional 	sub view name (corresponds to a file in the view's folder).
+	 * 								default is 'index'
+	 */
+	 function set_view($name,$sub=null)
 	{
-		$this->view = new View($name,$sub);
+		$this->view = new view($name,$sub);
 		$this->view->set_user($this->user);
 	}
 	
-	function manage_session($auth_required = 1, $redirect = true )
+
+	/**
+	 * Session manager - *authorization* manager.
+	 *
+	 * Creates or restores a session from $_SESSION var
+	 * and creates/restores a row in "sessioni" table in mysql database
+	 * The authorizathion is done via a secret key stored both in the db and
+	 * in the $_SESSION var, generated and set after a successful login
+	 * 
+	 * @uses session::get_user_type_and_id
+	 * @uses view 
+	 * @uses $_POST
+	 *
+	 * @todo *impostare massimo # di tentativi di login per evitare brute force*
+	 *
+	 */
+	 function manage_session($auth_required = 1, $redirect = true )
 	{
 		if(!isset($this->db)) die ('db non settato') ;
 		
 		session_start();
 		
-		//TODO: impostare max numero login in range di tempo per 
-		//		evitare bruteforce
-		// se hanno appena fatto il login	
-		
+		//	se sono stati inviati valori via post, tentiamo il login
+		//	se loggato, automaticamente avviene il logout
 		if(isset($_POST['nick']) && isset($_POST['pass']) && isset($_POST['login-form']))
 		{
-			if( isset($_SESSION['sess_data']))
+			if( isset($this->user) && $this->user->get_type() >= 0)
 			{
-				unset($_SESSION['sess_data']);
+				$this->user->logout();
 			}
 			if(!regexp::nick($_POST['nick']))
 			{
@@ -45,19 +94,21 @@ class controller {
 				$nick = $_POST['nick'];
 			}
 
-			//	TODO: trattare session id
-			$sess_id = 0;
 			$user_data = session::get_user_type_and_id($this->db,$nick,$_POST['pass']);
 			$user_type = $user_data['type'];
 			$user_id = $user_data['id'];
+
+			// se login fallito, errore
 			if( $user_type < 0 && $auth_required > 0)
 			{
 				$this->view = new View('errore');
 				$this->view->set_user($this->user);
 				$this->view->set_message('Login Fallito');
 				$this->view->render();
+				die();
 			}
 
+			// se login valido, start new session
 		 	if($user_type >= 0)
 			{
 				$session = new session($this->db,$user_id);
@@ -71,7 +122,8 @@ class controller {
 			}
 		}
 
-		if(isset($_SESSION['sess_data'] ))
+		// altrimenti proviamo a vedere se la sessione dell'utente e' valida
+		elseif(isset($_SESSION['sess_data'] ))
 		{
 			$session = unserialize($_SESSION['sess_data']);
 			$session->set_db($this->db->mysqli);
@@ -103,13 +155,15 @@ class controller {
 			$this->user->set_session($session);
                         $_SESSION['sess_data'] = serialize($session);
 			unset($session);
-			
+		
+		// infine, se la pagina richiede autorizzazione, presentiamo pag login
 		}elseif($auth_required > 0 ){
 
 			$this->set_view('login');
 			$this->view->set_js('form.js.php');
 			$this->view->set_user($this->user);
 			$this->view->render();
+			die();
 		}
 	}
 }

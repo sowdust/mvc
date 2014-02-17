@@ -1,12 +1,33 @@
 <?php
 
+/**
+  *  File che definisce il controllore per gestire i commenti.
+  * 
+  * @uses common/regexp.php
+  * @uses model/user.php
+  * @uses model/commento.php
+  * @uses model/commento_manager.php
+  * @uses model/database.php
+  * @uses view/view.php
+  */
+
 require_once('common/regexp.php');
 require_once('model/commento_manager.php');
 require_once('model/commento.php');
 require_once('model/user.php');
 
+/** controller per i commenti */
+
 class commenti extends controller {
 
+	/**
+	 * Costruttore.
+	 *
+	 * In base al metodo richiesto, chiama l'apposito metodo sul modello del commento.
+	 *
+	 * @param string|null $method
+	 * @param string|null optional $param
+	 */
 	function __construct($method = null, $param = null)
 	{
 		$this->set_db();
@@ -31,7 +52,11 @@ class commenti extends controller {
 		die();
 	}
 
-
+	/**
+	 * Chiama la view per visualizzare il commento.
+	 *
+	 * @param int $id id commento da visualizzare
+	 */
 	function vedi($id)
 	{
 		if( null == $id || !is_numeric($id))
@@ -48,6 +73,15 @@ class commenti extends controller {
 		die();
 	}
 
+	/**
+	 * Aggiunge un commento.
+	 *
+	 * Se i dati via post sono stati spediti li aggiunge, 
+	 * altrimenti carica la view che offre un modulo per aggiungere commenti
+	 *
+	 * @uses commento_manager::add_commento
+	 * @uses regexp
+	 */
 	function aggiungi()
 	{
 
@@ -77,6 +111,15 @@ class commenti extends controller {
 		return ;
 	}
 
+
+	/**
+	 * Rimuove un commento.
+	 *
+	 * Il commento e' rimosso solo se il richiedente e' l'utente proprietario
+	 * (autore) del commento, o admin.
+	 *
+	 * @param int
+	 */
 	function rimuovi($id)
 	{
 		if( null == $id || !is_numeric($id))

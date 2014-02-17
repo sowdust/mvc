@@ -113,7 +113,7 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">572</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">492</span>
                                 </a>
                             </li>
                             <li>
@@ -138,10 +138,10 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1510496140"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-248534901"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1510496140" class="accordion-body collapse in">
+            <div id="namespace-248534901" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                     
@@ -200,8 +200,8 @@
                     <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
                     <h1><small>\</small>ajax</h1>
-                    <p><em></em></p>
-                    
+                    <p><em>Class used to receive and manage ajax requests</em></p>
+                    <p>Definisce metodi e variabili comuni a tutti i controller.</p>
 
                     <section id="summary">
                         <h2>Summary</h2>
@@ -411,19 +411,20 @@
             <article class="method">
                 <h3 class="public ">__construct()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">__construct( <span class="argument">$method</span>,  <span class="argument">$param</span>)</pre>
-                <p><em></em></p>
-                
+                <pre class="signature" style="margin-right: 54px;">__construct(string|null <span class="argument">$method</span>, string|null <span class="argument">$param</span>)</pre>
+                <p><em>Constructor.</em></p>
+                <p>Calls the correct method based on the input params with which
+it is called</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>string|null</td>
                                 <td>$method</td>
                                 <td></td>
                             </tr>
                                                     <tr>
-                                <td></td>
+                                <td>string|null</td>
                                 <td>$param</td>
                                 <td></td>
                             </tr>
@@ -455,14 +456,14 @@
             <article class="method">
                 <h3 class="public ">get_commenti()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">get_commenti( <span class="argument">$id</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">get_commenti(int <span class="argument">$id</span>) : void</pre>
+                <p><em>Prints all comments children of given one.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$id</td>
                                 <td></td>
                             </tr>
@@ -474,7 +475,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>model/commento.php</dd>
+                                            <dd>commento::get_children()</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -494,14 +498,14 @@
             <article class="method">
                 <h3 class="public ">rimuovi_notifica()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">rimuovi_notifica( <span class="argument">$id</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">rimuovi_notifica(int <span class="argument">$id</span>) : void</pre>
+                <p><em>Removes given notification</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td></td>
+                                <td>int</td>
                                 <td>$id</td>
                                 <td></td>
                             </tr>
@@ -513,7 +517,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>notifica::rimuovi()</dd>
+                                            <dd>model/notifica.php</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -533,8 +540,8 @@
             <article class="method">
                 <h3 class="public ">is_tabella()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">is_tabella( <span class="argument">$tabella</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">is_tabella( <span class="argument">$tabella</span>) : void</pre>
+                <p><em>Checks if given is a valid db table.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -552,7 +559,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>ricerca::get_tabelle()</dd>
+                                            <dd>model/ricerca.php</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -572,8 +582,8 @@
             <article class="method">
                 <h3 class="public ">ricerca_campi()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">ricerca_campi( <span class="argument">$tabella</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">ricerca_campi( <span class="argument">$tabella</span>) : void</pre>
+                <p><em>Prints fields of given table.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -591,7 +601,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>model/ricerca.php</dd>
+                                            <dd>ricerca::get_campi()</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -611,8 +624,8 @@
             <article class="method">
                 <h3 class="public ">nick()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">nick( <span class="argument">$nick</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">nick( <span class="argument">$nick</span>) : void</pre>
+                <p><em>Prints result of nick validation.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -630,7 +643,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>common/regexp.php</dd>
+                                            <dd>regexp::nick</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -650,8 +666,8 @@
             <article class="method">
                 <h3 class="public ">stato()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">stato( <span class="argument">$stato</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">stato( <span class="argument">$stato</span>) : void</pre>
+                <p><em>Prints result of status validation.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -669,7 +685,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>common/regexp.php</dd>
+                                            <dd>regexp::stato</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -689,8 +708,8 @@
             <article class="method">
                 <h3 class="public ">nick_unico()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">nick_unico( <span class="argument">$nick</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">nick_unico( <span class="argument">$nick</span>) : void</pre>
+                <p><em>Prints result of unicity of nickname.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -708,7 +727,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>model/user_manager.php</dd>
+                                            <dd>common/regexp.php</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -728,8 +750,8 @@
             <article class="method">
                 <h3 class="public ">email()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">email( <span class="argument">$email</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">email( <span class="argument">$email</span>) : void</pre>
+                <p><em>Prints result of email validation.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -747,7 +769,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>common/regexp.php</dd>
+                                            <dd>regexp::email</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -767,8 +792,8 @@
             <article class="method">
                 <h3 class="public ">password()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">password( <span class="argument">$password</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">password( <span class="argument">$password</span>) : void</pre>
+                <p><em>Prints result of pass validation.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -786,7 +811,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>common/regexp.php</dd>
+                                            <dd>regexp::password</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -806,8 +834,8 @@
             <article class="method">
                 <h3 class="public ">testo()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">testo( <span class="argument">$testo</span>)</pre>
-                <p><em></em></p>
+                <pre class="signature" style="margin-right: 54px;">testo( <span class="argument">$testo</span>) : void</pre>
+                <p><em>Prints result of text validation.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -825,7 +853,10 @@
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
-                                                                            </dl>
+                                                                                                            <dt>Uses</dt>
+                                                                <dd>common/regexp.php</dd>
+                                            <dd>regexp::testo</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -846,8 +877,8 @@
                 <h3 class="public ">set_db()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">set_db()</pre>
-                <p><em></em></p>
-                
+                <p><em>Sets the database.</em></p>
+                <p>Creates a new 'database' object and stores its pointer in the object's $db var</p>
 
                 
                 
@@ -879,8 +910,9 @@
                 <h3 class="public ">set_view()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">set_view( <span class="argument">$name</span>,  <span class="argument">$sub</span>)</pre>
-                <p><em></em></p>
-                
+                <p><em>Sets the view.</em></p>
+                <p>Cretes a new 'view' object and stores its pointer in the object's $view var
+Also associates the visitor's user object's pointer in object's $user var.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -909,6 +941,16 @@
             <table class="table table-condensed">
                                     <tr>
                         <th>
+                            var
+                        </th>
+                        <td>
+                                                                                            <p>name of the view (corresponds to a subfolder name in 'view' folder)</p>
+                                                                                            <p>optional     sub view name (corresponds to a file in the view's folder).</p>
+<pre><code>                            default is 'index'</code></pre>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
                             todo
                         </th>
                         <td>
@@ -925,8 +967,11 @@
                 <h3 class="public ">manage_session()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
                 <pre class="signature" style="margin-right: 54px;">manage_session( <span class="argument">$auth_required</span>,  <span class="argument">$redirect</span>)</pre>
-                <p><em></em></p>
-                
+                <p><em>Session manager - *authorization* manager.</em></p>
+                <p>Creates or restores a session from $_SESSION var
+and creates/restores a row in "sessioni" table in mysql database
+The authorizathion is done via a secret key stored both in the db and
+in the $_SESSION var, generated and set after a successful login</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
@@ -950,7 +995,11 @@
                                                             <dl>
                                                     <dt>Inherited from</dt>
                     <dd><a href="../classes/controller.html"><div class="path-wrapper">\controller</div></a></dd>
-                                                            </dl>
+                                                                                            <dt>Uses</dt>
+                                                                <dd>session::get_user_type_and_id</dd>
+                                            <dd>view</dd>
+                                            <dd>$_POST</dd>
+                                                </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
                                     <tr>
@@ -958,6 +1007,7 @@
                             todo
                         </th>
                         <td>
+                                                                                            <p><em>impostare massimo # di tentativi di login per evitare brute force</em></p>
                                                     </td>
                     </tr>
                             </table>
@@ -1013,7 +1063,7 @@
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on February 15th, 2014 at 22:38.
+                    on February 17th, 2014 at 21:24.
                 </section>
             </section>
         </section>

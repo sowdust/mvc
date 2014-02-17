@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Controller to manage error page.
+ *
+ * @uses view
+ */
+
 require_once('controller.php');
 
 class errore extends controller {

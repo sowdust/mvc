@@ -1,9 +1,25 @@
 <?php
-
+/**
+ * Controller that manages research procedure
+ *
+ * @uses view
+ * @uses model/ricerca.php
+ * @uses common/regexp.php
+ */
 require_once('model/ricerca.php');
 
+/**
+ * Classe che gestisce le richieste di ricerche 
+ */
 class ricerche extends controller {
 
+	/**
+	 * Costruttore.
+	 *
+	 * @param string|null optional $method
+	 * @param string|null optional $param
+	 * @uses ricerca::get_tabelle
+	 */
 	function __construct($method = null, $param = null)
 	{
 		$this->set_db();
@@ -26,6 +42,14 @@ class ricerche extends controller {
 		die();
 	}
 
+	/**
+	 * Lista i risultati
+	 *
+	 * @uses ricerca::get_tabelle
+	 * @uses ricerca::get_tipo
+	 * @uses regexp::testo
+	 * @uses $_POST
+	 */
 	function show_risultati()
 	{
 		$lista_tabelle = ricerca::get_tabelle();

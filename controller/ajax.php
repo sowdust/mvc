@@ -1,8 +1,28 @@
 <?php
+
+/**
+  * @uses view/view.php
+  * @uses model/database.php
+  * @uses model/ricerca.php
+  */
+
+
 require_once('model/ricerca.php');
+
+
+/** Class used to receive and manage ajax requests */
 
 class ajax extends controller {
 
+	/**
+	 * Constructor.
+	 *
+	 * Calls the correct method based on the input params with which
+	 * it is called
+	 *
+	 * @param string|null $method
+	 * @param string|null $param
+	 */
 	function __construct($method = null, $param = null)
 	{
 
@@ -46,6 +66,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints all comments children of given one.
+	 *
+	 * @param int $id
+	 * @return void
+	 * @uses model/commento.php
+	 * @uses commento::get_children()
+	 */
 	function get_commenti($id)
 	{
 		$this->manage_session(1);
@@ -64,6 +92,14 @@ class ajax extends controller {
 		echo $o;
 	}
 
+	/**
+	 * Removes given notification
+	 *
+	 * @param int $id
+	 * @return void
+	 * @uses notifica::rimuovi()
+	 * @uses model/notifica.php
+	 */
 	function rimuovi_notifica($id)
 	{
 		require_once('model/notifica.php');
@@ -73,6 +109,14 @@ class ajax extends controller {
 		echo $id;
 	}
 
+	/**
+	 * Checks if given is a valid db table.
+	 *
+	 * @param  string
+	 * @return void
+	 * @uses ricerca::get_tabelle()
+	 * @uses model/ricerca.php
+	 */
 	function is_tabella($tabella)
 	{
 		if(in_array($tabella, ricerca::get_tabelle()))
@@ -83,6 +127,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints fields of given table.
+	 *
+	 * @param string
+	 * @return void
+	 * @uses model/ricerca.php
+	 * @uses ricerca::get_campi()
+	 */
 	function ricerca_campi($tabella)
 	{
 		require_once('model/ricerca.php');
@@ -99,6 +151,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints result of nick validation.
+	 *
+	 * @param string 
+	 * @return void
+	 * @uses common/regexp.php
+	 * @uses regexp::nick
+	 */
 	function nick($nick)
 	{
 		if( null == $nick || !regexp::nick($nick) )
@@ -109,6 +169,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints result of status validation.
+	 *
+	 * @param string 
+	 * @return void
+	 * @uses common/regexp.php
+	 * @uses regexp::stato
+	 */
 	function stato($stato)
 	{
 		if(null == $stato || !regexp::stato($stato))
@@ -119,6 +187,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints result of unicity of nickname.
+	 *
+	 * @param string 
+	 * @return void
+	 * @uses model/user_manager.php
+	 * @uses common/regexp.php
+	 */
 	function nick_unico($nick)
 	{
 		require_once('model/user_manager.php');
@@ -135,6 +211,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints result of email validation.
+	 *
+	 * @param string 
+	 * @return void
+	 * @uses common/regexp.php
+	 * @uses regexp::email
+	 */
 	function email($email)
 	{
 		if( null == $email || !regexp::email($email) )
@@ -145,6 +229,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints result of pass validation.
+	 *
+	 * @param string 
+	 * @return void
+	 * @uses common/regexp.php
+	 * @uses regexp::password
+	 */
 	function password($password)
 	{
 		if( null == $password || !regexp::password($password) )
@@ -155,6 +247,14 @@ class ajax extends controller {
 		}
 	}
 
+	/**
+	 * Prints result of text validation.
+	 *
+	 * @param string 
+	 * @return void
+	 * @uses common/regexp.php
+	 * @uses regexp::testo
+	 */
 	function testo($testo)
 	{
 		if(!regexp::testo($testo))
