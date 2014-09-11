@@ -1,18 +1,23 @@
 <div id="mappa">
-<form name="aggiungi_luogo" action = "<?php echo init::link('luoghi','aggiungi'); ?>" method="post" id="aggiungi-luogo">
-<p>Aggiungi un luogo al tuo profilo!<br />
-Stato e citt&agrave; sono richiesti.<br />
-</p>
-<input type="hidden" name="location" id="location_place">
-<input id="indirizzo"  placeholder="Indirizzo" type="text" name="indirizzo" value="" onclick="this.value=''" onblur="codeAddress()" />
-<input id="citta"  placeholder="Citta" type="text" name="citta" value="" onclick="this.value=''" onblur="codeAddress()" required />
-<input id="prov" placeholder="Provincia" type="text" name="prov" value="" onclick="this.value=''" onblur="codeAddress()" />
-<input id="stato" placeholder="Stato" type="text" name="stato" value="" onclick="this.value=''" onblur="codeAddress()" required="campo obbligatorio" />
-</form>
+    <form name="aggiungi_luogo" action = "<?php echo init::link('luoghi', 'aggiungi'); ?>" method="post" id="aggiungi-luogo">
+        <p>Aggiungi un luogo al tuo profilo!<br />
+            Stato e citt&agrave; sono richiesti.<br />
+        </p>
+        <input type="hidden" name="location" id="location_place">
+        <input id="indirizzo"  placeholder="Indirizzo" type="text" name="indirizzo" value="" onclick="this.value = ''" onblur="codeAddress()" />
+        <input id="citta"  placeholder="Citta" type="text" name="citta" value="" onclick="this.value = ''" onblur="codeAddress()" required />
+        <input id="prov" placeholder="Provincia" type="text" name="prov" value="" onclick="this.value = ''" onblur="codeAddress()" />
+        <input id="stato" placeholder="Stato" type="text" name="stato" value="" onclick="this.value = ''" onblur="codeAddress()" required="campo obbligatorio" />
+    </form>
 </div>
- <div id="map-canvas"></div>
- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<br />
+<br /><div id="map-canvas"></div>
+<br />
+<br />
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 <script>
-    google.maps.event.addDomListener(window, 'load', initialize);
+            google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 

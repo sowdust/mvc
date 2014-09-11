@@ -7,7 +7,7 @@
  * @class form
  * @todo migliore gestione di "valida tutto"
  * @todo funzione render() al posto di to_html() che
- *			stampa una view parziale [ $view->render(false) ]
+ * 			stampa una view parziale [ $view->render(false) ]
  */
 
 /**
@@ -15,274 +15,250 @@
  *
  * @used-by form
  */
-class input{
+class input {
 
-	protected $name;
-	protected $id;
-	protected $type;
-	protected $value;
-	protected $class;
-	protected $legend;
-	protected $readonly = false;
-	protected $options = array();
-	protected $js = array();
-	protected $checks = array();
-	protected $rows;
-	protected $cols;
-	protected $obbligatorio = false;
+    protected $name;
+    protected $id;
+    protected $type;
+    protected $value;
+    protected $class;
+    protected $legend;
+    protected $readonly = false;
+    protected $options = array();
+    protected $js = array();
+    protected $checks = array();
+    protected $rows;
+    protected $cols;
+    protected $obbligatorio = false;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param string $type type attribute or textarea
-	 * @param string $name
-	 * @param string $value optional
-	 */
-	function __construct($type,$name,$value = '')
-	{
-		$this->type = $type;
-		$this->name = $name;
-		$this->value = $value;
-	}
+    /**
+     * Constructor.
+     *
+     * @param string $type type attribute or textarea
+     * @param string $name
+     * @param string $value optional
+     */
+    function __construct($type, $name, $value = '') {
+        $this->type = $type;
+        $this->name = $name;
+        $this->value = $value;
+    }
 
-	/**
-	 * Sets rows and cols to textareas.
-	 *
-	 * @param int $row # of rows 
-	 * @param int $col # of cols
-	 */
-	function set_row_col($row,$col)
-	{
-		$this->rows = $row;
-		$this->cols = $col;
-	}
+    /**
+     * Sets rows and cols to textareas.
+     *
+     * @param int $row # of rows
+     * @param int $col # of cols
+     */
+    function set_row_col($row, $col) {
+        $this->rows = $row;
+        $this->cols = $col;
+    }
 
-	/**
-	 * Sets value attribute.
-	 *
-	 * @param string $value
-	 */
-	function set_value($value)
-	{
-		$this->value = $value;
-	}
+    /**
+     * Sets value attribute.
+     *
+     * @param string $value
+     */
+    function set_value($value) {
+        $this->value = $value;
+    }
 
-	/**
-	 * Sets readonly attribute.
-	 *
-	 * @param boolean 
-	 */
-	function set_readonly($bool)
-	{
-		$this->readonly = $bool;
-	}
+    /**
+     * Sets readonly attribute.
+     *
+     * @param boolean
+     */
+    function set_readonly($bool) {
+        $this->readonly = $bool;
+    }
 
-	/**
-	 * Sets id attribute.
-	 *
-	 * @param string id
-	 */
-	function set_id($id)
-	{
-		$this->id = $id;
-	}
-	
-	/**
-	 * Associates js method to even
-	 *
-	 * @param list $js list of type ['event','method']
-	 * @example $input_field->add_js(['onclick','method(option)'])
-	 */
-	function add_js($js)
-	{
-		$this->js[] = $js;
-		$this->checks[] = $js[1];
-	}
+    /**
+     * Sets id attribute.
+     *
+     * @param string id
+     */
+    function set_id($id) {
+        $this->id = $id;
+    }
 
-	/**
-	 * Get checks
-	 *
-	 * @deprecated 
-	 */
-	function get_checks()
-	{
-		//return $this->checks;
-		die('get_checks deprecata?');
-	}
+    /**
+     * Associates js method to even
+     *
+     * @param list $js list of type ['event','method']
+     * @example $input_field->add_js(['onclick','method(option)'])
+     */
+    function add_js($js) {
+        $this->js[] = $js;
+        $this->checks[] = $js[1];
+    }
 
-	/**
-	 * Adds <name,value> options to select field.
-	 *
-	 * @param list $options in the form ['name','value']
-	 */
-	function set_options($options)
-	{
-		$this->options = $options;
-	}
+    /**
+     * Get checks
+     *
+     * @deprecated
+     */
+    function get_checks() {
+        //return $this->checks;
+        die('get_checks deprecata?');
+    }
 
-	/**
-	 * Creates legend element.
-	 *
-	 * @param string $legend text of legend
-	 */
-	function set_legend($legend)
-	{
-		$this->legend = $legend;
-	}
+    /**
+     * Adds <name,value> options to select field.
+     *
+     * @param list $options in the form ['name','value']
+     */
+    function set_options($options) {
+        $this->options = $options;
+    }
 
-	/**
-	 * Set as required.
-	 */
-	function set_obbligatorio()
-	{
-		$this->obbligatorio = true;
-	}
+    /**
+     * Creates legend element.
+     *
+     * @param string $legend text of legend
+     */
+    function set_legend($legend) {
+        $this->legend = $legend;
+    }
 
-	/**
-	 * Associates css class.
-	 *
-	 * @param string $class css class name
-	 */
-	function set_class($class)
-	{
-		$this->class = $class;
-	}
+    /**
+     * Set as required.
+     */
+    function set_obbligatorio() {
+        $this->obbligatorio = true;
+    }
 
-	/**
-	 * Name getter
-	 *
-	 * @return string
-	 */
-	function get_name()
-	{
-		return $this->name;
-	}
-	
-	/**
-	 * Id getter
-	 *
-	 * @return string
-	 */
-	function get_id()
-	{
-		return $this->id;
-	}
+    /**
+     * Associates css class.
+     *
+     * @param string $class css class name
+     */
+    function set_class($class) {
+        $this->class = $class;
+    }
 
-	/**
-	 * Is required?
-	 *
-	 * @return boolean
-	 */
-	function get_obbligatorio()
-	{
-		return $this->obbligatorio;
-	}
+    /**
+     * Name getter
+     *
+     * @return string
+     */
+    function get_name() {
+        return $this->name;
+    }
 
-	/**
-	 * Renders as html.
-	 *
-	 * Creates the html to render the input defined via php.
-	 *
-	 * @return string 
-	 */
-	function to_html()
-	{
-		switch ($this->type)
-		{
-			
-			//	TEXT E PASSWORD
-			case 'text':
-			case 'password':
-			case 'file':
+    /**
+     * Id getter
+     *
+     * @return string
+     */
+    function get_id() {
+        return $this->id;
+    }
 
-				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
-				$r.= '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
-				$r.= ' id = "' .$this->id.'" class = "' .$this->class.'"';
-				foreach ($this->js as $js)
-				{
-					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
-				}
-				if($this->readonly)
-				{
-					$r.= ' READONLY';
-				}
-				$r .= ($this->obbligatorio) ? ' required' : '';
-				$r .= ' />';
-				$r .= '<div id = "errori-'.$this->id.'"></div>';
-				break;
+    /**
+     * Is required?
+     *
+     * @return boolean
+     */
+    function get_obbligatorio() {
+        return $this->obbligatorio;
+    }
 
-			//	SELECT
-			case 'select':
-				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
-				$r.= '<select name ="'.$this->name.'" id="'.$this->id.'">';
-					foreach($this->options as $value => $name)
-					{
-						$r .= '<option value ="'.$value.'" ';
-						if($this->value == $value)
-						{
-							$r.= ' selected';
-						}
-						$r .='>'.$name.'</option>';
-					}
-				$r .= '</select>';
-				break;
-			
-			//	TEXTAREA
-			case 'textarea':
-				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
-				$r.= '<textarea name="'.$this->name.'" id="'.$this->id.'"';
-				if($this->readonly)
-				{
-					$r.= ' READONLY';
-				}
-				foreach ($this->js as $js)
-				{
-					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
-				}
-				$r.= (isset($this->rows) && isset($this->cols)) ? ' rows="'.$this->rows.'" cols="'.$this->cols.'"' : '';
+    /**
+     * Renders as html.
+     *
+     * Creates the html to render the input defined via php.
+     *
+     * @return string
+     */
+    function to_html() {
+        switch ($this->type) {
 
-				$r.=' >'.$this->value.'</textarea>';
-				break;
-			
+            //	TEXT E PASSWORD
+            case 'text':
+            case 'password':
+            case 'file':
 
-			//	BOTTONE INVIO
-			case 'submit':
-				$r = '<input type = "submit" name ="'.$this->name.'" value="'.$this->value.'"';
-				foreach($this->js as $js)
-				{
-					$r.= ' ' . $js[0] .'=' . $js[1] . ';return false;" ';
-				}
-				$r.=' />';
-				break;
+                $r = (isset($this->legend)) ? '<legend for="' . $this->name . '">' . $this->legend . '</legend>' : '';
+                $r.= '<input type = "' . $this->type . '" name="' . $this->name . '" value="' . $this->value . '"';
+                $r.= ' id = "' . $this->id . '" class = "' . $this->class . '"';
+                foreach ($this->js as $js) {
+                    $r.= ' ' . $js[0] . ' = "' . $js[1] . ';return false;" ';
+                }
+                if ($this->readonly) {
+                    $r.= ' READONLY';
+                }
+                $r .= ($this->obbligatorio) ? ' required' : '';
+                $r .= ' />';
+                $r .= '<div id = "errori-' . $this->id . '"></div>';
+                break;
+
+            //	SELECT
+            case 'select':
+                $r = (isset($this->legend)) ? '<legend for="' . $this->name . '">' . $this->legend . '</legend>' : '';
+                $r.= '<select name ="' . $this->name . '" id="' . $this->id . '">';
+                foreach ($this->options as $value => $name) {
+                    $r .= '<option value ="' . $value . '" ';
+                    if ($this->value == $value) {
+                        $r.= ' selected';
+                    }
+                    $r .='>' . $name . '</option>';
+                }
+                $r .= '</select>';
+                break;
+
+            //	TEXTAREA
+            case 'textarea':
+                $r = (isset($this->legend)) ? '<legend for="' . $this->name . '">' . $this->legend . '</legend>' : '';
+                $r.= '<textarea name="' . $this->name . '" id="' . $this->id . '"';
+                if ($this->readonly) {
+                    $r.= ' READONLY';
+                }
+                foreach ($this->js as $js) {
+                    $r.= ' ' . $js[0] . ' = "' . $js[1] . ';return false;" ';
+                }
+                $r.= (isset($this->rows) && isset($this->cols)) ? ' rows="' . $this->rows . '" cols="' . $this->cols . '"' : '';
+
+                $r.=' >' . $this->value . '</textarea>';
+                break;
 
 
-			//	FILE UPLOAD
-			case 'file':
+            //	BOTTONE INVIO
+            case 'submit':
+                $r = '<input type = "submit" name ="' . $this->name . '" value="' . $this->value . '"';
+                foreach ($this->js as $js) {
+                    $r.= ' ' . $js[0] . '=' . $js[1] . ';return false;" ';
+                }
+                $r.=' />';
+                break;
 
-				$r = (isset($this->legend)) ? '<legend for="'.$this->name.'">'. $this->legend . '</legend>' : '';
-				$r.= '<input type = "'.$this->type.'" name="'.$this->name.'" value="'.$this->value.'"';
-				$r.= ' id = "' .$this->id.'" class = "' .$this->class.'"';
-				foreach ($this->js as $js)
-				{
-					$r.= ' ' . $js[0] .' = "' . $js[1] . ';return false;" ';
-				}
-				if($this->readonly)
-				{
-					$r.= ' READONLY';
-				}
-				$r.=' />';
-				$r.='<div id = "errori-'.$this->id.'"></div>';
-				break;
-			case 'hidden':
-				$r = '<input type = "hidden" value ="'.$this->value.'" name = "'.$this->name.'"/>';
-				break;
-			default:
-				$r = 'Strano input field';
-				break;
-		}
 
-		return $r;
-	}
+            //	FILE UPLOAD
+            case 'file':
+
+                $r = (isset($this->legend)) ? '<legend for="' . $this->name . '">' . $this->legend . '</legend>' : '';
+                $r.= '<input type = "' . $this->type . '" name="' . $this->name . '" value="' . $this->value . '"';
+                $r.= ' id = "' . $this->id . '" class = "' . $this->class . '"';
+                foreach ($this->js as $js) {
+                    $r.= ' ' . $js[0] . ' = "' . $js[1] . ';return false;" ';
+                }
+                if ($this->readonly) {
+                    $r.= ' READONLY';
+                }
+                $r.=' />';
+                $r.='<div id = "errori-' . $this->id . '"></div>';
+                break;
+            case 'hidden':
+                $r = '<input type = "hidden" value ="' . $this->value . '" name = "' . $this->name . '"/>';
+                break;
+            default:
+                $r = 'Strano input field';
+                break;
+        }
+
+        return $r;
+    }
+
 }
 
 /**
@@ -290,180 +266,169 @@ class input{
  *
  * With this class it should be a little easier to create form elements
  * from within the html code, manage their js scripts and render them.
- * 
+ *
  * @uses input
  */
-
 class form {
-	
-	protected $fields;
-	protected $action;
-	protected $method;
-	protected $type;
-	protected $name;
-	protected $id;
-	protected $obbligatori = array();
-	protected $onsubmit;
 
-	/**
-	 * Contstructor.
-	 *
-	 * @param string $name optional
-	 * @param string $action optional
-	 * @param string $method optional
-	 * @param string $type optional
-	 *
-	 */
-	function __construct($name = null, $action = null, $method = null, $type = null)
-	{
-		$this->name = $name;
-		$this->action = $action;
-		$this->method = ( null == $method ) ? 'POST' : $method;
-		$this->type = ( null == $type ) ? 'application/x-www-form-urlencoded' : $type;
-	}
+    protected $fields;
+    protected $action;
+    protected $method;
+    protected $type;
+    protected $name;
+    protected $class;
+    protected $id;
+    protected $obbligatori = array();
+    protected $onsubmit;
 
-	/**
-	* Type setter
-	*
-	* @param string
-	*
-	*/
-	function set_type($type)
-	{
-		$this->type = $type;
-	}
+    /**
+     * Contstructor.
+     *
+     * @param string $name optional
+     * @param string $action optional
+     * @param string $method optional
+     * @param string $type optional
+     *
+     */
+    function __construct($name = null, $action = null, $method = null, $type = null) {
+        $this->name = $name;
+        $this->action = $action;
+        $this->method = ( null == $method ) ? 'POST' : $method;
+        $this->type = ( null == $type ) ? 'application/x-www-form-urlencoded' : $type;
+    }
 
-	/**
-	* Type action
-	*
-	* @param string
-	*
-	*/
-	function set_action($action)
-	{
-		$this->action = $action;
-	}
+    /**
+     * Type setter
+     *
+     * @param string
+     *
+     */
+    function set_type($type) {
+        $this->type = $type;
+    }
 
-	/**
-	* Method setter
-	*
-	* @param string
-	*
-	*/	function set_method($method)
-	{
-		$this->method = $method;
-	}
+    /**
+     * Associates css class.
+     *
+     * @param string $class css class name
+     */
+    function set_class($class) {
+        $this->class = $class;
+    }
 
-	/**
-	* Id setter
-	*
-	* @param string
-	*
-	*/
-	function set_id($id)
-	{
-		$this->id = $id;
-	}
+    /**
+     * Type action
+     *
+     * @param string
+     *
+     */
+    function set_action($action) {
+        $this->action = $action;
+    }
 
-	/**
-	* Name setter
-	*
-	* @param string
-	*
-	*/
-	function set_name($name)
-	{
-		$this->name = $name;
-	}
+    /**
+     * Method setter
+     *
+     * @param string
+     *
+     */ function set_method($method) {
+        $this->method = $method;
+    }
 
-	/**
-	* Associates a javasript method call to the onsubmit event.
-	*
-	* @param string 
-	*
-	*/
-	function set_onsubmit($onsubmit)
-	{
-		$this->onsubmit = $onsubmit;
-	}
+    /**
+     * Id setter
+     *
+     * @param string
+     *
+     */
+    function set_id($id) {
+        $this->id = $id;
+    }
 
-	/**
-	* Associate an input field object to the form.
-	*
-	* @param input 
-	* @param boolean optional if true sets the field as required
-	*
-	*/
-	function add($field,$obbligatorio = false)
-	{
-		if($obbligatorio)
-		{
-			$this->obbligatori[] = $field->get_name();
-			$field->set_obbligatorio();
-		}
-		$this->fields[] = $field;
-	}
+    /**
+     * Name setter
+     *
+     * @param string
+     *
+     */
+    function set_name($name) {
+        $this->name = $name;
+    }
 
-	/**
-	 * Renders as html.
-	 *
-	 * Creates the html to render the input defined via php.
-	 *
-	 * @todo eh mi sa che e' da ripensare
-	 * @return string 
-	 */
-	 function to_html()
-	{
-		$r = ($this->checks_to_js() ) ? $this->checks_to_js() : '' ;
-		
-		$r.= '<div id="errori-form-'.$this->id.'"></div>'
-			.'<form name="'.$this->name .'" method="'.$this->method
-			.'" action="'.$this->action.'" enctype="'.$this->type.'" id="'.$this->id
-			.' onsubmit = "'.$this->onsubmit.'">';
-		foreach($this->fields as $field)
-		{
-			$r.= $field->to_html();
-		}
+    /**
+     * Associates a javasript method call to the onsubmit event.
+     *
+     * @param string
+     *
+     */
+    function set_onsubmit($onsubmit) {
+        $this->onsubmit = $onsubmit;
+    }
 
-		$r.= '</form>';
+    /**
+     * Associate an input field object to the form.
+     *
+     * @param input
+     * @param boolean optional if true sets the field as required
+     *
+     */
+    function add($field, $obbligatorio = false) {
+        if ($obbligatorio) {
+            $this->obbligatori[] = $field->get_name();
+            $field->set_obbligatorio();
+        }
+        $this->fields[] = $field;
+    }
 
-		return $r;
-	}
+    /**
+     * Renders as html.
+     *
+     * Creates the html to render the input defined via php.
+     *
+     * @todo eh mi sa che e' da ripensare
+     * @return string
+     */
+    function to_html() {
+        $r = ($this->checks_to_js() ) ? $this->checks_to_js() : '';
 
+        $r.= '<div id="errori-form-' . $this->id . '"></div>'
+                . '<form name="' . $this->name . '" method="' . $this->method
+                . '" action="' . $this->action . '" enctype="' . $this->type . '" id="' . $this->id
+                . '" onsubmit = "' . $this->onsubmit . '"'
+                . ' class = "' . $this->class . '" role="form">';
+        foreach ($this->fields as $field) {
+            $r.= $field->to_html();
+        }
 
-	##	!BUG!				   / .'
-	##					 .---. \/
-	##	La funxione		(._.' \()
-	##	Setta a 1	 	^"""^"
-	##	Inizialmente il controllo su input
-	##	Ma se poi l'utente inserisce qualcosa nel campo che non va bene
-	##  Va a 0 e ci rimane anche se viene svuotata
-	##	Va aggiunto l'elenco delle obbligatorie per poter fare un if nel caso
-	##	data!=OK in funziona valida(,) in modo che, se vuote, vadano a 1
+        $r.= '</form>';
 
+        return $r;
+    }
 
-	//	tutta da rifare mi sa
+    ##	!BUG!				   / .'
+    ##					 .---. \/
+    ##	La funxione		(._.' \()
+    ##	Setta a 1	 	^"""^"
+    ##	Inizialmente il controllo su input
+    ##	Ma se poi l'utente inserisce qualcosa nel campo che non va bene
+    ##  Va a 0 e ci rimane anche se viene svuotata
+    ##	Va aggiunto l'elenco delle obbligatorie per poter fare un if nel caso
+    ##	data!=OK in funziona valida(,) in modo che, se vuote, vadano a 1
+    //	tutta da rifare mi sa
 
+    function checks_to_js() {
+        $r = '<script type="text/javascript" language="javascript"> '
+                . 'var lista_elementi = new Array(); '
+                . 'var obbligatori = new Array(); ';
 
-	function checks_to_js()
-	{
-		$r = '<script type="text/javascript" language="javascript"> '
-			.'var lista_elementi = new Array(); '
-			.'var obbligatori = new Array(); ';
+        foreach ($this->fields as $key => $val) {
+            $r.=' lista_elementi.push("' . $val->get_id() . '"); ';
+            $r.= ($val->get_obbligatorio()) ? ' obbligatori.push(1); ' : ' obbligatori.push(0); ';
+        }
 
-		foreach($this->fields as $key => $val)
-		{ 
-			$r.=' lista_elementi.push("'. $val->get_id() .'"); ';
-			$r.= ($val->get_obbligatorio()) ? ' obbligatori.push(1); '
-				: ' obbligatori.push(0); ';
-    	}
+        $r.=' </script>';
 
-    	$r.=' </script>';
-
-    	return $r;
-	}
+        return $r;
+    }
 
 }
-
-
-?>

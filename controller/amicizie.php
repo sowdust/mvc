@@ -6,7 +6,7 @@
  * Le amicizie sono memorizzate nel database in un'apposita tabella come una coppia
  * ordinata <id,id> dove il primo id e' minore del secondo (per facilitare la ricerca)
  * L'amicizia viene creata dapprima in una tabella "richieste" e solo al momento
- * dell'accettazione, viene spostata nella tabella "amicizie". Si e' calcolato che 
+ * dell'accettazione, viene spostata nella tabella "amicizie". Si e' calcolato che
  * con un numero ragionevole di utenti questa sia la soluzione piu' conveniente
  * per massimizzare l'efficienza del database.
  *
@@ -15,141 +15,128 @@
  * @uses view/view.php
  * @uses model/database.php
  */
-
 require_once('model/amicizia.php');
 
-
 /** Classe amicizie */
-
 class amicizie extends controller {
 
-	/**
-	 * Costruttore.
-	 *
-	 * Se l'amicizia e' chiamata nell'ambito di una richiesta, il 
-	 * primo id fornito dev'essere quello del
-	 *
-	 * @param string|null $method
-	 * @param string|null $param
-	 */
-	function __construct($method = null, $param = null)
-	{
-		$this->set_db();
-		$this->manage_session(1);
+    /**
+     * Costruttore.
+     *
+     * Se l'amicizia e' chiamata nell'ambito di una richiesta, il
+     * primo id fornito dev'essere quello del
+     *
+     * @param string|null $method
+     * @param string|null $param
+     */
+    function __construct($method = null, $param = null) {
+        $this->set_db();
+        $this->manage_session(1);
 
-		switch ($method)
-		{
-			case 'richiedi':
-				$this->richiedi($param);
-				break;
-			case 'rimuovi':
-				break;
-			case 'accetta':
-				$this->accetta($param);
-				break;
-			case 'nega':
-				$this->nega($param);
-				break;
-			default:
-				break;
-		}
-		$this->set_view('index');
-		$this->view->render();
-	}
+        switch ($method) {
+            case 'richiedi':
+                $this->richiedi($param);
+                break;
+            case 'rimuovi':
+                break;
+            case 'accetta':
+                $this->accetta($param);
+                break;
+            case 'nega':
+                $this->nega($param);
+                break;
+            default:
+                break;
+        }
+        $this->set_view('index');
+        $this->view->render();
+    }
 
-	/**
-	 * Nega un'amicizia.
-	 *
-	 * Tutte le informazioni legate a questa amicizia vengono eliminate.
-	 *
-	 * @param int $id id dell'amico la cui amicizia si vuole eliminare
-	 * @uses amicizia::nega
-	 * @uses user::add_notifica
-	 */
-	function nega($id)
-	{
-		if (null == $id || !is_numeric($id))
-		{
-			$this->set_view('errore');
-			$this->view->set_message('id non valido');
-			$this->view->set_user($this->user);
-			$this->view->render();
-			die();
-		}
+    /**
+     * Nega un'amicizia.
+     *
+     * Tutte le informazioni legate a questa amicizia vengono eliminate.
+     *
+     * @param int $id id dell'amico la cui amicizia si vuole eliminare
+     * @uses amicizia::nega
+     * @uses user::add_notifica
+     */
+    function nega($id) {
+        if (null == $id || !is_numeric($id)) {
+            $this->set_view('errore');
+            $this->view->set_message('id non valido');
+            $this->view->set_user($this->user);
+            $this->view->render();
+            die();
+        }
 
-		$amicizia = new amicizia($this->db,$this->user->get_id(),$id);
-		$amicizia->nega();
-		$da_notificare = new user($this->db,$id);
-		$da_notificare->add_notifica('amicizia-negata',$this->user->get_id());
-	}
+        $amicizia = new amicizia($this->db, $this->user->get_id(), $id);
+        $amicizia->nega();
+        $da_notificare = new user($this->db, $id);
+        $da_notificare->add_notifica('amicizia-negata', $this->user->get_id());
+    }
 
-	/**
-	 * Crea richiesta d'amicizia.
-	 *
-	 * Aggiunge un record nella tabell "richieste" con i due id utente in ordine:
-	 * <id_richiedente, id_richiesto>
-	 *
-	 * @param int $id id dell'amico a cui richiedere l'amicizia
-	 * @uses amicizia::richiedi
-	 * @uses user::add_notifica
-	 */
-	 function richiedi($id)
-	{
-		if (null == $id || !is_numeric($id))
-		{
-			$this->set_view('errore');
-			$this->view->set_message('id non valido');
-			$this->view->set_user($this->user);
-			$this->view->render();
-			die();
-		}
-		// importante che l'amicizia venga costruita dando come primo id
-		// il richiedente
-		$amicizia = new amicizia($this->db,$this->user->get_id(),$id);
-		$amicizia->richiedi();
-		$da_notificare = new user($this->db,$id);
-		$da_notificare->add_notifica('amicizia-richiesta',$this->user->get_id());
+    /**
+     * Crea richiesta d'amicizia.
+     *
+     * Aggiunge un record nella tabell "richieste" con i due id utente in ordine:
+     * <id_richiedente, id_richiesto>
+     *
+     * @param int $id id dell'amico a cui richiedere l'amicizia
+     * @uses amicizia::richiedi
+     * @uses user::add_notifica
+     */
+    function richiedi($id) {
+        if (null == $id || !is_numeric($id)) {
+            $this->set_view('errore');
+            $this->view->set_message('id non valido');
+            $this->view->set_user($this->user);
+            $this->view->render();
+            die();
+        }
+        // importante che l'amicizia venga costruita dando come primo id
+        // il richiedente
+        $amicizia = new amicizia($this->db, $this->user->get_id(), $id);
+        $amicizia->richiedi();
+        $da_notificare = new user($this->db, $id);
+        $da_notificare->add_notifica('amicizia-richiesta', $this->user->get_id());
 
-		$this->set_view('messaggio');
-		$this->view->set_message('Richiesta di amicizia notificata');
-		$this->view->set_user($this->user);
-		$this->view->render();
-		die();
-	}
+        $this->set_view('messaggio');
+        $this->view->set_message('Richiesta di amicizia notificata');
+        $this->view->set_user($this->user);
+        $this->view->render();
+        die();
+    }
 
-	/**
-	 * Conferma un'amicizia.
-	 *
-	 * Aggiunge un record nella tabella "amicizie" con i due id utente in ordine:
-	 * <id_1, id_2> : id_1 < id_2
-	 *
-	 * @param int $id del richiedente
-	 * @uses amicizia::accetta
-	 * @uses user::add_notifica
-	 */
-	function accetta($id)
-	{
-		if (null == $id || !is_numeric($id))
-		{
-			$this->set_view('errore');
-			$this->view->set_message('id non valido');
-			$this->view->set_user($this->user);
-			$this->view->render();
-			die();
-		}
+    /**
+     * Conferma un'amicizia.
+     *
+     * Aggiunge un record nella tabella "amicizie" con i due id utente in ordine:
+     * <id_1, id_2> : id_1 < id_2
+     *
+     * @param int $id del richiedente
+     * @uses amicizia::accetta
+     * @uses user::add_notifica
+     */
+    function accetta($id) {
+        if (null == $id || !is_numeric($id)) {
+            $this->set_view('errore');
+            $this->view->set_message('id non valido');
+            $this->view->set_user($this->user);
+            $this->view->render();
+            die();
+        }
 
-		$amicizia = new amicizia($this->db,$this->user->get_id(),$id);
-		$amicizia->accetta();
-		$da_notificare = new user($this->db,$id);
-		$da_notificare->add_notifica('amicizia-accettata',$this->user->get_id());
+        $amicizia = new amicizia($this->db, $this->user->get_id(), $id);
+        $amicizia->accetta();
+        $da_notificare = new user($this->db, $id);
+        $da_notificare->add_notifica('amicizia-accettata', $this->user->get_id());
 
-		$this->set_view('messaggio');
-		$this->view->set_message('Amicizia reciprocata');
-		$this->view->set_user($this->user);
-		$this->view->render();
-		die();
+        $this->set_view('messaggio');
+        $this->view->set_message('Amicizia reciprocata');
+        $this->view->set_user($this->user);
+        $this->view->render();
+        die();
+    }
 
-	}
 }
-
-?>
