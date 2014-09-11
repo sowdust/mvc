@@ -28,7 +28,7 @@ input:required {
 }
 
 #stato {
-    padding: 0%;
+    padding: 0;
     margin:0px;
     padding-top: 5px;
     display:inline !important;
@@ -39,6 +39,7 @@ input:required {
     border-radius: 4px;
     margin-top: 8px;
     background:#c0c0c0 !important;
+    padding:4px;
 }
 
 
