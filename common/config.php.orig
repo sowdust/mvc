@@ -10,5 +10,3 @@ class config {
 	const imgdir = 'img/';
 	const icons = 'http://localhost/mvc/img/icons/';
 }
-
-?>
