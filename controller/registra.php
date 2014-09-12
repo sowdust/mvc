@@ -24,7 +24,11 @@ class registra extends controller {
         $this->manage_session(0);
 
         if (isset($method) && isset($param)) {
-            $this->attiva($method, $param);
+            if ($method == 'attiva_admin') {
+                $this->attiva_admin($param);
+            } else {
+                $this->attiva($method, $param);
+            }
             die();
         }
 
@@ -55,7 +59,24 @@ class registra extends controller {
         }
 
         $umanager = new user_manager($this->db);
-        $link = $umanager->add_user($_POST['nick'], $_POST['email'], $_POST['pass']);
+        $r = $umanager->add_user($_POST['nick'], $_POST['email'], $_POST['pass']);
+        $link = $r['link'];
+        $id_nuovo = $r['last_id'];
+        if ($link == false) {
+            $this->set_view('errore');
+            $this->view->set_message("Nome utente o email gi&agrave; esistenti");
+            $this->view->render();
+            die();
+        }
+
+        //  manda la notifica a un admin
+        $admin_id = $umanager->get_admin();
+        print_r($admin_id);
+        $u = new user($this->db, $admin_id);
+        $u->add_notifica('utente-aggiunto', $id_nuovo);
+
+
+
         $this->set_view('utenti', 'registrato');
         $this->view->set_message($link);
         $this->view->render();
@@ -79,7 +100,7 @@ class registra extends controller {
 
         if ($response) {
             $this->set_view('messaggio');
-            $this->view->set_message('Account attivato');
+            $this->view->set_message('Indirizzo email attivato. L&acute;uso delle aree riservate &egrave; concesso solo previa autorizzazione dell&acute;admin');
             $this->view->render();
             die();
         } else {
@@ -88,6 +109,30 @@ class registra extends controller {
             $this->view->render();
             die();
         }
+    }
+
+    function attiva_admin($param) {
+        if (null == $param || !is_numeric($param)) {
+            $this->set_view('errore');
+            $this->view->set_message('id non valido');
+            $this->view->set_user($this->user);
+            $this->view->render();
+            die();
+        }
+        if ($this->user->get_type() < 1) {
+            $this->set_view('errore');
+            $this->view->set_message('non autorizzato');
+            $this->view->set_user($this->user);
+            $this->view->render();
+            die();
+        }
+
+        $um = new user_manager($this->db);
+        $um->admin_activate($param);
+        $this->set_view('messaggio');
+        $this->view->set_message('Utente attivato');
+        $this->view->render();
+        die();
     }
 
 }

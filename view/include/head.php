@@ -3,10 +3,10 @@
     <title>WAW</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo config::basehost . config::basedir; ?>s/bootstrap.min.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="<?php echo config::basehost . config::basedir; ?>s/bootstrap-theme.min.css">
 
     <link rel="stylesheet" href="<?php echo config::basehost . config::basedir; ?>s/s.css.php" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo config::basehost . config::basedir; ?>s/forms.css" type="text/css" media="screen" />
@@ -36,11 +36,7 @@
     }
     ?>
 
-
-
-
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- js per bootstrap -->
+    <script src="<?php config::basehost . config::basedir; ?>j/bootstrap.min.js"></script>
 
 </head>

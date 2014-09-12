@@ -14,6 +14,18 @@ class user_manager {
         $this->refresh_utenti();
     }
 
+    function get_admin() {
+        $q = "SELECT id FROM utenti WHERE type > 0 ORDER BY id asc LIMIT 0,1";
+        if (!($r = $this->db->query($q))) {
+            die("query fallita" . $q);
+        }
+        $u = null;
+        while ($c = $r->fetch_assoc()) {
+            $u = $c['id'];
+        }
+        return $u;
+    }
+
     private function refresh_utenti() {
         $q = "SELECT id, nick FROM utenti ORDER BY id asc";
         if (!($r = $this->db->query($q))) {
@@ -41,17 +53,18 @@ class user_manager {
     public function add_user($nick, $email, $pass) {
 
         if (($this->count_users("nick = \"" . $nick . "\"") > 0) || ($this->count_users("email = \"" . $email . "\"") > 0)) {
-            die("utente o email esistenti");
+            return false;
         }
 
         $rand = md5(time());
         $pass_hash = md5($pass);
 
-        $q = "INSERT INTO utenti (nick,email,pass_hash) VALUES (\"" . $nick . " \", \"" . $email . "\", \"" . $pass_hash . " \")";
-        $r = $this->db->query($q) or die();
-
         $q_e = "INSERT INTO email_codes(nick,code) VALUES (\"" . $nick . "\",\"" . $rand . "\")";
         $r = $this->db->query($q_e) or die();
+
+        $q = $this->db->prepare("INSERT INTO utenti (nick,email,pass_hash,type) VALUES ((?),(?),(?),(-2))");
+        $q->bind_param('sss', $nick, $email, $pass_hash);
+        $q->execute();
 
         $link = init::link('registra', urlencode($nick), urlencode($rand));
         $message = "Grazie per esserti registrato\n"
@@ -64,7 +77,18 @@ class user_manager {
 
 
         mail($email, $subject, $message, $headers);
-        return $link;
+        $result['last_id'] = $this->db->insert_id;
+        $result['link'] = $link;
+        return $result;
+    }
+
+    function admin_activate($id) {
+        $q = $this->db->prepare("UPDATE utenti SET type = type+1 WHERE id = (?)");
+        $q->bind_param('i', $id);
+        if (!$q->execute()) {
+            return false;
+        }
+        $q->close();
     }
 
     public function activate($nick, $code) {
@@ -83,7 +107,7 @@ class user_manager {
         }
         if ($r == $code) {
             //	$this->set_info(array('type'=>0));
-            $q = $this->db->prepare("UPDATE utenti SET type = \"0\" WHERE nick = (?)");
+            $q = $this->db->prepare("UPDATE utenti SET type = type+1 WHERE nick = (?)");
             $q->bind_param('s', $nick);
             if (!$q->execute()) {
                 return false;

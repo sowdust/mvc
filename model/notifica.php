@@ -76,6 +76,13 @@ class notifica {
                 $testo .= '<a href="' . init::link('commenti', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . substr($commento->get_testo(), 0, 25) . '</a>';
 
                 break;
+            case 'utente-aggiunto':
+                $user = new user($this->db, $this->id_elemento);
+                $testo = 'Attivazione account richiesta da '
+                        . '<a href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a>:'
+                        . '<a onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('registra', 'attiva_admin', $this->id_elemento) . '"><img src="' . config::icons . 'ok.png" width="20px" /></a>'
+                        . '<a onclick="rimuovi_notifica(' . $this->id . ');" ><img src="' . config::icons . 'rimuovi.png" width="20px" /></a>';
+                break;
             default:
                 $testo = 'default';
                 break;

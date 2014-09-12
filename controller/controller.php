@@ -92,7 +92,11 @@ class controller {
             if ($user_type < 0 && $auth_required > 0) {
                 $this->view = new View('errore');
                 $this->view->set_user($this->user);
-                $this->view->set_message('Login Fallito');
+                if ($user_type == -1) {
+                    $this->view->set_message('Login fallito. L account non &egrave; ancora stato attivato');
+                } else {
+                    $this->view->set_message('Login Fallito');
+                }
                 $this->view->render();
                 die();
             }
