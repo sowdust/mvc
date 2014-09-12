@@ -8,7 +8,7 @@
 
         var mapOptions = {
             center: myLatlng,
-            zoom: 8,
+            zoom: 17,
             mapTypeId: google.maps.MapTypeId.HYBRID
         };
         var map = new google.maps.Map(document.getElementById("map-canvas"),

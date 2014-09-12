@@ -16,8 +16,17 @@ foreach ($lista_utenti as $id => $nick) {
         $amici = $amicizia->check();
         echo '<li class="list-group-item text-left">';
         if ($amici || $this->user->get_type() == 1) {
+            $u = new user($this->db, $id);
+            $foto = (strlen($u->get_info()['foto']) > 1) ? $u->get_info()['foto'] : 'default.png';
+            echo '<a href="#" class="avath">';
+            echo '<img src="' . config::basehost . config::basedir . config::user_img . $foto . '" class="avatar" />';
+            echo '</a>';
             echo '<a href="' . init::link('utenti', 'vedi', $id) . '"><strong>' . $nick . '</strong></a>';
+            echo '<span class="divisore"> </span><i> ' . $u->get_stato() . '</i>';
         } else {
+
+            echo '<img src="' . config::basehost . config::basedir . config::user_img . '/default.png" class="avatar" />';
+
             echo '<strong>' . $nick . '</strong>';
         }
         echo '<span class="badge transparent">';

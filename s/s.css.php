@@ -270,3 +270,33 @@ width: 600px;
 height: 400px;
 z-index: 9;
 }
+
+
+a.noblock:link {
+display:inline !important;
+padding:0;
+}
+
+.smallertext{
+padding:3px;
+font-size:0.9em !important;
+}
+
+.avath {
+width: 120px;
+height: 120px;
+display:inline-block;
+margin-right:20px;
+
+}
+
+.avatar {
+max-width:120px;
+max-height:120px;
+vertical-align:middle;
+
+}
+
+.divisore {
+margin:10px;
+}

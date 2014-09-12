@@ -16,12 +16,16 @@
             <div class="row">
                 <div class="col-xs-8 col-md-8">
                     <a href="#" class="thumbnail">
-                        <img src="<?php echo config::basehost . config::basedir . config::user_img . $amico->get_info()['foto']; ?>" alt="<?php echo $amico->get_info()['nick']; ?>" style="width:100%;">
+                        <?php
+                        $foto = (strlen($amico->get_info()['foto']) > 1) ? $amico->get_info()['foto'] : 'default.png';
+                        ?>
+                        <img src = "<?php echo config::basehost . config::basedir . config::user_img . $foto; ?>" alt = "<?php echo $amico->get_info()['nick']; ?>" style = "width:100%;">
                     </a>
                 </div>
             </div>
 
-            <p><?php echo nl2br(htmlentities($info['personale'])); ?></p>
+            <p><?php echo nl2br(htmlentities($info['personale']));
+                        ?></p>
 
 
         </div><!--/row-->

@@ -34,6 +34,7 @@ class login extends controller {
         } else {
             $this->set_view('messaggio');
             $this->view->set_message('Login effettuato');
+            $this->view->set_redirect(init::link('utenti', 'vedi', $this->user->get_id()));
             $this->view->render();
             die();
         }

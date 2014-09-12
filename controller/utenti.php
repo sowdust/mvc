@@ -151,6 +151,7 @@ class utenti extends controller {
         if ($utente->set_info($new_info)) {
             $this->set_view('messaggio');
             $this->view->set_message('Profilo aggiornato');
+            $this->view->set_redirect(init::link('utenti', 'vedi', $this->user->get_id()));
             $this->view->render();
             die();
         } else {

@@ -45,14 +45,18 @@ class notifica {
             case 'amicizia-richiesta':
                 $user = new user($this->db, $this->id_elemento);
                 $testo = 'Amicizia richiesta da '
-                        . '<a href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a>:'
-                        . '<a onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('amicizie', 'accetta', $this->id_elemento) . '"><img src="' . config::icons . 'ok.png" width="20px" /></a>'
-                        . '<a onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('amicizie', 'nega', $this->id_elemento) . '"><img src="' . config::icons . 'rimuovi.png" width="20px" /></a>';
+                        . '<a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a><br />'
+                        . '<a  class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('amicizie', 'accetta', $this->id_elemento) . '">'
+                        . '<button type="button" class="btn btn-xs btn-primary">Accetta</button> '
+                        . '</a>'
+                        . '<a  class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('amicizie', 'nega', $this->id_elemento) . '">'
+                        . '<button type="button" class="btn btn-xs btn-danger">Rifiuta</button>'
+                        . '</a>';
                 break;
             case 'amicizia-accettata':
                 $user = new user($this->db, $this->id_elemento);
-                $testo = 'Tu e <a href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">'
-                        . $user->get_info()['nick'] . '</a> siete amici. <a href="#"  onclick="rimuovi_notifica(' . $this->id . ');return false;">OK!</a>';
+                $testo = 'Tu e <a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">'
+                        . $user->get_info()['nick'] . '</a> siete amici. <a class="noblock" href=""  onclick="rimuovi_notifica(' . $this->id . ');">OK!</a>';
                 break;
             case 'amicizia-rimossa':
                 $testo = 'Uno dei tuoi amici ti ha eliminato dalla sua lista';
@@ -60,28 +64,32 @@ class notifica {
             case 'amicizia-negata':
                 $user = new user($this->db, $this->id_elemento);
                 $testo = $user->get_info()['nick'] . 'ha negato la tua richiesta di amicizia';
-                $testo .= '<a href="' . 'index.php?' . explode('?', $_SERVER['REQUEST_URI'])[1] . '"  onclick="rimuovi_notifica(' . $this->id . ');return false;">OK!</a>';
+                $testo .= '<a class="noblock" href="' . 'index.php?' . explode('?', $_SERVER['REQUEST_URI'])[1] . '"  onclick="rimuovi_notifica(' . $this->id . ');return false;"> OK!</a>';
                 break;
             case 'luogo-aggiunto':
                 $luogo = new luogo($this->db, $this->id_elemento);
                 $user = new user($this->db, $luogo->get_uid());
                 $testo = $user->get_info()['nick'] . 'ha fatto un nuovo checkin a ';
-                $testo .= '<a href="' . init::link('luoghi', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . $luogo->get_citta() . '</a>';
+                $testo .= '<a class="noblock" href="' . init::link('luoghi', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . $luogo->get_citta() . '</a>';
 
                 break;
             case 'commento-aggiunto':
                 $commento = new commento($this->db, $this->id_elemento);
                 $user = new user($this->db, $commento->get_uid());
-                $testo = $user->get_info()['nick'] . 'ha inserito un nuovo commento ';
-                $testo .= '<a href="' . init::link('commenti', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . substr($commento->get_testo(), 0, 25) . '</a>';
+                $testo = 'Nuovo commento di <a class="noblock" href="' . init::link('commenti', 'vedi', $commento->get_uid()) . '">' . $user->get_info()['nick'] . '</a>: <small>';
+                $testo .= '<a class="noblock" href="' . init::link('commenti', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . substr($commento->get_testo(), 0, 25) . '...</a></small>';
 
                 break;
             case 'utente-aggiunto':
                 $user = new user($this->db, $this->id_elemento);
                 $testo = 'Attivazione account richiesta da '
-                        . '<a href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a>:'
-                        . '<a onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('registra', 'attiva_admin', $this->id_elemento) . '"><img src="' . config::icons . 'ok.png" width="20px" /></a>'
-                        . '<a onclick="rimuovi_notifica(' . $this->id . ');" ><img src="' . config::icons . 'rimuovi.png" width="20px" /></a>';
+                        . '<a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a><br />'
+                        . '<a class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('registra', 'attiva_admin', $this->id_elemento) . '">'
+                        . '<button type="button" class="btn btn-xs btn-primary">Attiva</button> '
+                        . '</a>'
+                        . '<a class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="#">'
+                        . '<button type="button" class="btn btn-xs btn-danger">Scarta</button> '
+                        . '</a>';
                 break;
             default:
                 $testo = 'default';
