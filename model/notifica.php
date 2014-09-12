@@ -87,7 +87,7 @@ class notifica {
                         . '<a class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('registra', 'attiva_admin', $this->id_elemento) . '">'
                         . '<button type="button" class="btn btn-xs btn-primary">Attiva</button> '
                         . '</a>'
-                        . '<a class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="#">'
+                        . '<a class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="">'
                         . '<button type="button" class="btn btn-xs btn-danger">Scarta</button> '
                         . '</a>';
                 break;
