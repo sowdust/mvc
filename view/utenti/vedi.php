@@ -76,11 +76,15 @@
             //echo '</li>';
             echo '</div>';
         }
+        if (sizeof($stati) == 0) {
+            echo '<span class="data"><i>Nessuno stato ancora aggiunto</i></span>';
+        }
         ?>
 
         <h2>Luoghi Recenti</h2>
+
         <?php
-        $luoghi = $amico->get_luoghi();
+        $luoghi = $amico->get_luoghi(10);
         foreach ($luoghi as $s) {
             echo '<div class="row">';
             echo ($this->user->get_type() > 0 || $this->user->get_id() == $s->get_uid()) ? ' <a href = "' . init::link('luoghi', 'rimuovi', $s->get_id()) . '" class="nohover"><button type="button" class="btn btn-xs btn-danger"> X </button></a>' : '';
@@ -89,6 +93,15 @@
                                    ';
             echo $s->get_indirizzo() . '(' . $s->get_citta() . ')</a>';
             echo '</div>';
+        }
+        if (sizeof($luoghi) == 0) {
+            echo '<span class="data"><i>Nessun check-in effettuato</i></span>';
+        } else {
+            ?>
+            <div class="row text-right">
+                <a href="<?php echo init::link('utenti', 'cronologia', $amico->get_id()); ?>">Vedi cronologia completa</a>
+            </div>
+            <?php
         }
         ?>
 
@@ -106,6 +119,9 @@
             echo (strlen($s->get_testo()) > 160) ? substr($s->get_testo(), 0, 160) . '...' : substr($s->get_testo(), 0, 160);
             echo '</a>';
             echo '</div>';
+        }
+        if (sizeof($luoghi) == 0) {
+            echo '<span class="data"><i>Nessun commento</i></span>';
         }
         ?>
 

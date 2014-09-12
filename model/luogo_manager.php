@@ -78,6 +78,29 @@ class luogo_manager {
         return $luoghi;
     }
 
+    function utenti($luogo) {
+        $tq = 'SELECT id,id_utente,date_format(data,"%b %d %Y") FROM luoghi WHERE lat < (?) AND lat > (?) and lng < (?) and lng > (?) ORDER BY data DESC';
+        $q = $this->db->prepare($tq);
+        $LAT_LNG_RANGE = 0.1;
+        $one = ($luogo->get_lat() + $LAT_LNG_RANGE);
+        $two = ($luogo->get_lat() - $LAT_LNG_RANGE);
+        $three = ($luogo->get_lng() + $LAT_LNG_RANGE);
+        $four = ($luogo->get_lng() - $LAT_LNG_RANGE);
+        $q->bind_param('dddd', $one, $two, $three, $four);
+        $q->execute() or die();
+        $id_luogo = $id_utente = $data = null;
+        $q->bind_result($id_luogo, $id_utente, $data);
+        $utenti = array();
+        $count = 0;
+        while ($q->fetch()) {
+            $utenti[$count]['utente'] = $id_utente;
+            $utenti[$count]['data'] = $data;
+            $utenti[$count]['luogo'] = $id_luogo;
+            ++$count;
+        }
+        return $utenti;
+    }
+
     public function add_luogo($coords, $id_utente, $id_entita, $tipo_entita, $indirizzo, $citta, $prov, $stato) {
         if (!regexp::entita($tipo_entita) && $tipo_entita != null)
             die('entita non valida');
@@ -98,6 +121,7 @@ class luogo_manager {
             die();
         }
         $q->close();
+        return $this->db->insert_id;
     }
 
     public function remove_luogo($id_luogo, $tipo_entita = null) {

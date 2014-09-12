@@ -42,6 +42,9 @@ class utenti extends controller {
             case 'modifica':
                 $this->modifica($param);
                 die();
+            case 'cronologia':
+                $this->cronologia($param);
+                die();
             default:
                 $this->lista();
                 die();
@@ -252,6 +255,23 @@ class utenti extends controller {
             $this->view->render();
             die();
         }
+    }
+
+    function cronologia($id) {
+        if (null == $id || !is_numeric($id)) {
+            $this->set_view('errore');
+            $this->view->set_message('id non valido');
+            $this->view->render();
+            die();
+        }
+
+        $amico = new user($this->db, $id);
+
+        $this->set_view('utenti', 'cronologia');
+        $this->view->set_user($this->user);
+        $this->view->set_model($amico);
+        $this->view->set_db($this->db);
+        $this->view->render();
     }
 
 }

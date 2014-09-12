@@ -100,7 +100,7 @@ display:block;
 }
 
 .data {
-font-color: gray;
+font-color: gray !important;
 }
 
 img.icon {

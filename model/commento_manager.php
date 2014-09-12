@@ -25,10 +25,10 @@ class commento_manager {
         $q = $this->db->prepare('INSERT INTO commenti (id_utente,id_entita,tipo_entita,testo,data) VALUES ( (?),(?),(?),(?),now()  )');
         $q->bind_param('iiss', $id_utente, $id_entita, $tipo_entita, $testo);
         if (!$q->execute()) {
-            return false;
+            return 0;
         }
         $q->close();
-        return true;
+        return $this->db->insert_id;
     }
 
     public function remove_commento($id_commento, $tipo_entita = null) {

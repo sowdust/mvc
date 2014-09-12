@@ -1,8 +1,10 @@
 <?php
 
 $lista_utenti = $this->model->lista_utenti();
+echo'<div class = "page-header">';
 
-echo '<h2>Lista utenti</h2>';
+echo '<h1>Lista utenti</h1>';
+echo'</div>';
 
 
 

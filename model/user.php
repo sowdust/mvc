@@ -253,10 +253,13 @@ class user extends entita {
         return $stati;
     }
 
-    function get_luoghi() {
+    function get_luoghi($limit = null) {
         require_once('model/luogo.php');
-
-        $q = "SELECT id FROM luoghi WHERE id_utente = '" . $this->id . "' ORDER BY data DESC LIMIT 0,10";
+        if ($limit != null) {
+            $q = "SELECT id FROM luoghi WHERE id_utente = '" . $this->id . "' ORDER BY data DESC LIMIT 0," . $limit;
+        } else {
+            $q = "SELECT id FROM luoghi WHERE id_utente = '" . $this->id . "' ORDER BY data DESC ";
+        }
         if (!($r = $this->db->query($q))) {
             die('query fallita');
         }
@@ -307,6 +310,20 @@ class user extends entita {
         return $notifiche;
 
         $r->close();
+    }
+
+    function get_amici() {
+        $q = $this->db->prepare('SELECT utente_1 FROM amicizie WHERE utente_2 = (?) UNION SELECT utente_2 FROM amicizie WHERE utente_1 = (?)');
+        $q->bind_param('ii', $this->id, $this->id);
+        $q->execute();
+        $amico = null;
+        $q->bind_result($amico);
+        $counter = 0;
+        $amici = array();
+        while ($q->fetch()) {
+            $amici[$counter++] = $amico;
+        }
+        return $amici;
     }
 
 }

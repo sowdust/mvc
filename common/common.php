@@ -5,3 +5,5 @@
  */
 $_FORMATI_IMMAGINI = array('gif', 'png', 'jpg', 'jpeg');
 
+
+

@@ -30,7 +30,7 @@ class ricerca {
     public static function get_tipi() {
         $tipi = array();
         $tipi['commenti']['testo'] = 's';
-        $tipi['commenti']['id_utente'] = 'i';
+        //$tipi['commenti']['id_utente'] = 'i';
         //$tipi['opere']['autore']='s';
         //$tipi['opere']['titolo']='s';
         //$tipi['opere']['isbn']='s';

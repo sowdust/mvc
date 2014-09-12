@@ -36,6 +36,8 @@ class luoghi extends controller {
             case 'rimuovi':
                 $this->rimuovi($param);
                 break;
+            case 'utenti':
+                $this->utenti($param);
             default:
                 $this->lista();
                 break;
@@ -73,12 +75,23 @@ class luoghi extends controller {
             die();
         }
 
+
+
         $lmanager = new luogo_manager($this->db);
         $id_entita = $tipo_entita = 0;
-        $lmanager->add_luogo($_POST['location'], $this->user->get_id(), $id_entita, $tipo_entita, $_POST['indirizzo'], $_POST['citta'], $_POST['prov'], $_POST['stato']);
+        $id_nuovo = $lmanager->add_luogo($_POST['location'], $this->user->get_id(), $id_entita, $tipo_entita, $_POST['indirizzo'], $_POST['citta'], $_POST['prov'], $_POST['stato']);
         $this->set_view('messaggio');
         $this->view->set_message('Luogo inserito con successo');
-        $this->view->set_redirect($this->user->session->get_previous_page());
+        $this->view->set_redirect(init::link('luoghi', 'vedi', $id_nuovo));
+
+        //  manda la notifica agli amici
+        $amici = $this->user->get_amici();
+        foreach ($amici as $a) {
+            $u = new user($this->db, $a);
+            $u->add_notifica('luogo-aggiunto', $id_nuovo);
+        }
+
+
         $this->view->render();
         die();
     }
@@ -112,12 +125,15 @@ class luoghi extends controller {
             $this->view->render();
             die();
         }
-
         $luogo = new luogo($this->db, $id);
+        $luogo_m = new luogo_manager($this->db);
+        $utenti = $luogo_m->utenti($luogo);
         $this->set_view('luoghi', 'vedi');
         $this->view->set_db($this->db);
         $this->view->set_user($this->user);
         $this->view->set_model($luogo);
+        $this->view->set_message($utenti);
+
         $this->view->render();
         die();
     }

@@ -87,10 +87,17 @@ class commenti extends controller {
 
         $cm = new commento_manager($this->db);
 
-        if ($cm->add_commento($this->user->get_id(), $_POST['id_entita'], $_POST['tipo_entita'], trim($_POST['testo']))) {
+        $id_nuovo = $cm->add_commento($this->user->get_id(), $_POST['id_entita'], $_POST['tipo_entita'], trim($_POST['testo']));
+        if ($id_nuovo > 0) {
             $this->set_view('messaggio');
             $this->view->set_message('commento inserito con successo');
             $this->view->set_redirect($this->user->session->get_previous_page());
+            //  manda la notifica agli amici
+            $amici = $this->user->get_amici();
+            foreach ($amici as $a) {
+                $u = new user($this->db, $a);
+                $u->add_notifica('commento-aggiunto', $id_nuovo);
+            }
             $this->view->render();
         } else {
             $this->set_view('errore');

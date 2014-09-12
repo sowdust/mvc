@@ -1,6 +1,8 @@
 <?php
 
 require_once('model/user.php');
+require_once('model/luogo.php');
+require_once('model/commento.php');
 
 class notifica {
 
@@ -59,6 +61,20 @@ class notifica {
                 $user = new user($this->db, $this->id_elemento);
                 $testo = $user->get_info()['nick'] . 'ha negato la tua richiesta di amicizia';
                 $testo .= '<a href="' . 'index.php?' . explode('?', $_SERVER['REQUEST_URI'])[1] . '"  onclick="rimuovi_notifica(' . $this->id . ');return false;">OK!</a>';
+                break;
+            case 'luogo-aggiunto':
+                $luogo = new luogo($this->db, $this->id_elemento);
+                $user = new user($this->db, $luogo->get_uid());
+                $testo = $user->get_info()['nick'] . 'ha fatto un nuovo checkin a ';
+                $testo .= '<a href="' . init::link('luoghi', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . $luogo->get_citta() . '</a>';
+
+                break;
+            case 'commento-aggiunto':
+                $commento = new commento($this->db, $this->id_elemento);
+                $user = new user($this->db, $commento->get_uid());
+                $testo = $user->get_info()['nick'] . 'ha inserito un nuovo commento ';
+                $testo .= '<a href="' . init::link('commenti', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . substr($commento->get_testo(), 0, 25) . '</a>';
+
                 break;
             default:
                 $testo = 'default';
