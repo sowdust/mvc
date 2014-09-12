@@ -38,7 +38,7 @@ class ajax extends controller {
                 $this->password($param);
                 break;
             case 'testo':
-                $this->test($para);
+                $this->testo($para);
                 break;
             case 'ricerca-campi':
                 $this->ricerca_campi($param);
