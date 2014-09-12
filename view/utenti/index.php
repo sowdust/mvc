@@ -18,7 +18,7 @@ foreach ($lista_utenti as $id => $nick) {
         if ($amici || $this->user->get_type() == 1) {
             $u = new user($this->db, $id);
             $foto = (strlen($u->get_info()['foto']) > 1) ? $u->get_info()['foto'] : 'default.png';
-            echo '<a href="#" class="avath">';
+            echo '<a href="' . init::link('utenti', 'vedi', $id) . '" class="avath">';
             echo '<img src="' . config::basehost . config::basedir . config::user_img . $foto . '" class="avatar" />';
             echo '</a>';
             echo '<a href="' . init::link('utenti', 'vedi', $id) . '"><strong>' . $nick . '</strong></a>';

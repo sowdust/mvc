@@ -45,7 +45,7 @@ class notifica {
             case 'amicizia-richiesta':
                 $user = new user($this->db, $this->id_elemento);
                 $testo = 'Amicizia richiesta da '
-                        . '<a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a><br />'
+                        . '<strong><a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a></strong><br />'
                         . '<a  class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('amicizie', 'accetta', $this->id_elemento) . '">'
                         . '<button type="button" class="btn btn-xs btn-primary">Accetta</button> '
                         . '</a>'
@@ -55,8 +55,8 @@ class notifica {
                 break;
             case 'amicizia-accettata':
                 $user = new user($this->db, $this->id_elemento);
-                $testo = 'Tu e <a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">'
-                        . $user->get_info()['nick'] . '</a> siete amici. <a class="noblock" href=""  onclick="rimuovi_notifica(' . $this->id . ');">OK!</a>';
+                $testo = 'Tu e <strong><a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">'
+                        . $user->get_info()['nick'] . '</a></strong> siete amici. <a class="noblock" href=""  onclick="rimuovi_notifica(' . $this->id . ');"><button type="button" class="btn btn-xs btn-default">OK!</button></a>';
                 break;
             case 'amicizia-rimossa':
                 $testo = 'Uno dei tuoi amici ti ha eliminato dalla sua lista';
@@ -64,7 +64,7 @@ class notifica {
             case 'amicizia-negata':
                 $user = new user($this->db, $this->id_elemento);
                 $testo = $user->get_info()['nick'] . 'ha negato la tua richiesta di amicizia';
-                $testo .= '<a class="noblock" href="' . 'index.php?' . explode('?', $_SERVER['REQUEST_URI'])[1] . '"  onclick="rimuovi_notifica(' . $this->id . ');return false;"> OK!</a>';
+                $testo .= '<a class="noblock" href=""  onclick="rimuovi_notifica(' . $this->id . ');"> <button type="button" class="btn btn-xs btn-default">OK!</button> </a>';
                 break;
             case 'luogo-aggiunto':
                 $luogo = new luogo($this->db, $this->id_elemento);
@@ -76,14 +76,14 @@ class notifica {
             case 'commento-aggiunto':
                 $commento = new commento($this->db, $this->id_elemento);
                 $user = new user($this->db, $commento->get_uid());
-                $testo = 'Nuovo commento di <a class="noblock" href="' . init::link('commenti', 'vedi', $commento->get_uid()) . '">' . $user->get_info()['nick'] . '</a>: <small>';
+                $testo = 'Nuovo commento di <strong><a class="noblock" href="' . init::link('utenti', 'vedi', $commento->get_uid()) . '">' . $user->get_info()['nick'] . '</a></strong>: <small>';
                 $testo .= '<a class="noblock" href="' . init::link('commenti', 'vedi', $this->id_elemento) . '" onclick="rimuovi_notifica(' . $this->id . ');">' . substr($commento->get_testo(), 0, 25) . '...</a></small>';
 
                 break;
             case 'utente-aggiunto':
                 $user = new user($this->db, $this->id_elemento);
                 $testo = 'Attivazione account richiesta da '
-                        . '<a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '">' . $user->get_info()['nick'] . '</a><br />'
+                        . '<a class="noblock" href="' . init::link('utenti', 'vedi', $this->id_elemento) . '"><strong>' . $user->get_info()['nick'] . '</strong></a><br />'
                         . '<a class="noblock" onclick="rimuovi_notifica(' . $this->id . ');" href="' . init::link('registra', 'attiva_admin', $this->id_elemento) . '">'
                         . '<button type="button" class="btn btn-xs btn-primary">Attiva</button> '
                         . '</a>'
